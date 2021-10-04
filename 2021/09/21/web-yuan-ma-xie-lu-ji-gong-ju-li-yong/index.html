@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>web源码泄露及工具利用 - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content=".git泄露漏洞成因：在运行git init初始化代码库的时候，会在当前目录下面产生一个.git的隐藏文件，用来记录代码的变更记录等等。在发布代码的时候，把.git这个目录没有删除，直接发布了。使用,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">web源码泄露及工具利用</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">web源码泄露及工具利用</h1>
+        <div class="stuff">
+            <span>九月 21, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h3 id="git泄露"><a href="#git泄露" class="headerlink" title=".git泄露"></a>.git泄露</h3><h4 id="漏洞成因："><a href="#漏洞成因：" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>在运行git init初始化代码库的时候，会在当前目录下面产生一个.git的隐藏文件，用来记录代码的变更记录等等。在发布代码的时候，把.git这个目录没有删除，直接发布了。使用这个文件，可以用来恢复源代码。</p>
+<h4 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：</p>
+<h5 id="Githack"><a href="#Githack" class="headerlink" title="Githack"></a>Githack</h5><pre><code>python2 Githack.py http://xxx.com/.git、</code></pre>
+<h5 id="dvcs-ripper"><a href="#dvcs-ripper" class="headerlink" title="dvcs-ripper"></a>dvcs-ripper</h5><pre><code>rip-git.pl -v -u http://www.example.com/.git/</code></pre>
+<h5 id="Git-Extract"><a href="#Git-Extract" class="headerlink" title="Git_Extract"></a>Git_Extract</h5><pre><code>python2 git_extract.py http://.../.git/</code></pre>
+<h3 id="swp文件泄露"><a href="#swp文件泄露" class="headerlink" title="swp文件泄露"></a>swp文件泄露</h3><h4 id="漏洞成因：-1"><a href="#漏洞成因：-1" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>swp即swap文件，在编辑文件时产生的临时文件，它时隐藏文件，如果程序正常退出，临时文件自动删除，如果意外退出就会保留。</p>
+<p>文件名格式：.filename.swp(有时候也可能是swo)</p>
+<h4 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>直接按照文件名访问.swp文件，下载回来后再linux中使用vim -r .filename.swp来恢复源码<br>.hg泄露</p>
+<h4 id="漏洞成因：-2"><a href="#漏洞成因：-2" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>hg init的时候会生成.hg文件</p>
+<p>如：</p>
+<pre><code>http://www.xxx.com/.hg/</code></pre>
+<h4 id="漏洞利用：-2"><a href="#漏洞利用：-2" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>工具：</p>
+<h5 id="dvcs-ripper-1"><a href="#dvcs-ripper-1" class="headerlink" title="dvcs-ripper"></a>dvcs-ripper</h5><pre><code>rip-hg.pl -v -u http://www.example.com/.hg/
+通用格式：rip-xxx.pl -v -u http://www.example.com/.xx/</code></pre>
+<h3 id="DS-Store文件泄露"><a href="#DS-Store文件泄露" class="headerlink" title=".DS_Store文件泄露"></a>.DS_Store文件泄露</h3><h4 id="漏洞成因：-3"><a href="#漏洞成因：-3" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>在发布代码时未删除文件夹中隐藏的.DS_store，被发现后，可以获取敏感的文件名等信息。<br>漏洞利用:</p>
+<p>工具：</p>
+<h5 id="dsstoreexp"><a href="#dsstoreexp" class="headerlink" title="dsstoreexp"></a>dsstoreexp</h5><pre><code>python ds_store_exp.py http://www.example.com/.DS_Store</code></pre>
+<h3 id="网站备份压缩文件"><a href="#网站备份压缩文件" class="headerlink" title="网站备份压缩文件"></a>网站备份压缩文件</h3><h4 id="漏洞成因：-4"><a href="#漏洞成因：-4" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>服务器管理员错误地将网站或者网页的备份文件放置到服务器web目录下。<br>编辑器在使用过程中自动保存的备份文件或者临时文件因为各种原因没有被删除而保存在web目录下。</p>
+<h4 id="常见备份文件后缀"><a href="#常见备份文件后缀" class="headerlink" title="常见备份文件后缀"></a>常见备份文件后缀</h4><pre><code>.rar
+.zip
+.7z
+.tar.gz
+.bak
+.swp
+.txt
+.html
+.php~
+.php.</code></pre>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>工具：</p>
+<h5 id="dirsearch"><a href="#dirsearch" class="headerlink" title="dirsearch"></a>dirsearch</h5><pre><code>python3 dirsearch -u "xxx" -e php,rar,zip,txt</code></pre>
+<h3 id="SVN导致文件泄露"><a href="#SVN导致文件泄露" class="headerlink" title="SVN导致文件泄露"></a>SVN导致文件泄露</h3><h4 id="漏洞成因：-5"><a href="#漏洞成因：-5" class="headerlink" title="漏洞成因："></a>漏洞成因：</h4><p>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
+<p>Subversion使用服务端—客户端的结构，当然服务端与客户端可以都运行在同一台服务器上。在服务端是存放着所有受控制数据的Subversion仓库，另一端是Subversion的客户端程序，管理着受控数据的一部分在本地的映射（称为“工作副本”）。在这两端之间，是通过各种仓库存取层（Repository Access，简称RA）的多条通道进行访问的。这些通道中，可以通过不同的网络协议，例如HTTP、SSH等，或本地文件的方式来对仓库进行操作。<br>漏洞利用</p>
+<p>工具：</p>
+<h5 id="dvcs-ripper-2"><a href="#dvcs-ripper-2" class="headerlink" title="dvcs-ripper"></a>dvcs-ripper</h5><pre><code>rip-svn.pl -v -u http://www.example.com/.svn/</code></pre>
+<h3 id="WEB-INF-web-xml泄露"><a href="#WEB-INF-web-xml泄露" class="headerlink" title="WEB-INF/web.xml泄露"></a>WEB-INF/web.xml泄露</h3><h4 id="WEB-INF简介及漏洞成因"><a href="#WEB-INF简介及漏洞成因" class="headerlink" title="WEB-INF简介及漏洞成因"></a>WEB-INF简介及漏洞成因</h4><p>WEB-INF是java的web应用的安全目录，如果想在页面中直接访问其中的文件，必须通过web.xml文件对其进行相应的映射才能访问。Tomcat默认禁止这个目录，而Nginx在映射静态文件时，把WEB-INF目录映射进去，而又没有做Nginx的相关安全配置（或Nginx自身缺陷），导致可以通过Nginx访问到Tomcat的WEB-INF目录。</p>
+<h4 id="WEB-INF主要包含以下文件或目录："><a href="#WEB-INF主要包含以下文件或目录：" class="headerlink" title="WEB-INF主要包含以下文件或目录："></a>WEB-INF主要包含以下文件或目录：</h4><pre><code>WEB-INF/web.xml：web应用程序配置文件，描述了servlet和其他的应用组件配置和命名规则
+WEB-INF/classes：包含了站点的所有class文件，包括servlet class和非servlet class
+WEB-INF/lib：存放web应用需要的各种jar文件，放置仅在这个应用中要求的文件，如数据库
+WEB-INF/src：源码目录，按照包名结构放置各种java文件
+WEB-INF/database.properties：数据库配置文件
+META-INF：相当于一个信息包</code></pre>
+<h4 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>直接手工访问/web.xml文件，通过是否回显来判断是否可访问该文件。找到web.xml文件后，根据命名规则推断class文件的路径，最后直接访问class文件，或通过反编译等得到网站源码。</p>
+<p>如：</p>
+<pre><code>com.wm.ctf.FlagController 推断的文件路径为
+WEB-INF/classes/com/wm/ctf/FlagController.class</code></pre>
+<h3 id="CVS泄露"><a href="#CVS泄露" class="headerlink" title="CVS泄露"></a>CVS泄露</h3><h4 id="漏洞利用：-3"><a href="#漏洞利用：-3" class="headerlink" title="漏洞利用："></a>漏洞利用：</h4><p>直接访问来测试</p>
+<pre><code>http://url/CVS/Root 返回根信息
+http://url/CVS/Entries 返回所有文件的结构</code></pre>
+<h4 id="取回源码的命令-liunx下"><a href="#取回源码的命令-liunx下" class="headerlink" title="取回源码的命令(liunx下)"></a>取回源码的命令(liunx下)</h4><pre><code>bk clone http://url/aaa bbb</code></pre>
+<p>意思是把远端一个名为aaa的repo仓库clone到本地名为bbb的目录下</p>
+<p>查看所有的改变的命令(转到downloads目录下)</p>
+<pre><code>bk changes</code></pre>
+<h3 id="Bazaar-bzr泄露"><a href="#Bazaar-bzr泄露" class="headerlink" title="Bazaar/bzr泄露"></a>Bazaar/bzr泄露</h3><h4 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h4><p>工具：</p>
+<h5 id="dvcs-ripper-3"><a href="#dvcs-ripper-3" class="headerlink" title="dvcs-ripper"></a>dvcs-ripper</h5><pre><code>rip-bzr.pl -v -u http://www.example.com/.bzr/</code></pre>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Dguaiguai/article/details/108165939">https://blog.csdn.net/Dguaiguai/article/details/108165939</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E6%B3%84%E9%9C%B2"><span class="toc-number">1.</span> <span class="toc-text">.git泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">漏洞成因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞利用：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Githack"><span class="toc-number">1.2.1.</span> <span class="toc-text">Githack</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dvcs-ripper"><span class="toc-number">1.2.2.</span> <span class="toc-text">dvcs-ripper</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Git-Extract"><span class="toc-number">1.2.3.</span> <span class="toc-text">Git_Extract</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#swp%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">2.</span> <span class="toc-text">swp文件泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%EF%BC%9A-1"><span class="toc-number">2.1.</span> <span class="toc-text">漏洞成因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A-1"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞利用：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%EF%BC%9A-2"><span class="toc-number">2.3.</span> <span class="toc-text">漏洞成因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A-2"><span class="toc-number">2.4.</span> <span class="toc-text">漏洞利用：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dvcs-ripper-1"><span class="toc-number">2.4.1.</span> <span class="toc-text">dvcs-ripper</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DS-Store%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">3.</span> <span class="toc-text">.DS_Store文件泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%EF%BC%9A-3"><span class="toc-number">3.1.</span> <span class="toc-text">漏洞成因：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dsstoreexp"><span class="toc-number">3.1.1.</span> <span class="toc-text">dsstoreexp</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E5%A4%87%E4%BB%BD%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">网站备份压缩文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%EF%BC%9A-4"><span class="toc-number">4.1.</span> <span class="toc-text">漏洞成因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80"><span class="toc-number">4.2.</span> <span class="toc-text">常见备份文件后缀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dirsearch"><span class="toc-number">4.3.1.</span> <span class="toc-text">dirsearch</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN%E5%AF%BC%E8%87%B4%E6%96%87%E4%BB%B6%E6%B3%84%E9%9C%B2"><span class="toc-number">5.</span> <span class="toc-text">SVN导致文件泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%EF%BC%9A-5"><span class="toc-number">5.1.</span> <span class="toc-text">漏洞成因：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dvcs-ripper-2"><span class="toc-number">5.1.1.</span> <span class="toc-text">dvcs-ripper</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WEB-INF-web-xml%E6%B3%84%E9%9C%B2"><span class="toc-number">6.</span> <span class="toc-text">WEB-INF&#x2F;web.xml泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#WEB-INF%E7%AE%80%E4%BB%8B%E5%8F%8A%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0"><span class="toc-number">6.1.</span> <span class="toc-text">WEB-INF简介及漏洞成因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WEB-INF%E4%B8%BB%E8%A6%81%E5%8C%85%E5%90%AB%E4%BB%A5%E4%B8%8B%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%EF%BC%9A"><span class="toc-number">6.2.</span> <span class="toc-text">WEB-INF主要包含以下文件或目录：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8-1"><span class="toc-number">6.3.</span> <span class="toc-text">漏洞利用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CVS%E6%B3%84%E9%9C%B2"><span class="toc-number">7.</span> <span class="toc-text">CVS泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A-3"><span class="toc-number">7.1.</span> <span class="toc-text">漏洞利用：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E5%9B%9E%E6%BA%90%E7%A0%81%E7%9A%84%E5%91%BD%E4%BB%A4-liunx%E4%B8%8B"><span class="toc-number">7.2.</span> <span class="toc-text">取回源码的命令(liunx下)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bazaar-bzr%E6%B3%84%E9%9C%B2"><span class="toc-number">8.</span> <span class="toc-text">Bazaar&#x2F;bzr泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8-2"><span class="toc-number">8.1.</span> <span class="toc-text">漏洞利用:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dvcs-ripper-3"><span class="toc-number">8.1.1.</span> <span class="toc-text">dvcs-ripper</span></a></li></ol></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>

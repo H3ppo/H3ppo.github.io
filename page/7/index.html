@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="//" title="首页" target="_blank" rel="noopener">首页</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="分类" target="_blank" rel="noopener">分类</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" title="标签" target="_blank" rel="noopener">标签</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="归档" target="_blank" rel="noopener">归档</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/about/" title="关于" target="_blank" rel="noopener">关于</a>
+        </li>
+        
+    </ul>
+	<span class="target"></span>
+	<center>
+	<div class="hitokoto">
+		<span class="typed" id="hitokoto" data-st="false"></span>
+	</div>
+	</center>
+	
+	<p class="footerlinks">
+		<a href="#" class="iconfont icon-null"></a>
+		
+            <a href="/" title="facebook" class="iconfont icon-facebook" target="_blank" rel="noopener"> </a>
+        
+            <a href="/" title="twitter" class="iconfont icon-twitter" target="_blank" rel="noopener"> </a>
+        
+            <a href="/" title="github" class="iconfont icon-github" target="_blank" rel="noopener"> </a>
+        
+            <a href="/H3ng025319" title="wechat" class="iconfont icon-wechat" target="_blank" rel="noopener"> </a>
+        
+            <a href="/1490375647@qq.com" title="email" class="iconfont icon-email" target="_blank" rel="noopener"> </a>
+        
+		<a href="#" class="iconfont icon-null"></a>
+	</p>
+	
+    <p id="copyright">
+        &copy; 2021 H3ng.
+        <span> | </span>Powered by <a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        <span> | </span>Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a> by Fechin
+		
+		<span> | </span><a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">H3ng</a>
+		
+    </p>
+</div>
+
+<div id="container">
+    
+<div id="screen">
+    <div id="mark">
+        <div class="layer" data-depth="0.4">
+            <img src="/img/1.jpg" id="cover" crossorigin="anonymous" width="1920" height="1080">
+        </div>
+    </div>
+    <div id="vibrant">
+        <svg viewBox="0 0 2880 1620" height="100%" preserveAspectRatio="xMaxYMax slice">
+            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
+        </svg>
+        <div></div>
+    </div>
+    <div id="header">
+        <div>
+            <a class="image-logo" href="/"></a>
+			
+			<div class="iconfont icon-search switchsearch" href="/search/" title="搜索"></div>
+			
+            <div class="iconfont icon-menu switchmenu"></div>
+        </div>
+    </div>
+    
+    <div id="post0">
+        <p>六月 05, 2021</p>
+        <h2><a href="/2021/06/05/cong-0-dao-1-ctfer-cheng-chang-zhi-lu-wen-jian-shang-chuan/" title="《从0到1：CTFer成长之路》:文件上传" class="posttitle">《从0到1：CTFer成长之路》:文件上传</a></h2>
+        <p class="summary">&lt;?php
+header("Content-Type:text/html; charset=utf-8");...</p>
+    </div>
+    
+</div>
+
+    <div id="primary">
+        
+<div class="post">
+    <a href="/2021/06/05/cong-0-dao-1-ctfer-cheng-chang-zhi-lu-wen-jian-shang-chuan/" title="《从0到1：CTFer成长之路》:文件上传">
+        <img src="/img/2.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>六月 05, 2021</p>
+        <h3><a href="/2021/06/05/cong-0-dao-1-ctfer-cheng-chang-zhi-lu-wen-jian-shang-chuan/" title="《从0到1：CTFer成长之路》:文件上传" class="posttitle">《从0到1：CTFer成长之路》:文件上传</a></h3>
+        <p>&lt;?php
+header("Content-Type:text/html; charset=utf-8");
+// 每5分钟会清除一次目录下上传的文...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/06/04/i-chun-qiu-web-gong-ji/" title="i春秋:Web-攻击">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>六月 04, 2021</p>
+        <h3><a href="/2021/06/04/i-chun-qiu-web-gong-ji/" title="i春秋:Web-攻击" class="posttitle">i春秋:Web-攻击</a></h3>
+        <p> &lt;?php
+header("content-type:text/html;charset=utf-8");
+show_source(__FILE_...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/06/03/i-chun-qiu-web-notebook/" title="i春秋:Web-Notebook">
+        <img src="/img/3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>六月 03, 2021</p>
+        <h3><a href="/2021/06/03/i-chun-qiu-web-notebook/" title="i春秋:Web-Notebook" class="posttitle">i春秋:Web-Notebook</a></h3>
+        <p>tips： 文件包含phpinfo是不是有新的发现
+打开f12获取到PHPSESSION为ei4obnmvtlkbt57muuj4kh6f92，但为文件时...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/06/02/i-chun-qiu-web-manager/" title="i春秋:Web-Manager">
+        <img src="/img/2.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>六月 02, 2021</p>
+        <h3><a href="/2021/06/02/i-chun-qiu-web-manager/" title="i春秋:Web-Manager" class="posttitle">i春秋:Web-Manager</a></h3>
+        <p>
+发现_nonce
+扫描后台：
+进入
+url/sources/login.js
+$(document).keydown(function(e) {
+   ...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/06/01/i-chun-qiu-web-look/" title="i春秋:Web-Look">
+        <img src="/img/4.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>六月 01, 2021</p>
+        <h3><a href="/2021/06/01/i-chun-qiu-web-look/" title="i春秋:Web-Look" class="posttitle">i春秋:Web-Look</a></h3>
+        <p>扫后台发现vimnifo
+![4fa0c3568642010563a1a97b9a258c9](C:/Users/H3ng/AppData/Local/T...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/29/web-jsonp-zhu-ru/" title="Web:JSONP注入">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 29, 2021</p>
+        <h3><a href="/2021/05/29/web-jsonp-zhu-ru/" title="Web:JSONP注入" class="posttitle">Web:JSONP注入</a></h3>
+        <p>https://blog.csdn.net/luyaran/article/details/55657266
+https://www.jianshu.co...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/28/web-ssrf-lou-dong/" title="Web:ssrf漏洞">
+        <img src="/img/3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 28, 2021</p>
+        <h3><a href="/2021/05/28/web-ssrf-lou-dong/" title="Web:ssrf漏洞" class="posttitle">Web:ssrf漏洞</a></h3>
+        <p>内容SSRF漏洞的危害
+SSRF漏洞的挖掘
+SSRF漏洞的防御
+SSRF漏洞原理概述
+背景SSRF(Server-Side Request Forgery...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/27/web-csrf-lou-dong/" title="Web:csrf漏洞">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 27, 2021</p>
+        <h3><a href="/2021/05/27/web-csrf-lou-dong/" title="Web:csrf漏洞" class="posttitle">Web:csrf漏洞</a></h3>
+        <p>一.CSRF是什么？
+　　CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click atta...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/26/web-xxe-lou-dong/" title="Web:XXE漏洞">
+        <img src="/img/3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 26, 2021</p>
+        <h3><a href="/2021/05/26/web-xxe-lou-dong/" title="Web:XXE漏洞" class="posttitle">Web:XXE漏洞</a></h3>
+        <p>一、XXE 是什么介绍 XXE 之前，我先来说一下普通的 XML 注入，这个的利用面比较狭窄，如果有的话应该也是逻辑漏洞
+如图所示：
+
+既然能插入 XML...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/25/web-yue-quan-lou-dong/" title="Web:越权漏洞">
+        <img src="/img/3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 25, 2021</p>
+        <h3><a href="/2021/05/25/web-yue-quan-lou-dong/" title="Web:越权漏洞" class="posttitle">Web:越权漏洞</a></h3>
+        <p>
+一、漏洞描述越权访问（Broken Access Control，简称BAC）是Web应用程序中一种常见的漏洞，由于其存在范围广、危害大，被OWASP列...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/24/web-luo-ji-lou-dong/" title="Web:逻辑漏洞">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 24, 2021</p>
+        <h3><a href="/2021/05/24/web-luo-ji-lou-dong/" title="Web:逻辑漏洞" class="posttitle">Web:逻辑漏洞</a></h3>
+        <p>逻辑漏洞在我理解中，逻辑漏洞是指由于程序逻辑输入管控不严，导致程序不能够正常处理或处理错误，一般出现在登录注册、密码找回、信息查看、交易支付金额等。
+我将...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/23/web-ming-ling-zhi-xing-lou-dong/" title="Web:命令执行漏洞">
+        <img src="/img/4.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 23, 2021</p>
+        <h3><a href="/2021/05/23/web-ming-ling-zhi-xing-lou-dong/" title="Web:命令执行漏洞" class="posttitle">Web:命令执行漏洞</a></h3>
+        <p>命令执行漏洞原理当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/22/web-dai-ma-zhi-xing-lou-dong/" title="Web:代码执行漏洞">
+        <img src="/img/3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 22, 2021</p>
+        <h3><a href="/2021/05/22/web-dai-ma-zhi-xing-lou-dong/" title="Web:代码执行漏洞" class="posttitle">Web:代码执行漏洞</a></h3>
+        <p>简述代码执行漏洞：PHP代码执行漏洞可以将代码注入到应用中，最终到webserver去执行。该漏洞主要存在于eval()、assert()、preg_re...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/21/web-mu-lu-bian-li-lou-dong/" title="Web:目录遍历漏洞">
+        <img src="/img/2.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 21, 2021</p>
+        <h3><a href="/2021/05/21/web-mu-lu-bian-li-lou-dong/" title="Web:目录遍历漏洞" class="posttitle">Web:目录遍历漏洞</a></h3>
+        <p>什么是目录遍历？目录遍历（目录穿越）是一个Web安全漏洞，攻击者可以利用该漏洞读取运行应用程序的服务器上的任意文件。 这可能包括应用程序代码和数据，后端系...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/20/web-wen-jian-bao-han-lou-dong/" title="Web:文件包含漏洞">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 20, 2021</p>
+        <h3><a href="/2021/05/20/web-wen-jian-bao-han-lou-dong/" title="Web:文件包含漏洞" class="posttitle">Web:文件包含漏洞</a></h3>
+        <p>文件包含原理1.文件包含开发人员将相同的函数写入单独的文件中，需要使用某个函数时直接调用此文件，无需再次编写，这种文件调用的过程称文件包含
+2.文件包含漏...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/19/i-chun-qiu-web-helloworld/" title="i春秋:Web-HelloWorld">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 19, 2021</p>
+        <h3><a href="/2021/05/19/i-chun-qiu-web-helloworld/" title="i春秋:Web-HelloWorld" class="posttitle">i春秋:Web-HelloWorld</a></h3>
+        <p>
+存在.git源码泄露漏洞
+git_extract扫描
+
+
+把这两拉到beyond compare比较：
+
+不一样的地方为flag：
+flag{82efc...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/18/i-chun-qiu-web-blog/" title="i春秋:Web-Blog">
+        <img src="/img/5.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 18, 2021</p>
+        <h3><a href="/2021/05/18/i-chun-qiu-web-blog/" title="i春秋:Web-Blog" class="posttitle">i春秋:Web-Blog</a></h3>
+        <p>
+
+得到路径：  /kindeditor/php/upload_json.php
+ 知道编辑版为 kindeditor，搜索相关漏洞，得到利用
+ /kin...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2021/05/17/cong-0-dao-1-ctfer-cheng-chang-zhi-lu-web-upload/" title="《从0到1：CTFer成长之路》:Web-Upload">
+        <img src="/img/3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 17, 2021</p>
+        <h3><a href="/2021/05/17/cong-0-dao-1-ctfer-cheng-chang-zhi-lu-web-upload/" title="《从0到1：CTFer成长之路》:Web-Upload" class="posttitle">《从0到1：CTFer成长之路》:Web-Upload</a></h3>
+        <p></p>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/8/" class="more">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+	<center><a rel="nofollow" style="color: #666;" href="http://www.beian.miit.gov.cn" target="_blank">H3ng</a></center>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>
