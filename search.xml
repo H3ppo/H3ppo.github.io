@@ -18827,7 +18827,7 @@ cookies<span class="token operator">=</span>dict<span class="token punctuation">
 ]]></content>
   </entry>
   <entry>
-    <title>MRCTF2020：Ezpop_Reveng</title>
+    <title>MRCTF2020：Ezpop_Revenge</title>
     <url>/2021/10/04/mrctf2020-ezpop-revenge/</url>
     <content><![CDATA[<p><strong>flag.php</strong></p>
 <pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
