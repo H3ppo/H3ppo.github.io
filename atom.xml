@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-04T14:59:21.229Z</updated>
+  <updated>2021-10-05T11:51:09.823Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -21,8 +21,18 @@
     <link href="http://lxh3ng.github.io/2021/10/04/mrctf-2020-ezpop-revenge/"/>
     <id>http://lxh3ng.github.io/2021/10/04/mrctf-2020-ezpop-revenge/</id>
     <published>2021-10-04T07:08:02.000Z</published>
-    <updated>2021-10-04T14:59:21.229Z</updated>
+    <updated>2021-10-05T11:51:09.823Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;flag.php&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span</summary>
+        
+      
     
     
     
