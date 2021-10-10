@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-10T07:13:45.290Z</updated>
+  <updated>2021-10-10T10:27:10.583Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringWebFlow</title>
+    <link href="http://lxh3ng.github.io/2021/10/10/springwebflow/"/>
+    <id>http://lxh3ng.github.io/2021/10/10/springwebflow/</id>
+    <published>2021-10-10T10:26:20.000Z</published>
+    <updated>2021-10-10T10:27:10.583Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>鹤城杯2021</title>
@@ -430,27 +451,6 @@
         
     <summary type="html">&lt;h3 id=&quot;1、数组绕过&quot;&gt;&lt;a href=&quot;#1、数组绕过&quot; class=&quot;headerlink&quot; title=&quot;1、数组绕过&quot;&gt;&lt;/a&gt;1、数组绕过&lt;/h3&gt;&lt;p&gt;preg_match只能处理字符串，当传入的subject是数组时会返回false&lt;/p&gt;
 &lt;h3</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CRLF漏洞</title>
-    <link href="http://lxh3ng.github.io/2021/09/11/crlf-lou-dong/"/>
-    <id>http://lxh3ng.github.io/2021/09/11/crlf-lou-dong/</id>
-    <published>2021-09-11T11:47:27.000Z</published>
-    <updated>2021-09-16T11:49:28.757Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;原文：&lt;a</summary>
         
       
     
