@@ -156,6 +156,16 @@ echo preg_rep,">
 <p>ps:</p>
 <p>preg_replace与str_replace的关系是什么呢?</p>
 <p>我们可以理解为str_replace是preg_repalce的一个子集.只是str_replace中的第一个参数写的是string,而preg_replace写的是一个正则表达式</p>
+<h1 id="PHP正则表达式修饰符的理解："><a href="#PHP正则表达式修饰符的理解：" class="headerlink" title="PHP正则表达式修饰符的理解："></a><strong>PHP正则表达式修饰符的理解</strong>：</h1><p>​    在PHP正则表达式里面的修饰符可以改变正则的很多特性，使得正则表达式更加适合你的需要（注意：修饰符对于大小写是敏感的，这意味着”e”并不等于”E”）。</p>
+<p>​    PHP正则表达式修饰符的种类及介绍：</p>
+<p>​    ◆i ：如果在修饰符中加上”i”，则正则将会取消大小写敏感性，即”a”和”A” 是一样的。</p>
+<p>​    ◆m：默认的正则开始”^”和结束”$”只是对于正则字符串如果在修饰符中加上”m”，那么开始和结束将会指字符串的每一行：每一行的开头就是”^”，结尾就是”$”。</p>
+<p>​    ◆s：如果在修饰符中加入”s”，那么默认的”.”代表除了换行符以外的任何字符将会变成任意字符，也就是包括换行符！</p>
+<p>​    ◆x：如果加上该修饰符，表达式中的空白字符将会被忽略，除非它已经被转义。</p>
+<p>​    ◆e：本修饰符仅仅对于replacement有用，代表在replacement中作为PHP代码。</p>
+<p>​    ◆A：如果使用这个修饰符，那么表达式必须是匹配的字符串中的开头部分。比如说”/a/A”匹配”abcd”。</p>
+<p>​    ◆E：与”m”相反，如果使用这个修饰符，那么”$”将匹配绝对字符串的结尾，而不是换行符前面，默认就打开了这个模式。</p>
+<p>​    ◆U：和问号的作用差不多，用于设置”贪婪模式”。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
@@ -187,7 +197,7 @@ echo preg_rep,">
     </div>
     
         <div class='side'>
-				
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">PHP正则表达式修饰符的理解：</span></a></li></ol>	
         </div>
     
 </div>
