@@ -59,8 +59,9 @@
         </div>
         <div class="content markdown">
             <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/LEOGG321/p/13448463.html">https://www.cnblogs.com/LEOGG321/p/13448463.html</a></p>
-<p><img src="/2021/10/12/gyctf2020-ez-express/image-20211012184324370.png" alt="image-20211012184324370"></p>
+<p><img src="/GYCTF2020%EF%BC%9AEz-Express.assets/image-20211012184324370.png" alt="image-20211012184324370"></p>
 <h1 id="原型链与原型链污染"><a href="#原型链与原型链污染" class="headerlink" title="原型链与原型链污染"></a>原型链与原型链污染</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/loveyaxin/p/11151586.html">https://www.cnblogs.com/loveyaxin/p/11151586.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/escape-w/p/12347705.html">https://www.cnblogs.com/escape-w/p/12347705.html</a></p>
 <p>原型链的特性：</p>
 <p>在我们调用一个对象的某属性时：</p>
 <pre><code>1.对象(obj)中寻找这一属性
@@ -75,7 +76,7 @@
 <p>其中混入了两个奇特的字符”ı”、”ſ”。</p>
 <p>这两个字符的“大写”是I和S。也就是说”ı”.toUpperCase() == ‘I’，”ſ”.toUpperCase() == ‘S’。通过这个小特性可以绕过一些限制。</p>
 <p>这个”K”的“小写”字符是k，也就是”K”.toLowerCase() == ‘k’.</p>
-<p><img src="/2021/10/12/gyctf2020-ez-express/image-20211012185241629.png" alt="image-20211012185241629" style="zoom:50%;"><img src="/2021/10/12/gyctf2020-ez-express/image-20211012185302162.png" alt="image-20211012185302162" style="zoom:50%;"></p>
+<p><img src="/GYCTF2020：Ez-Express.assets/image-20211012185241629.png" alt="image-20211012185241629" style="zoom:50%;"><img src="/GYCTF2020：Ez-Express.assets/image-20211012185302162.png" alt="image-20211012185302162" style="zoom:50%;"></p>
 <h1 id="web-routes-index-js"><a href="#web-routes-index-js" class="headerlink" title="web\routes\index.js"></a>web\routes\index.js</h1><pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> attr <span class="token keyword">in</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isObject</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isObject</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
