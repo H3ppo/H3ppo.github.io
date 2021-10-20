@@ -15,7 +15,7 @@
 if(!isset($_SESSION)) session_start();
 if($_SERVER[&#39;REMOTE_ADDR&#39;]===&#34;127.0.0.1&#34;){,"> 
     <meta name="author" content="H3ng"> 
-    <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
     
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -209,8 +209,8 @@ if($_SERVER[&#39;REMOTE_ADDR&#39;]===&#34;127.0.0.1&#34;){,">
 <span class="token keyword">echo</span> <span class="token function">base64_encode</span><span class="token punctuation">(</span><span class="token variable">$aaa</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>想要带 SESSION 出来，必须要把自己的 PHPSESSID 传过去，然而 SOAP 并不能设置 Cookie，因此需要 CRLF。SoapClient 可以设置 UA，只要在 UA 后加上 <code>\r\nCookie: PHPSESSID=xxx</code> 就能为 http 头添加一个新的 Cookie 字段，这样就能带上 session 了。</p>
-<p><img src="/MRCTF2020%EF%BC%9AEzpop-Revenge.assets/image-20211005200834623.png" alt="image-20211005200834623"></p>
-<p><img src="/MRCTF2020%EF%BC%9AEzpop-Revenge.assets/image-20211005200750405.png" alt="image-20211005200750405"></p>
+<p><img src="/2021/10/04/mrctf2020-ezpop-revenge/image-20211005200834623.png" alt="image-20211005200834623"></p>
+<p><img src="/2021/10/04/mrctf2020-ezpop-revenge/image-20211005200750405.png" alt="image-20211005200750405"></p>
 <ul>
 <li>PHP序列化的时候private和protected变量会引入不可见字符\x00，输出和复制的时候可能会遗失这些信息，导致反序列化的时候出错。</li>
 <li>private属性序列化的时候会引入两个\x00，注意这两个\x00就是ascii码为0的字符。这个字符显示和输出可能看不到，甚至导致截断，如图1，url编码后就可以看得很清楚了。</li>

@@ -17,7 +17,7 @@ app = flask.Flask(__name__)
 
 app.config[&#39;FLAG&#39;] = os.environ.pop(&#39;FLAG&#39;)//注,"> 
     <meta name="author" content="H3ng"> 
-    <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
     
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -84,16 +84,16 @@ app<span class="token punctuation">.</span>config<span class="token punctuation"
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
     app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span></code></pre>
 <pre><code>/shrine/{{7*7}}</code></pre>
-<p><img src="/WesternCTF%EF%BC%9A2018-Shrine.assets/image-20210711160403714.png" alt="image-20210711160403714"></p>
+<p><img src="/2021/07/07/westernctf-2018-shrine/image-20210711160403714.png" alt="image-20210711160403714"></p>
 <p>存在ssti漏洞</p>
 <pre><code>/shrine/{{url_for.__globals__}}</code></pre>
-<p><img src="/WesternCTF%EF%BC%9A2018-Shrine.assets/image-20210711155833559.png" alt="image-20210711155833559"></p>
+<p><img src="/2021/07/07/westernctf-2018-shrine/image-20210711155833559.png" alt="image-20210711155833559"></p>
 <pre><code>/shrine/{{url_for.__globals__['current_app'].config}}</code></pre>
-<p><img src="/WesternCTF%EF%BC%9A2018-Shrine.assets/image-20210711160013564.png" alt="image-20210711160013564"></p>
+<p><img src="/2021/07/07/westernctf-2018-shrine/image-20210711160013564.png" alt="image-20210711160013564"></p>
 <p><strong>get_flashed_messages</strong></p>
 <p>返回之前在Flask中通过 flash() 传入的闪现信息列表。把字符串对象表示的消息加入到一个消息队列中，然后通过调用 get_flashed_messages() 方法取出(闪现信息只能取出一次，取出后闪现信息会被清空</p>
 <pre><code>/shrine/{{get_flashed_messages.__globals__['current_app'].config}}</code></pre>
-<p><img src="/WesternCTF%EF%BC%9A2018-Shrine.assets/image-20210711155441788.png" alt="image-20210711155441788"></p>
+<p><img src="/2021/07/07/westernctf-2018-shrine/image-20210711155441788.png" alt="image-20210711155441788"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">

