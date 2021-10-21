@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-19T08:03:51.770Z</updated>
+  <updated>2021-10-21T10:57:56.101Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>XCTF：Web-ics</title>
+    <link href="http://lxh3ng.github.io/2021/10/21/xctf-web-ics/"/>
+    <id>http://lxh3ng.github.io/2021/10/21/xctf-web-ics/</id>
+    <published>2021-10-21T10:29:04.000Z</published>
+    <updated>2021-10-21T10:57:56.101Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;ics-05&quot;&gt;&lt;a href=&quot;#ics-05&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>XCTF：Web_python_template_injection</title>
+    <link href="http://lxh3ng.github.io/2021/10/21/xctf-web-python-template-injection/"/>
+    <id>http://lxh3ng.github.io/2021/10/21/xctf-web-python-template-injection/</id>
+    <published>2021-10-21T04:06:03.000Z</published>
+    <updated>2021-10-21T04:48:31.557Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre&gt;&lt;code&gt;instance.__class__ 可以获取当前实例的类对象
+class.__mro__</summary>
+        
+      
+    
+    
+    
+    
+    <category term="ssti" scheme="http://lxh3ng.github.io/tags/ssti/"/>
+    
+  </entry>
   
   <entry>
     <title>HarekazeCTF2019：Avatar Uploader 1</title>
@@ -414,50 +459,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>祥云杯：2021-PackageManager</title>
-    <link href="http://lxh3ng.github.io/2021/09/17/xiang-yun-bei-2021-packagemanager/"/>
-    <id>http://lxh3ng.github.io/2021/09/17/xiang-yun-bei-2021-packagemanager/</id>
-    <published>2021-09-17T07:37:46.000Z</published>
-    <updated>2021-09-17T08:18:45.246Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h5 id=&quot;routes-index-ts-auth&quot;&gt;&lt;a href=&quot;#routes-index-ts-auth&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>祥云杯：2021-secrets_of_admin</title>
-    <link href="http://lxh3ng.github.io/2021/09/16/xiang-yun-bei-2021-secrets-of-admin/"/>
-    <id>http://lxh3ng.github.io/2021/09/16/xiang-yun-bei-2021-secrets-of-admin/</id>
-    <published>2021-09-16T07:33:24.000Z</published>
-    <updated>2021-09-16T10:16:29.594Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/16/xiang-yun-bei-2021-secrets-of-admin/image-20210916162929910.png&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="ssrf" scheme="http://lxh3ng.github.io/tags/ssrf/"/>
     
   </entry>
   
