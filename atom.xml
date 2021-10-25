@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-25T11:34:20.950Z</updated>
+  <updated>2021-10-25T13:01:44.474Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HITCON2016：Leaking</title>
+    <link href="http://lxh3ng.github.io/2021/10/25/hitcon2016-leaking/"/>
+    <id>http://lxh3ng.github.io/2021/10/25/hitcon2016-leaking/</id>
+    <published>2021-10-25T13:01:44.000Z</published>
+    <updated>2021-10-25T13:01:44.474Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Bugku S2 AWD排位赛-6</title>
@@ -426,27 +439,6 @@ class.__mro__</summary>
         
     <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt; &lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;token</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>web源码泄露及工具利用</title>
-    <link href="http://lxh3ng.github.io/2021/09/21/web-yuan-ma-xie-lu-ji-gong-ju-li-yong/"/>
-    <id>http://lxh3ng.github.io/2021/09/21/web-yuan-ma-xie-lu-ji-gong-ju-li-yong/</id>
-    <published>2021-09-21T06:59:34.000Z</published>
-    <updated>2021-09-21T07:06:58.987Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;git泄露&quot;&gt;&lt;a href=&quot;#git泄露&quot; class=&quot;headerlink&quot; title=&quot;.git泄露&quot;&gt;&lt;/a&gt;.git泄露&lt;/h3&gt;&lt;h4 id=&quot;漏洞成因：&quot;&gt;&lt;a href=&quot;#漏洞成因：&quot; class=&quot;headerlink&quot;</summary>
         
       
     
