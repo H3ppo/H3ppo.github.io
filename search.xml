@@ -19664,6 +19664,8 @@ url <span class="token operator">=</span> <span class="token string">'http://8f6
         <span class="token keyword">if</span> <span class="token string">'flag{'</span> <span class="token keyword">in</span> r<span class="token punctuation">.</span>text<span class="token punctuation">:</span>
             <span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
             <span class="token keyword">break</span></code></pre>
+<p>拿到linux跑</p>
+<p><img src="/2021/10/25/hitcon2016-leaking/1.png" alt="1"></p>
 <p><a href="https://blog.csdn.net/cjdgg/article/details/119792059">https://blog.csdn.net/cjdgg/article/details/119792059</a></p>
 <p><a href="https://github.com/ChALkeR/notes/blob/master/Buffer-knows-everything.md">https://github.com/ChALkeR/notes/blob/master/Buffer-knows-everything.md</a></p>
 ]]></content>
