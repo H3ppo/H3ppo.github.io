@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-23T18:21:57.168Z</updated>
+  <updated>2021-10-25T09:06:18.081Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Bugku S2 AWD排位赛-6</title>
+    <link href="http://lxh3ng.github.io/2021/10/25/bugku-s2-awd-pai-wei-sai-6/"/>
+    <id>http://lxh3ng.github.io/2021/10/25/bugku-s2-awd-pai-wei-sai-6/</id>
+    <published>2021-10-25T08:48:29.000Z</published>
+    <updated>2021-10-25T09:06:18.081Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;public/video/index.php&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AWD" scheme="http://lxh3ng.github.io/tags/AWD/"/>
+    
+  </entry>
   
   <entry>
     <title>网鼎杯2018：fakebook</title>
@@ -423,27 +447,6 @@ class.__mro__</summary>
         
         
     <summary type="html">&lt;h3 id=&quot;git泄露&quot;&gt;&lt;a href=&quot;#git泄露&quot; class=&quot;headerlink&quot; title=&quot;.git泄露&quot;&gt;&lt;/a&gt;.git泄露&lt;/h3&gt;&lt;h4 id=&quot;漏洞成因：&quot;&gt;&lt;a href=&quot;#漏洞成因：&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>安洵杯：2019-不是文件上传</title>
-    <link href="http://lxh3ng.github.io/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/"/>
-    <id>http://lxh3ng.github.io/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/</id>
-    <published>2021-09-20T11:11:08.000Z</published>
-    <updated>2021-09-20T11:57:21.535Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/20/an-xun-bei-2019-bu-shi-wen-jian-shang-chuan/image-20210920191233325.png&quot;</summary>
         
       
     
