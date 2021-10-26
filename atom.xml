@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-25T13:26:17.237Z</updated>
+  <updated>2021-10-26T13:22:36.143Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SSTI</title>
+    <link href="http://lxh3ng.github.io/2021/10/26/flask-ssti-mo-ban-zhu-ru/"/>
+    <id>http://lxh3ng.github.io/2021/10/26/flask-ssti-mo-ban-zhu-ru/</id>
+    <published>2021-10-26T15:26:00.000Z</published>
+    <updated>2021-10-26T13:22:36.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;ssti漏洞成因&quot;&gt;&lt;a href=&quot;#ssti漏洞成因&quot; class=&quot;headerlink&quot; title=&quot;ssti漏洞成因&quot;&gt;&lt;/a&gt;ssti漏洞成因&lt;/h3&gt;&lt;p&gt;ssti服务端模板注入，ssti主要为python的一些框架 jinja2 mako</summary>
+        
+      
+    
+    
+    
+    
+    <category term="ssti" scheme="http://lxh3ng.github.io/tags/ssti/"/>
+    
+  </entry>
   
   <entry>
     <title>HITCON2016：Leaking</title>
@@ -427,28 +450,6 @@ class.__mro__</summary>
         
         
     <summary type="html">&lt;h2 id=&quot;ez-python&quot;&gt;&lt;a href=&quot;#ez-python&quot; class=&quot;headerlink&quot; title=&quot;ez_python&quot;&gt;&lt;/a&gt;ez_python&lt;/h2&gt;&lt;h5 id=&quot;app-py&quot;&gt;&lt;a href=&quot;#app-py&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>DASCTF2021-9</title>
-    <link href="http://lxh3ng.github.io/2021/09/25/dasctf2021-9/"/>
-    <id>http://lxh3ng.github.io/2021/09/25/dasctf2021-9/</id>
-    <published>2021-09-25T13:05:20.000Z</published>
-    <updated>2021-10-05T11:18:59.952Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt; &lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
-&lt;span class=&quot;token</summary>
         
       
     
