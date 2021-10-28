@@ -107,8 +107,7 @@ object.__subclasses__()[59].__init__.func_globals['linecache'].__dict__['o'+'s']
 >>> {}.__class__
 <type 'dict'></code></pre>
 <p><code>__class__</code>：用来查看变量所属的类，根据前面的变量形式可以得到其所属的类。</p>
-<p>py2和py3有差</p>
-<p><img src="/2021/10/26/flask-ssti-mo-ban-zhu-ru/image-20211026211149277.png" alt="image-20211026211149277"></p>
+<p>py2和py3有差<img src="/2021/10/26/ssti/image-20211026211149277.png" alt="image-20211026211149277"></p>
 <pre class=" language-Python"><code class="language-Python">>>> ().__class__.__bases__
 (<type 'object'>,)
 >>> ''.__class__.__bases__
@@ -168,6 +167,15 @@ object<span class="token punctuation">.</span>__subclasses__<span class="token p
   <span class="token punctuation">{</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">}</span>
 <span class="token punctuation">{</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">}</span>
 <span class="token punctuation">{</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">}</span></code></pre>
+<p>flask魔术方法归纳：</p>
+<pre><code>__class__  返回类型所属的对象
+__mro__    返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。
+__base__   返回该对象所继承的基类
+// __base__和__mro__都是用来寻找基类的
+
+__subclasses__   每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表
+__init__  类的初始化方法
+__globals__  对包含函数全局变量的字典的引用</code></pre>
 <p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/3679">https://xz.aliyun.com/t/3679</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zz_Caleb/article/details/96480967">https://blog.csdn.net/zz_Caleb/article/details/96480967</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.freebuf.com/column/187845.html">https://www.freebuf.com/column/187845.html</a></p>
