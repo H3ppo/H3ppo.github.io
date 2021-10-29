@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-28T12:28:24.331Z</updated>
+  <updated>2021-10-29T12:47:45.294Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Bugku：newphp</title>
+    <link href="http://lxh3ng.github.io/2021/10/29/bugku-newphp/"/>
+    <id>http://lxh3ng.github.io/2021/10/29/bugku-newphp/</id>
+    <published>2021-10-29T12:20:18.000Z</published>
+    <updated>2021-10-29T12:47:45.294Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="反序列化" scheme="http://lxh3ng.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Bugku：noteasytrick</title>
     <link href="http://lxh3ng.github.io/2021/10/28/bugku-noteasytrick/"/>
     <id>http://lxh3ng.github.io/2021/10/28/bugku-noteasytrick/</id>
     <published>2021-10-28T11:45:45.000Z</published>
-    <updated>2021-10-28T12:28:24.331Z</updated>
+    <updated>2021-10-29T12:47:12.418Z</updated>
     
     
       
@@ -44,7 +68,7 @@
     <link href="http://lxh3ng.github.io/2021/10/26/ssti/"/>
     <id>http://lxh3ng.github.io/2021/10/26/ssti/</id>
     <published>2021-10-26T15:26:00.000Z</published>
-    <updated>2021-10-28T12:55:47.362Z</updated>
+    <updated>2021-10-29T12:47:30.062Z</updated>
     
     
       
@@ -67,7 +91,7 @@
     <link href="http://lxh3ng.github.io/2021/10/25/hitcon2016-leaking/"/>
     <id>http://lxh3ng.github.io/2021/10/25/hitcon2016-leaking/</id>
     <published>2021-10-25T13:01:44.000Z</published>
-    <updated>2021-10-25T13:26:17.237Z</updated>
+    <updated>2021-10-29T12:46:44.863Z</updated>
     
     
       
@@ -434,29 +458,6 @@ class.__mro__</summary>
     
     
     <category term="cms" scheme="http://lxh3ng.github.io/tags/cms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BJDCTF：2020-EzPHP</title>
-    <link href="http://lxh3ng.github.io/2021/09/28/bjdctf-2020-ezphp/"/>
-    <id>http://lxh3ng.github.io/2021/09/28/bjdctf-2020-ezphp/</id>
-    <published>2021-09-28T10:31:49.000Z</published>
-    <updated>2021-09-29T04:11:26.234Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/28/bjdctf-2020-ezphp/image-20210816183237244.png&quot; alt=&quot;image-20210816183237244&quot;&gt;&lt;/p&gt;
-&lt;p&gt;F12&lt;/p&gt;
-&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
