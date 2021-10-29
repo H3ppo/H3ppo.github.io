@@ -20086,4 +20086,27 @@ __globals__  对包含函数全局变量的字典的引用</code></pre>
         <tag>反序列化</tag>
       </tags>
   </entry>
+  <entry>
+    <title>CSAW2016：i_got_id</title>
+    <url>/2021/10/29/csaw2016-i-got-id/</url>
+    <content><![CDATA[<p>猜测Perl File Upload后端代码为:</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">use</span> <span class="token package">strict</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">warnings</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">CGI</span><span class="token punctuation">;</span>
+
+my <span class="token variable">$cgi</span><span class="token operator">=</span> <span class="token constant">CGI</span><span class="token operator">-</span><span class="token operator">></span><span class="token keyword">new</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token variable">$cgi</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">upload</span><span class="token punctuation">(</span> <span class="token string">'file'</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+my <span class="token variable">$file</span><span class="token operator">=</span> <span class="token variable">$cgi</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">param</span><span class="token punctuation">(</span> <span class="token string">'file'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token markup">&lt;$file></span> <span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">print</span> <span class="token string">"$_"</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span></code></pre>
+<p>其中my $file= $cgi-&gt;param( ‘file’ );：<br>param()函数返回一个列表的文件。但是只有第一个文件会被放入file变量中。</p>
+<p>while ( &lt;$file&gt; )中，&lt;&gt;不能处理字符串，除非是ARGV，因此循环遍历并将每个值使用open()<br>调用。</p>
+<p>对于读文件，如果传入一个ARGV的文件，那么Perl会将传入的参数作为文件名读出来。<br>所以，在上传的正常文件前加上一个文件上传项ARGV，然后在URL中传入文件路径参数，就可以读取任意文件。</p>
+<p>在上传文件时抓取数据包：</p>
+<p><img src="/2021/10/29/csaw2016-i-got-id/image-20211029215740211.png" alt="image-20211029215740211"></p>
+]]></content>
+      <tags>
+        <tag>Perl</tag>
+      </tags>
+  </entry>
 </search>

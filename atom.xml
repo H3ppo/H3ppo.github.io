@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-29T12:47:45.294Z</updated>
+  <updated>2021-10-29T13:57:52.071Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSAW2016：i_got_id</title>
+    <link href="http://lxh3ng.github.io/2021/10/29/csaw2016-i-got-id/"/>
+    <id>http://lxh3ng.github.io/2021/10/29/csaw2016-i-got-id/</id>
+    <published>2021-10-29T13:55:35.000Z</published>
+    <updated>2021-10-29T13:57:52.071Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;猜测Perl File Upload后端代码为:&lt;/p&gt;
+&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; &lt;span</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Perl" scheme="http://lxh3ng.github.io/tags/Perl/"/>
+    
+  </entry>
   
   <entry>
     <title>Bugku：newphp</title>
@@ -433,31 +457,6 @@ class.__mro__</summary>
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>GKCTF：2021-蝉知cms</title>
-    <link href="http://lxh3ng.github.io/2021/10/01/gkctf-2021-chan-zhi-cms/"/>
-    <id>http://lxh3ng.github.io/2021/10/01/gkctf-2021-chan-zhi-cms/</id>
-    <published>2021-10-01T08:09:58.000Z</published>
-    <updated>2021-10-01T08:38:08.012Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;提示后台弱口令&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;admin 12345&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;/2021/10/01/gkctf-2021-chan-zhi-cms/image-20211001162552187.png&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="cms" scheme="http://lxh3ng.github.io/tags/cms/"/>
     
   </entry>
   
