@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-10-29T13:57:52.071Z</updated>
+  <updated>2021-10-30T11:58:38.566Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSAW2021</title>
+    <link href="http://lxh3ng.github.io/2021/10/30/csaw2021/"/>
+    <id>http://lxh3ng.github.io/2021/10/30/csaw2021/</id>
+    <published>2021-10-30T11:51:03.000Z</published>
+    <updated>2021-10-30T11:58:38.566Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/10/30/csaw2021/image-20211030195537198.png&quot; alt=&quot;image-20211030195537198&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Ninja🥷&quot;&gt;&lt;a href=&quot;#Ninja🥷&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>CSAW2016：i_got_id</title>
@@ -431,27 +453,6 @@ class.__mro__</summary>
     <summary type="html">&lt;p&gt;&lt;strong&gt;flag.php&lt;/strong&gt;&lt;/p&gt;
 &lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>php://filter绕过exit()</title>
-    <link href="http://lxh3ng.github.io/2021/10/02/php-filter-rao-guo-exit/"/>
-    <id>http://lxh3ng.github.io/2021/10/02/php-filter-rao-guo-exit/</id>
-    <published>2021-10-02T01:16:46.000Z</published>
-    <updated>2021-10-04T12:50:06.553Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;原文：&lt;a</summary>
         
       
     
