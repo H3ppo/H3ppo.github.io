@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-11-11T04:43:33.519Z</updated>
+  <updated>2021-11-11T09:59:23.462Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -18,11 +18,19 @@
   
   <entry>
     <title>Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020-FlaskApp</title>
-    <link href="http://lxh3ng.github.io/2021/11/08/ciscn2018-timekeeper/"/>
-    <id>http://lxh3ng.github.io/2021/11/08/ciscn2018-timekeeper/</id>
-    <published>2021-11-08T15:01:50.000Z</published>
-    <updated>2021-11-11T04:43:33.519Z</updated>
+    <link href="http://lxh3ng.github.io/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/"/>
+    <id>http://lxh3ng.github.io/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/</id>
+    <published>2021-11-11T04:45:55.000Z</published>
+    <updated>2021-11-11T09:59:23.462Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Flask-debug-PIN命令执行漏洞&quot;&gt;&lt;a href=&quot;#Flask-debug-PIN命令执行漏洞&quot; class=&quot;headerlink&quot; title=&quot;Flask debug PIN命令执行漏洞&quot;&gt;&lt;/a&gt;Flask debug</summary>
+        
+      
     
     
     
