@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2021-11-11T10:17:48.534Z</updated>
+  <updated>2021-11-15T09:25:45.959Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>区块链及双花攻击原理/UTXO/DDCTF2018：mini blockchain</title>
+    <link href="http://lxh3ng.github.io/2021/11/15/qu-kuai-lian-ji-shuang-hua-gong-ji-yuan-li-utxo-ddctf2018-mini-blockchain/"/>
+    <id>http://lxh3ng.github.io/2021/11/15/qu-kuai-lian-ji-shuang-hua-gong-ji-yuan-li-utxo-ddctf2018-mini-blockchain/</id>
+    <published>2021-11-15T06:54:53.000Z</published>
+    <updated>2021-11-15T09:25:45.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;UTXO&quot;&gt;&lt;a href=&quot;#UTXO&quot; class=&quot;headerlink&quot; title=&quot;UTXO&quot;&gt;&lt;/a&gt;UTXO&lt;/h1&gt;&lt;p&gt;其实并没有什么比特币，只有 UTXO：&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="区块链" scheme="http://lxh3ng.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>L3HCTF2021</title>
+    <link href="http://lxh3ng.github.io/2021/11/14/l3hctf2021/"/>
+    <id>http://lxh3ng.github.io/2021/11/14/l3hctf2021/</id>
+    <published>2021-11-14T07:03:24.000Z</published>
+    <updated>2021-11-14T07:16:46.532Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Image-Service-1&quot;&gt;&lt;a href=&quot;#Image-Service-1&quot; class=&quot;headerlink&quot; title=&quot;Image Service 1&quot;&gt;&lt;/a&gt;Image Service</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020：FlaskApp</title>
@@ -58,30 +103,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>DDCTF2018：mini blockchain</title>
-    <link href="http://lxh3ng.github.io/2021/11/01/ddctf2018-mini-blockchain/"/>
-    <id>http://lxh3ng.github.io/2021/11/01/ddctf2018-mini-blockchain/</id>
-    <published>2021-11-01T06:54:53.000Z</published>
-    <updated>2021-11-02T11:35:32.095Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/11/01/ddctf2018-mini-blockchain/image-20211101145544001.png&quot; alt=&quot;image-20211101145544001&quot;&gt;&lt;/p&gt;
-&lt;pre class=&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="区块链" scheme="http://lxh3ng.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
     
   </entry>
   
@@ -438,28 +459,6 @@ class.__mro__</summary>
         
         
     <summary type="html">&lt;h1 id=&quot;MIDDLE-MAGIC&quot;&gt;&lt;a href=&quot;#MIDDLE-MAGIC&quot; class=&quot;headerlink&quot; title=&quot;MIDDLE_MAGIC&quot;&gt;&lt;/a&gt;MIDDLE_MAGIC&lt;/h1&gt;&lt;pre class=&quot; language-php&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ISITDTU2019：EasyPHP</title>
-    <link href="http://lxh3ng.github.io/2021/10/07/isitdtu2019-easyphp/"/>
-    <id>http://lxh3ng.github.io/2021/10/07/isitdtu2019-easyphp/</id>
-    <published>2021-10-07T10:29:09.000Z</published>
-    <updated>2021-10-07T13:32:40.715Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt; &lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
-&lt;span class=&quot;token</summary>
         
       
     

