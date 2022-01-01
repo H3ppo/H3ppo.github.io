@@ -15573,10 +15573,10 @@ xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</code><
   </entry>
   <entry>
     <title>BUUCTF：加固题</title>
-    <url>/2022/01/01/buuctf-jia-gu-ti/</url>
-    <content><![CDATA[<h1 id="Ezsql"><a href="#Ezsql" class="headerlink" title="Ezsql"></a>Ezsql</h1><p><img src="/BUUCTF%EF%BC%9A%E5%8A%A0%E5%9B%BA%E9%A2%98.assets/image-20220101145336353.png" alt="image-20220101145336353"></p>
+    <url>/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/</url>
+    <content><![CDATA[<h1 id="Ezsql"><a href="#Ezsql" class="headerlink" title="Ezsql"></a>Ezsql</h1><p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101145336353.png" alt="image-20220101145336353"></p>
 <p>用mobaXterm/XFTP之类的去链接服务器</p>
-<p><img src="/BUUCTF%EF%BC%9A%E5%8A%A0%E5%9B%BA%E9%A2%98.assets/image-20220101145501821.png" alt="image-20220101145501821"></p>
+<p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101145501821.png" alt="image-20220101145501821"></p>
 <p>备份var/www/html下的文件</p>
 <p>index.php关键代码：</p>
 <pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
@@ -15631,8 +15631,8 @@ xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</code><
 <pre class=" language-php"><code class="language-php"><span class="token string">"/  \~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\)|\)|\-|\=|\+|\{|\[|\]|\}|\:|\'|\"|\,|\&lt;|\.|\>|\/|\?|\\\\  /i"</span></code></pre>
 <p>ctrl+s</p>
 <p>访问check服务器</p>
-<p><img src="/BUUCTF%EF%BC%9A%E5%8A%A0%E5%9B%BA%E9%A2%98.assets/image-20220101150037932.png" alt="image-20220101150037932"></p>
-<p><img src="/BUUCTF%EF%BC%9A%E5%8A%A0%E5%9B%BA%E9%A2%98.assets/image-20220101150320173.png" alt="image-20220101150320173"></p>
+<p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101150037932.png" alt="image-20220101150037932"></p>
+<p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101150320173.png" alt="image-20220101150320173"></p>
 ]]></content>
   </entry>
 </search>
