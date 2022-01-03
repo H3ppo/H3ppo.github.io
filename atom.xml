@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2022-01-03T08:24:24.118Z</updated>
+  <updated>2022-01-03T13:11:41.193Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows主机下隐藏木马</title>
+    <link href="http://lxh3ng.github.io/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/"/>
+    <id>http://lxh3ng.github.io/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/</id>
+    <published>2022-01-03T12:16:52.000Z</published>
+    <updated>2022-01-03T13:11:41.193Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;接上文（&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Pikachu：远程文件包含写入木马</title>
@@ -438,27 +459,6 @@ class.__mro__</summary>
         
         
     <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/10/18/harekazectf2019-avatar-uploader-1/image-20211019155802098.png&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>鲲鹏杯2021</title>
-    <link href="http://lxh3ng.github.io/2021/10/17/kun-peng-bei-2021/"/>
-    <id>http://lxh3ng.github.io/2021/10/17/kun-peng-bei-2021/</id>
-    <published>2021-10-17T10:36:53.000Z</published>
-    <updated>2021-10-19T14:36:43.652Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;CTF&quot;&gt;&lt;a href=&quot;#CTF&quot; class=&quot;headerlink&quot; title=&quot;CTF&quot;&gt;&lt;/a&gt;CTF&lt;/h1&gt;&lt;h2 id=&quot;Web1：贪吃蛇&quot;&gt;&lt;a href=&quot;#Web1：贪吃蛇&quot; class=&quot;headerlink&quot;</summary>
         
       
     

