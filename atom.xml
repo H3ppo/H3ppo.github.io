@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2022-02-02T14:01:02.630Z</updated>
+  <updated>2022-02-09T15:06:11.124Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GoogleCTF：2019-Bnv</title>
+    <link href="http://lxh3ng.github.io/2022/02/09/xxe/googlectf-2019-bnv/googlectf-2019-bnv/"/>
+    <id>http://lxh3ng.github.io/2022/02/09/xxe/googlectf-2019-bnv/googlectf-2019-bnv/</id>
+    <published>2022-02-09T14:36:58.000Z</published>
+    <updated>2022-02-09T15:06:11.124Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2022/02/09/xxe/googlectf-2019-bnv/googlectf-2019-bnv/image-20220209224558272.png&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="XXE" scheme="http://lxh3ng.github.io/tags/XXE/"/>
+    
+  </entry>
   
   <entry>
     <title>MS17-010 永恒之蓝(EternalBlue)远程溢出复现</title>
@@ -41,6 +64,28 @@
     <title>ROIS冬令营2022writeup</title>
     <link href="http://lxh3ng.github.io/2022/01/27/rois-dong-ling-ying-2022writeup/"/>
     <id>http://lxh3ng.github.io/2022/01/27/rois-dong-ling-ying-2022writeup/</id>
+    <published>2022-01-27T10:09:13.000Z</published>
+    <updated>2022-01-27T10:24:54.755Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;checkin&quot;&gt;&lt;a href=&quot;#checkin&quot; class=&quot;headerlink&quot; title=&quot;checkin&quot;&gt;&lt;/a&gt;checkin&lt;/h2&gt;&lt;p&gt;抓包js&lt;/p&gt;
+&lt;pre class=&quot; language-javascript&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ROIS冬令营2022writeup</title>
+    <link href="http://lxh3ng.github.io/2022/01/27/rois-dong-ling-ying-2022writeup/rois-dong-ling-ying-2022writeup/"/>
+    <id>http://lxh3ng.github.io/2022/01/27/rois-dong-ling-ying-2022writeup/rois-dong-ling-ying-2022writeup/</id>
     <published>2022-01-27T10:09:13.000Z</published>
     <updated>2022-01-27T10:24:54.755Z</updated>
     
@@ -418,50 +463,6 @@
     
     
     <category term="AWD" scheme="http://lxh3ng.github.io/tags/AWD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网鼎杯2018：fakebook</title>
-    <link href="http://lxh3ng.github.io/2021/10/24/wang-ding-bei-2018-fakebook/"/>
-    <id>http://lxh3ng.github.io/2021/10/24/wang-ding-bei-2018-fakebook/</id>
-    <published>2021-10-23T19:59:59.000Z</published>
-    <updated>2021-10-25T11:15:30.393Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;/robots.txt&lt;/p&gt;
-&lt;p&gt;/user.php.bak&lt;/p&gt;
-&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>XCTF：Web-ics</title>
-    <link href="http://lxh3ng.github.io/2021/10/21/xctf-web-ics/"/>
-    <id>http://lxh3ng.github.io/2021/10/21/xctf-web-ics/</id>
-    <published>2021-10-21T10:29:04.000Z</published>
-    <updated>2021-10-26T13:06:07.216Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;ics-02&quot;&gt;&lt;a href=&quot;#ics-02&quot; class=&quot;headerlink&quot; title=&quot;ics-02&quot;&gt;&lt;/a&gt;ics-02&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2021/10/21/xctf-web-ics/1.png&quot;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
