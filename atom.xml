@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2022-02-09T17:23:06.390Z</updated>
+  <updated>2022-04-20T08:30:41.137Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -17,11 +17,45 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java反射学习</title>
+    <link href="http://lxh3ng.github.io/2022/04/20/java-an-quan/java-fan-she-xue-xi/java-fan-she-xue-xi/"/>
+    <id>http://lxh3ng.github.io/2022/04/20/java-an-quan/java-fan-she-xue-xi/java-fan-she-xue-xi/</id>
+    <published>2022-04-20T08:30:41.000Z</published>
+    <updated>2022-04-20T08:30:41.137Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>XNUCA：2019-EasyPHP采用.htaccess绕过三种解法</title>
+    <link href="http://lxh3ng.github.io/2022/03/03/xnuca-2019-easyphp-cai-yong-htaccess-rao-guo-san-chong-jie-fa/xnuca-2019-easyphp-cai-yong-htaccess-rao-guo-san-chong-jie-fa/"/>
+    <id>http://lxh3ng.github.io/2022/03/03/xnuca-2019-easyphp-cai-yong-htaccess-rao-guo-san-chong-jie-fa/xnuca-2019-easyphp-cai-yong-htaccess-rao-guo-san-chong-jie-fa/</id>
+    <published>2022-03-03T12:44:44.000Z</published>
+    <updated>2022-03-08T13:00:46.312Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;解法一&quot;&gt;&lt;a href=&quot;#解法一&quot; class=&quot;headerlink&quot; title=&quot;解法一&quot;&gt;&lt;/a&gt;解法一&lt;/h2&gt;&lt;pre class=&quot; language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>CVE-2020-0796 Windows10永恒之黑复现</title>
     <link href="http://lxh3ng.github.io/2022/02/10/cve-2020-0796-windows10-yong-heng-zhi-hei-fu-xian/cve-2020-0796-windows10-yong-heng-zhi-hei-fu-xian/"/>
     <id>http://lxh3ng.github.io/2022/02/10/cve-2020-0796-windows10-yong-heng-zhi-hei-fu-xian/cve-2020-0796-windows10-yong-heng-zhi-hei-fu-xian/</id>
     <published>2022-02-09T16:59:35.000Z</published>
-    <updated>2022-02-09T17:23:06.390Z</updated>
+    <updated>2022-02-11T14:39:48.555Z</updated>
     
     
       
@@ -416,53 +450,6 @@
     
     
     <category term="ssti" scheme="http://lxh3ng.github.io/tags/ssti/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HITCON2016：Leaking</title>
-    <link href="http://lxh3ng.github.io/2021/10/25/hitcon2016-leaking/"/>
-    <id>http://lxh3ng.github.io/2021/10/25/hitcon2016-leaking/</id>
-    <published>2021-10-25T13:01:44.000Z</published>
-    <updated>2021-11-15T09:32:27.126Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre class=&quot; language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token string&quot;&gt;&quot;use strict&quot;&lt;/span&gt;&lt;span class=&quot;token</summary>
-        
-      
-    
-    
-    
-    
-    <category term="VM沙箱逃逸" scheme="http://lxh3ng.github.io/tags/VM%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bugku S2 AWD排位赛-6</title>
-    <link href="http://lxh3ng.github.io/2021/10/25/bugku-s2-awd-pai-wei-sai-6/"/>
-    <id>http://lxh3ng.github.io/2021/10/25/bugku-s2-awd-pai-wei-sai-6/</id>
-    <published>2021-10-25T08:48:29.000Z</published>
-    <updated>2021-11-15T09:31:54.337Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;strong&gt;public/video/index.php&lt;/strong&gt;&lt;/p&gt;
-&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token</summary>
-        
-      
-    
-    
-    
-    
-    <category term="AWD" scheme="http://lxh3ng.github.io/tags/AWD/"/>
     
   </entry>
   
