@@ -15993,7 +15993,83 @@ flag{W0W_S7up1d_PHP_&gt;_&lt;}</code></pre>
   <entry>
     <title>Java反射学习</title>
     <url>/2022/04/20/java-an-quan/java-fan-she-xue-xi/java-fan-she-xue-xi/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>本文基于『代码审计』知识星球 - 《java安全漫谈》<br>看一段代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execute</span><span class="token punctuation">(</span>String className<span class="token punctuation">,</span> String methodName<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+ Class <span class="token class-name">clazz</span> <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>className<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>这⼏个⽅法包揽了Java安全⾥各种和反射有关的Payload。</p>
+<h3 id="获取类的方法"><a href="#获取类的方法" class="headerlink" title="获取类的方法"></a>获取类的方法</h3><ol>
+<li>forName()方法，无需import可以加载任意类，执行static()中的代码</li>
+<li>obj.getClass()方法,需上下文存在某个类的实例obj</li>
+<li>.class直接获取，获取已经加载的某个类，不属于反射</li>
+<li>getSystemClassLoader().loadClass()，N不会执行static()中的代码</li>
+</ol>
+<p>forName有两个函数重载： </p>
+<pre class=" language-java"><code class="language-java">Class <span class="token class-name">forName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> 
+<span class="token comment" spellcheck="true">//等于</span>
+Class <span class="token class-name">forName</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token keyword">boolean</span><span class="token operator">*</span><span class="token operator">*</span> initialize<span class="token punctuation">,</span> ClassLoader loader<span class="token punctuation">)</span></code></pre>
+<p>在 forName 的时候，构造函数并不会执⾏</p>
+<p>看如下这个类</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TrainPrint</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Empty block initial %s\n"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">static</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Static initial %s\n"</span><span class="token punctuation">,</span> TrainPrint<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">TrainPrint</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Inital %s\n"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>⾸首先调⽤用的是 static {} ，其次是 {} ，最后是构造函数，static {} 就是在“类初始化”的时候调用的，而 {} 中的代码会放在构造函数的 super() 后面，但在当前构造函数内容的前面</p>
+<p>forName 中的 initialize=true 其实就是告诉Java虚拟机是否执⾏”类初始化“</p>
+<p>假设有如下函数，name可控</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">ref</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+ Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>可以编写恶意类，置于static{}中</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Runtime<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Process<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TouchFile</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            Runtime rt <span class="token operator">=</span> Runtime<span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            String<span class="token punctuation">[</span><span class="token punctuation">]</span> commands <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"touch"</span><span class="token punctuation">,</span> <span class="token string">"/tmp/success"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+            Process pc <span class="token operator">=</span> rt<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>commands<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            pc<span class="token punctuation">.</span><span class="token function">waitFor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token comment" spellcheck="true">// do nothing</span>
+         <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Java的普通类 C1 中支持编写内部类 C2 ，而在编译的时候，会生成两个文件： <code>C1.class</code> 和 <code>C1$C2.class</code> ，我们可以把他们看作两个无关的类，通过 <code>Class.forName("C1$C2")</code> 即可加载这个内部类。</p>
+<h3 id="实例化类的对象的方法"><a href="#实例化类的对象的方法" class="headerlink" title="实例化类的对象的方法"></a>实例化类的对象的方法</h3><ol>
+<li>newInstance(),调用这个类的无构造参数</li>
+</ol>
+<h3 id="获取函数的方法"><a href="#获取函数的方法" class="headerlink" title="获取函数的方法"></a>获取函数的方法</h3><ol>
+<li>getMethod</li>
+</ol>
+<h3 id="执行函数的方法"><a href="#执行函数的方法" class="headerlink" title="执行函数的方法"></a>执行函数的方法</h3><ol>
+<li>invoke</li>
+</ol>
+<p>举个例子，来自《java安全漫谈》</p>
+<pre class=" language-java"><code class="language-java">Class <span class="token class-name">clazz</span> <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Runtime"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"exec"</span><span class="token punctuation">,</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"getRuntime"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"calc.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>可以分解为</p>
+<pre class=" language-java"><code class="language-java">Class <span class="token class-name">clazz</span> <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Runtime"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Method execMethod <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"exec"</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Method getRuntimeMethod <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"getRuntime"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Object runtime <span class="token operator">=</span> getRuntimeMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+execMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>runtime<span class="token punctuation">,</span> <span class="token string">"calc.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>如果一个类没有无参构造方法，也没有类似单例模式里的静态方法，我们怎样通过反射实例化该类呢？ </p>
+<p>如果一个方法或构造方法是私有方法，我们是否能执行它呢？</p>
+]]></content>
+      <tags>
+        <tag>Java安全</tag>
+      </tags>
   </entry>
   <entry>
     <title>XNUCA：2019-EasyPHP采用.htaccess绕过三种解法</title>
