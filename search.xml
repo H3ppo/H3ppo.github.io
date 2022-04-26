@@ -15999,8 +15999,14 @@ flag{W0W_S7up1d_PHP_&gt;_&lt;}</code></pre>
  clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <p>这⼏个⽅法包揽了Java安全⾥各种和反射有关的Payload。</p>
+<h3 id="反射的概念"><a href="#反射的概念" class="headerlink" title="反射的概念"></a>反射的概念</h3><p>反射是Java的特征之一，是一种间接操作目标对象的机制，核心是JVM在运行状态的时候才动态加载类，对于任意一个类都能够知道这个类所有的属性和方法，并且对于任意一个对象，都能够调用它的方法/访问属性。这种动态获取信息以及动态调用对象方法的功能成为Java语言的反射机制。通过使用反射我们不仅可以获取到任何类的成员方法(Methods)、成员变量(Fields)、构造方法(Constructors)等信息，还可以动态创建Java类实例、调用任意的类方法、修改任意的类成员变量值等。</p>
+<p>java反射机制组成需要重点注意以下的类：</p>
+<p>java.lang.Class：类对象;</p>
+<p>java.lang.reflect.Constructor：类的构造器对象;</p>
+<p>java.lang.reflect.Field：类的属性对象;</p>
+<p>java.lang.reflect.Method：类的方法对象;</p>
 <h3 id="获取类的方法"><a href="#获取类的方法" class="headerlink" title="获取类的方法"></a>获取类的方法</h3><ol>
-<li>forName()方法，无需import可以加载任意类，执行static()中的代码</li>
+<li>class.forName()方法，无需import可以加载任意类，执行static()中的代码</li>
 <li>obj.getClass()方法,需上下文存在某个类的实例obj</li>
 <li>.class直接获取，获取已经加载的某个类，不属于反射</li>
 <li>getSystemClassLoader().loadClass()，N不会执行static()中的代码</li>
@@ -16046,15 +16052,43 @@ Class <span class="token class-name">forName</span><span class="token punctuatio
      <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <p>Java的普通类 C1 中支持编写内部类 C2 ，而在编译的时候，会生成两个文件： <code>C1.class</code> 和 <code>C1$C2.class</code> ，我们可以把他们看作两个无关的类，通过 <code>Class.forName("C1$C2")</code> 即可加载这个内部类。</p>
-<h3 id="实例化类的对象的方法"><a href="#实例化类的对象的方法" class="headerlink" title="实例化类的对象的方法"></a>实例化类的对象的方法</h3><ol>
-<li>newInstance(),调用这个类的无构造参数</li>
-</ol>
-<h3 id="获取函数的方法"><a href="#获取函数的方法" class="headerlink" title="获取函数的方法"></a>获取函数的方法</h3><ol>
-<li>getMethod</li>
-</ol>
-<h3 id="执行函数的方法"><a href="#执行函数的方法" class="headerlink" title="执行函数的方法"></a>执行函数的方法</h3><ol>
-<li>invoke</li>
-</ol>
+<h3 id="获取成员变量Field"><a href="#获取成员变量Field" class="headerlink" title="获取成员变量Field"></a>获取成员变量Field</h3><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//返回 字段对象，该对象反映此 类对象表示的类或接口的指定声明字段。</span>
+<span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//返回 字段对象的数组， 字段对象反映由此 类对象表示的类或接口声明的所有字段。</span>
+<span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//返回 字段对象，该对象反映此 类对象表示的类或接口的指定公共成员字段。</span>
+<span class="token function">getField</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//返回一个包含 字段对象的数组， 字段对象反映此 类对象所表示的类或接口的所有可访问公共字段。</span>
+<span class="token function">getFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>上面两个可以获取的是所有的成员变量，下面的两个得到的只有<code>public</code>的成员变量。第一第三个可以传入一个名字（字符串）来得到指定的成员变量，而第二第四个只能得到一个数组，没法得到指定的。前两个虽然不受到<code>public</code>的限制，但是它不能得到超类的成员变量。后两个虽然只能得到<code>public</code>成员变量，但是可以得到超类的<code>public</code>成员变量。</p>
+<h3 id="获取方法method"><a href="#获取方法method" class="headerlink" title="获取方法method"></a>获取方法method</h3><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//返回方法对象，该对象反映此类对象表示的类或接口的指定声明方法。</span>
+<span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> 类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//返回一个包含方法对象的数组，方法对象反映此 类对象表示的类或接口的所有已声明方法，包括public，protected，default（package）访问和私有方法，但不包括继承的方法。</span>
+<span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//返回方法对象，该对象反映此类对象表示的类或接口的指定公共成员方法。</span>
+<span class="token function">getMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> 类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//返回一个包含方法对象的数组，方法对象反映此类对象所表示的类或接口的所有公共方法，包括由类或接口声明的那些以及从超类和超接口继承的那些。</span>
+<span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="获取构造函数Constructor"><a href="#获取构造函数Constructor" class="headerlink" title="获取构造函数Constructor"></a>获取构造函数Constructor</h3><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//返回一个 构造器对象，该对象反映此 类对象所表示的类或接口的指定构造函数。</span>
+<span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span>类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//返回 构造器对象的数组， 构造器对象反映由此 类对象表示的类声明的所有构造函数。</span>
+<span class="token function">getDeclaredConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//返回一个 构造器对象，该对象反映此 类对象所表示的类的指定公共构造函数。</span>
+<span class="token function">getConstructor</span><span class="token punctuation">(</span>类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//返回一个包含 构造器对象的数组， 构造器对象反映了此 类对象所表示的类的所有公共构造函数。</span>
+<span class="token function">getConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<h3 id="实例化类"><a href="#实例化类" class="headerlink" title="实例化类"></a>实例化类</h3><p>newInstance(),调用这个类的无构造参数</p>
+<h3 id="执行函数的方法"><a href="#执行函数的方法" class="headerlink" title="执行函数的方法"></a>执行函数的方法</h3><p>invoke</p>
 <p>举个例子，来自《java安全漫谈》</p>
 <pre class=" language-java"><code class="language-java">Class <span class="token class-name">clazz</span> <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"java.lang.Runtime"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
 clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"exec"</span><span class="token punctuation">,</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"getRuntime"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>clazz<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"calc.exe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
