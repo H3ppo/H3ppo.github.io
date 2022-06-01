@@ -6,7 +6,7 @@
   <link href="http://lxh3ng.github.io/atom.xml" rel="self"/>
   
   <link href="http://lxh3ng.github.io/"/>
-  <updated>2022-04-26T02:54:05.923Z</updated>
+  <updated>2022-06-01T03:18:29.335Z</updated>
   <id>http://lxh3ng.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CISCN2022web</title>
+    <link href="http://lxh3ng.github.io/2022/06/01/ciscn2022web/ciscn2022web/"/>
+    <id>http://lxh3ng.github.io/2022/06/01/ciscn2022web/ciscn2022web/</id>
+    <published>2022-06-01T03:01:41.000Z</published>
+    <updated>2022-06-01T03:18:29.335Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;ezpop&quot;&gt;&lt;a href=&quot;#ezpop&quot; class=&quot;headerlink&quot; title=&quot;ezpop&quot;&gt;&lt;/a&gt;ezpop&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Java反射学习</title>
@@ -438,29 +459,6 @@
     
     
     <category term="反序列化" scheme="http://lxh3ng.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSTI</title>
-    <link href="http://lxh3ng.github.io/2021/10/26/ssti/"/>
-    <id>http://lxh3ng.github.io/2021/10/26/ssti/</id>
-    <published>2021-10-26T15:26:00.000Z</published>
-    <updated>2021-11-15T09:32:38.819Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;ssti漏洞成因&quot;&gt;&lt;a href=&quot;#ssti漏洞成因&quot; class=&quot;headerlink&quot; title=&quot;ssti漏洞成因&quot;&gt;&lt;/a&gt;ssti漏洞成因&lt;/h3&gt;&lt;p&gt;ssti服务端模板注入，ssti主要为python的一些框架 jinja2 mako</summary>
-        
-      
-    
-    
-    
-    
-    <category term="ssti" scheme="http://lxh3ng.github.io/tags/ssti/"/>
     
   </entry>
   
