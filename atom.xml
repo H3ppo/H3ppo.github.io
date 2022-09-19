@@ -6,7 +6,7 @@
   <link href="http://h3ppo.github.io/atom.xml" rel="self"/>
   
   <link href="http://h3ppo.github.io/"/>
-  <updated>2022-09-18T09:09:19.269Z</updated>
+  <updated>2022-09-19T12:07:05.567Z</updated>
   <id>http://h3ppo.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Wordpress渗透指南</title>
+    <link href="http://h3ppo.github.io/2022/09/19/wordpress-shen-tou-zhi-nan/wordpress-shen-tou-zhi-nan/"/>
+    <id>http://h3ppo.github.io/2022/09/19/wordpress-shen-tou-zhi-nan/wordpress-shen-tou-zhi-nan/</id>
+    <published>2022-09-19T12:02:52.000Z</published>
+    <updated>2022-09-19T12:07:05.567Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;如何挖掘Wordpress网站的漏洞&quot;&gt;&lt;a href=&quot;#如何挖掘Wordpress网站的漏洞&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>IBOS 4.5.4 命令执行分析</title>
@@ -432,30 +453,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>CSAW2016：i_got_id</title>
-    <link href="http://h3ppo.github.io/2021/10/29/csaw2016-i-got-id/"/>
-    <id>http://h3ppo.github.io/2021/10/29/csaw2016-i-got-id/</id>
-    <published>2021-10-29T13:55:35.000Z</published>
-    <updated>2021-11-15T09:33:13.957Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;猜测Perl File Upload后端代码为:&lt;/p&gt;
-&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; &lt;span</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Perl" scheme="http://h3ppo.github.io/tags/Perl/"/>
     
   </entry>
   
