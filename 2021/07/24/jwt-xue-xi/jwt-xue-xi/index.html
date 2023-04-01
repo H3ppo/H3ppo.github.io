@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JSON Web Token学习 - H3ppo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ppo,"> 
+    <meta name="description" content="JSON Web Token的定义
+JSON Web Token (JWT)是一个开放标准(RFC 7519)
+定义了一种紧凑的、自包含的方式
+作为JSON对象在各方之间安全地传输信息
+是数字签名 ,"> 
+    <meta name="author" content="H3ppo"> 
+    <link rel="alternative" href="/atom.xml" title="H3ppo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ppo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">JSON Web Token学习</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">JSON Web Token学习</h1>
+        <div class="stuff">
+            <span>七月 24, 2021</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h2 id="JSON-Web-Token的定义"><a href="#JSON-Web-Token的定义" class="headerlink" title="JSON Web Token的定义"></a>JSON Web Token的定义</h2><ul>
+<li>JSON Web Token (JWT)是一个开放标准(RFC 7519)</li>
+<li>定义了一种紧凑的、自包含的方式</li>
+<li>作为JSON对象在各方之间安全地传输信息</li>
+<li>是数字签名 -&gt; 可以被验证和信任</li>
+</ul>
+<h2 id="JSON-Web-Token的使用场景"><a href="#JSON-Web-Token的使用场景" class="headerlink" title="JSON Web Token的使用场景"></a>JSON Web Token的使用场景</h2><ul>
+<li><strong>Authorization</strong> (授权) : 这是使用JWT的最常见场景。一旦用户登录，后续每个请求都将包含JWT，允许用户访问该令牌允许的路由、服务和资源。单点登录是现在广泛使用的JWT的一个特性，因为它的开销很小，并且可以轻松地跨域使用。</li>
+<li><strong>Information Exchange</strong> (信息交换) :JWTs可以被签名，例如，用公钥/私钥对，可以确定发送人就是它们所说的那个人。另外，由于签名是使用头和有效负载计算的，您还可以验证内容没有被篡改。</li>
+</ul>
+<h2 id="JSON-Web-Token的结构"><a href="#JSON-Web-Token的结构" class="headerlink" title="JSON Web Token的结构"></a>JSON Web Token的结构</h2><p><img src="/JSON-Web-Token.assets/image-20210726041459952.png" alt="image-20210726041459952"></p>
+<p>三部分 圆点连接</p>
+<ol>
+<li><strong>Header</strong></li>
+<li><strong>Payload</strong></li>
+<li><strong>Signature</strong></li>
+</ol>
+<h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p>header典型的由两部分组成：token的类型（“JWT”）和算法名称（比如：HMAC SHA256或者RSA等等）。</p>
+<p>例如：</p>
+<pre><code>{
+    "alg":"HS256",
+    "typ":"JWT"
+}</code></pre>
+<p>对其进行base64编码后得到JWT第一部分</p>
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><p>JWT的第二部分是payload，它包含声明（要求）。声明是关于实体(通常是用户)和其他数据的声明。声明有三种类型: registered, public 和 private。</p>
+<ul>
+<li>Registered claims : 这里有一组预定义的声明，它们不是强制的，但是推荐。比如：iss (issuer), exp (expiration time), sub (subject), aud (audience)等。</li>
+<li>Public claims : 可以随意定义。</li>
+<li>Private claims : 用于在同意使用它们的各方之间共享信息，并且不是注册的或公开的声明。</li>
+</ul>
+<p>例如：</p>
+<pre><code>{
+    "sub":"123456",
+    "name":"CTF",
+    "admin":ture
+}</code></pre>
+<p>对其进行base64得到JWT第二部分</p>
+<p>注意：JWT的header或payload勿放置未加密的敏感信息。</p>
+<h3 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h3><p>signature由base64(header)，base64(payload)和秘钥组成，签名算法是header中指定的那个，然对它们签名即可。</p>
+<p>例如：</p>
+<pre><code>HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)</code></pre>
+<p><img src="/JSON-Web-Token.assets/image-20210726042519069.png" alt="image-20210726042519069"></p>
+<p><img src="/JSON-Web-Token.assets/image-20210726043023893.png" alt="image-20210726043023893"></p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiemhhbmdzYW4iLCJjb2RlIjoiMjEyMzQxMCJ9.aaa</code></pre>
+<h2 id="JSON-Web-Token的工作"><a href="#JSON-Web-Token的工作" class="headerlink" title="JSON Web Token的工作"></a>JSON Web Token的工作</h2><ol>
+<li><p>用户登录</p>
+</li>
+<li><p>返回JWT</p>
+</li>
+<li><p>token成为用户凭证（保存令牌不应超过需要时间）</p>
+</li>
+<li><p>访问受保护的路由或者资源，JWT放在Authorization header中，用Bearer schema。</p>
+<img src="/JSON-Web-Token.assets/image-20210726043710776.png" alt="image-20210726043710776" style="zoom: 67%;">
+</li>
+<li><p>服务器检查JWT是否有效</p>
+<p>如果token是在授权头（Authorization header）中发送的，那么跨源资源共享(CORS)将不会成为问题，因为它不使用cookie</p>
+<img src="/JSON-Web-Token.assets/image-20210726043830317.png" alt="image-20210726043830317" style="zoom:67%;">
+
+<ul>
+<li>应用（或者客户端）想授权服务器请求授权。例如，如果用授权码流程的话，就是/oauth/authorize</li>
+<li>当授权被许可以后，授权服务器返回一个access token给应用</li>
+<li>应用使用access token访问受保护的资源（比如：API）</li>
+</ul>
+</li>
+</ol>
+<h2 id="基于Token的身份认证-与-基于服务器的身份认证"><a href="#基于Token的身份认证-与-基于服务器的身份认证" class="headerlink" title="基于Token的身份认证 与 基于服务器的身份认证"></a>基于Token的身份认证 与 基于服务器的身份认证</h2><h3 id="基于服务器的身份认证"><a href="#基于服务器的身份认证" class="headerlink" title="基于服务器的身份认证"></a>基于服务器的身份认证</h3><p>传统的做法是将已经认证过的用户信息存储在服务器上，比如Session。用户下次请求的时候带着Session ID，然后服务器以此检查用户是否认证过。</p>
+<p>这种基于服务器的身份认证方式存在一些问题：</p>
+<ul>
+<li>Sessions : 每次用户认证通过以后，服务器需要创建一条记录保存用户信息，通常是在内存中，随着认证通过的用户越来越多，服务器的在这里的开销就会越来越大。</li>
+<li>Scalability : 由于Session是在内存中的，这就带来一些扩展性的问题。</li>
+<li>CORS : 当我们想要扩展我们的应用，让我们的数据被多个移动设备使用时，我们必须考虑跨资源共享问题。当使用AJAX调用从另一个域名下获取资源时，我们可能会遇到禁止请求的问题。</li>
+<li>CSRF : 用户很容易受到CSRF攻击。</li>
+</ul>
+<h3 id="JWT与Session的差异"><a href="#JWT与Session的差异" class="headerlink" title="JWT与Session的差异"></a>JWT与Session的差异</h3><p>相同点是，它们都是存储用户信息；然而，Session是在服务器端的，而JWT是在客户端的。</p>
+<p>Session方式存储用户信息的最大问题在于要占用大量服务器内存，增加服务器的开销。</p>
+<p>而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力。</p>
+<p>Session的状态是存储在服务器端，客户端只有session id；而Token的状态是存储在客户端。</p>
+<p><img src="/JSON-Web-Token.assets/image-20210726044027547.png" alt="image-20210726044027547"></p>
+<h3 id="基于Token的身份认证是如何工作的"><a href="#基于Token的身份认证是如何工作的" class="headerlink" title="基于Token的身份认证是如何工作的"></a>基于Token的身份认证是如何工作的</h3><p>基于Token的身份认证是无状态的，服务器或者Session中不会存储任何用户信息。</p>
+<blockquote>
+<p>没有会话信息意味着应用程序可以根据需要扩展和添加更多的机器，而不必担心用户登录的位置。</p>
+</blockquote>
+<p>虽然这一实现可能会有所不同，但其主要流程如下：</p>
+<ol>
+<li>用户携带用户名和密码请求访问</li>
+<li>服务器校验用户凭据</li>
+<li>应用提供一个token给客户端</li>
+<li>客户端存储token，并且在随后的每一次请求中都带着它</li>
+<li>服务器校验token并返回数据</li>
+</ol>
+<p>注意：</p>
+<ol>
+<li>每一次请求都需要token</li>
+<li>Token应该放在请求header中</li>
+<li>我们还需要将服务器设置为接受来自所有域的请求，用Access-Control-Allow-Origin: *</li>
+</ol>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>原文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cjsblog/p/9277677.html">https://www.cnblogs.com/cjsblog/p/9277677.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a></p>
+<p><a target="_blank" rel="noopener" href="https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication#toc-why-tokens-came-around">https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication#toc-why-tokens-came-around</a></p>
+<p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7519#section-3">https://tools.ietf.org/html/rfc7519#section-3</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.leapoahead.com/2015/09/06/understanding-jwt/">http://blog.leapoahead.com/2015/09/06/understanding-jwt/</a></p>
+<p><a target="_blank" rel="noopener" href="https://cnodejs.org/topic/557844a8e3cc2f192486a8ff">https://cnodejs.org/topic/557844a8e3cc2f192486a8ff</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/">http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Web-Token%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">JSON Web Token的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Web-Token%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">JSON Web Token的使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Web-Token%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">JSON Web Token的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Header"><span class="toc-number">3.1.</span> <span class="toc-text">Header</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Payload"><span class="toc-number">3.2.</span> <span class="toc-text">Payload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Signature"><span class="toc-number">3.3.</span> <span class="toc-text">Signature</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Web-Token%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">JSON Web Token的工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EToken%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81-%E4%B8%8E-%E5%9F%BA%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">基于Token的身份认证 与 基于服务器的身份认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-number">5.1.</span> <span class="toc-text">基于服务器的身份认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JWT%E4%B8%8ESession%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">5.2.</span> <span class="toc-text">JWT与Session的差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EToken%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="toc-number">5.3.</span> <span class="toc-text">基于Token的身份认证是如何工作的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考：</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
