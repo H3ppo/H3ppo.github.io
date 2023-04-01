@@ -6,7 +6,7 @@
   <link href="http://h3ppo.github.io/atom.xml" rel="self"/>
   
   <link href="http://h3ppo.github.io/"/>
-  <updated>2023-04-01T09:19:55.310Z</updated>
+  <updated>2023-04-01T09:32:16.336Z</updated>
   <id>http://h3ppo.github.io/</id>
   
   <author>
@@ -17,32 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Sqlmap使用学习</title>
-    <link href="http://h3ppo.github.io/2023/03/07/sqlmap-shi-yong-xue-xi/sqlmap-shi-yong-jiao-cheng/"/>
-    <id>http://h3ppo.github.io/2023/03/07/sqlmap-shi-yong-xue-xi/sqlmap-shi-yong-jiao-cheng/</id>
-    <published>2023-03-07T08:40:00.000Z</published>
-    <updated>2023-04-01T09:19:55.310Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;sqlmap是一个开源的渗透测试工具，可以用来进行自动化检测，利用SQL注入漏洞，获取数据库服务器的权限。它具有功能强大的检测引擎,针对各种不同类型数据库的渗透测试的功能选项，包括获取数据库中存储的数据，访问操作系统文件甚至可以通过外带数据连接的方式执行操作系统命令。&lt;/p</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>sqlmap使用教程</title>
+    <title>sqlmap使用学习</title>
     <link href="http://h3ppo.github.io/2023/03/07/sqlmap-shi-yong-xue-xi/sqlmap-shi-yong-xue-xi/"/>
     <id>http://h3ppo.github.io/2023/03/07/sqlmap-shi-yong-xue-xi/sqlmap-shi-yong-xue-xi/</id>
     <published>2023-03-07T08:40:00.000Z</published>
-    <updated>2023-03-07T08:56:35.995Z</updated>
+    <updated>2023-04-01T09:32:16.336Z</updated>
     
     
       
@@ -402,11 +381,11 @@
   </entry>
   
   <entry>
-    <title>PHP数组绕过学习</title>
+    <title>PHP 数组绕过学习</title>
     <link href="http://h3ppo.github.io/2021/09/13/phpsec/php-shu-zu-rao-guo-xue-xi/php-shu-zu-rao-guo-xue-xi/"/>
     <id>http://h3ppo.github.io/2021/09/13/phpsec/php-shu-zu-rao-guo-xue-xi/php-shu-zu-rao-guo-xue-xi/</id>
     <published>2021-09-13T10:40:28.000Z</published>
-    <updated>2023-04-01T09:23:46.046Z</updated>
+    <updated>2023-04-01T09:31:32.487Z</updated>
     
     
       
@@ -425,11 +404,11 @@
   </entry>
   
   <entry>
-    <title>PHP：preg_match()绕过</title>
+    <title>PHP preg_match()</title>
     <link href="http://h3ppo.github.io/2021/09/12/phpsec/php-preg-match/php-preg-match/"/>
     <id>http://h3ppo.github.io/2021/09/12/phpsec/php-preg-match/php-preg-match/</id>
     <published>2021-09-12T11:14:46.000Z</published>
-    <updated>2023-04-01T09:23:02.453Z</updated>
+    <updated>2023-04-01T09:30:34.092Z</updated>
     
     
       
@@ -461,6 +440,27 @@
         
         
     <summary type="html">&lt;p&gt;原文：&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>一个用于post上传的网页源码</title>
+    <link href="http://h3ppo.github.io/2021/09/07/yi-ge-yong-yu-post-shang-chuan-de-wang-ye-yuan-ma/yi-ge-yong-yu-post-shang-chuan-de-wang-ye-yuan-ma/"/>
+    <id>http://h3ppo.github.io/2021/09/07/yi-ge-yong-yu-post-shang-chuan-de-wang-ye-yuan-ma/yi-ge-yong-yu-post-shang-chuan-de-wang-ye-yuan-ma/</id>
+    <published>2021-09-07T14:08:57.000Z</published>
+    <updated>2023-04-01T08:53:17.345Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre class=&quot; language-php&quot;&gt;&lt;code class=&quot;language-php&quot;&gt;&lt;span class=&quot;token markup&quot;&gt;&lt;span class=&quot;token doctype&quot;&gt;&amp;lt;!DOCTYPE</summary>
         
       
     
