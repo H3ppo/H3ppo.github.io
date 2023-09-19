@@ -6,7 +6,7 @@
   <link href="http://h3ppo.github.io/atom.xml" rel="self"/>
   
   <link href="http://h3ppo.github.io/"/>
-  <updated>2023-06-01T13:20:16.630Z</updated>
+  <updated>2023-09-19T05:33:01.207Z</updated>
   <id>http://h3ppo.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vulnhub CFS</title>
+    <link href="http://h3ppo.github.io/2023/09/19/vulnhub/vulnhub-cfs/vulnhub-cfs/"/>
+    <id>http://h3ppo.github.io/2023/09/19/vulnhub/vulnhub-cfs/vulnhub-cfs/</id>
+    <published>2023-09-19T05:32:08.000Z</published>
+    <updated>2023-09-19T05:33:01.207Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;CFS&quot;&gt;&lt;a href=&quot;#CFS&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnhub" scheme="http://h3ppo.github.io/tags/Vulnhub/"/>
+    
+  </entry>
   
   <entry>
     <title>Vulnhub Forensics</title>
@@ -36,28 +59,6 @@
     
     
     <category term="Vulnhub" scheme="http://h3ppo.github.io/tags/Vulnhub/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vulnhub Narak(cadaver/motd/linpeas)</title>
-    <link href="http://h3ppo.github.io/2023/05/29/vulnhub/vulnhub-narak/vulnhub-ha-narak/"/>
-    <id>http://h3ppo.github.io/2023/05/29/vulnhub/vulnhub-narak/vulnhub-ha-narak/</id>
-    <published>2023-05-29T13:48:39.000Z</published>
-    <updated>2023-05-30T08:35:57.680Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;信息搜集&quot;&gt;&lt;a href=&quot;#信息搜集&quot; class=&quot;headerlink&quot; title=&quot;信息搜集&quot;&gt;&lt;/a&gt;信息搜集&lt;/h3&gt;&lt;p&gt;192.168.9.181/webdav&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;cewl http://192.168.9.181</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
