@@ -103,12 +103,12 @@ include('data://text/plain;base64,xxxxxxxxxxxx');</code></pre>
     <span class="token comment" spellcheck="true">//签名自动计算</span>
     <span class="token variable">$phar</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">stopBuffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token delimiter">?></span></code></pre>
-<p>这样，当我们访问phar.phpr时，将会生成test.phar的phar文件。之后再将其作为参数传到test.php中，就可getshell</p>
+<p>这样，当我们访问phar.php时，将会生成test.phar的phar文件。之后再将其作为参数传到test.php中，就可getshell</p>
 <p>用winhex打开test.phar:</p>
-<p><img src="/2021/07/23/phpsec/php-phar-yuan-li-xue-xi/php-phar-yuan-li-xue-xi/image-20210723025024180.png" alt="image-20210723025024180"></p>
+<p><img src="/Phar%E5%8E%9F%E7%90%86%E5%8F%8A%E5%88%A9%E7%94%A8.assets/image-20210723025024180.png" alt="image-20210723025024180"></p>
 <p>看到meta-data是以序列化的形式存储的</p>
 <p>有序列化数据必然会有反序列化操作，php一大部分的文件系统函数在通过<code>phar://</code>伪协议解析phar文件时，都会将meta-data进行反序列化，测试后受影响的函数如下：</p>
-<p><img src="/2021/07/23/phpsec/php-phar-yuan-li-xue-xi/php-phar-yuan-li-xue-xi/image-20210723025147550.png" alt="image-20210723025147550"></p>
+<p><img src="/Phar%E5%8E%9F%E7%90%86%E5%8F%8A%E5%88%A9%E7%94%A8.assets/image-20210723025147550.png" alt="image-20210723025147550"></p>
 <h2 id="将phar伪造成其他格式的文件"><a href="#将phar伪造成其他格式的文件" class="headerlink" title="将phar伪造成其他格式的文件"></a>将phar伪造成其他格式的文件</h2><p>php识别__HALT_COMPILER();?&gt;这段代码，对前面的内容或者后缀名是没有要求的。那么我们就可以通过添加任意的文件头+修改后缀名的方式将phar文件伪装成其他格式的文件。</p>
 <pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
     <span class="token keyword">class</span> <span class="token class-name">Testobject</span>

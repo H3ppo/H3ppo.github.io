@@ -6,7 +6,7 @@
   <link href="http://h3ppo.github.io/atom.xml" rel="self"/>
   
   <link href="http://h3ppo.github.io/"/>
-  <updated>2023-09-19T05:33:01.207Z</updated>
+  <updated>2024-04-22T02:31:34.275Z</updated>
   <id>http://h3ppo.github.io/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://h3ppo.github.io/2024/04/22/bi-te-bi-xue-xi-bi-ji/"/>
+    <id>http://h3ppo.github.io/2024/04/22/bi-te-bi-xue-xi-bi-ji/</id>
+    <published>2024-04-22T08:50:32.236Z</published>
+    <updated>2024-04-22T02:31:34.275Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;比特币概念&quot;&gt;&lt;a href=&quot;#比特币概念&quot; class=&quot;headerlink&quot; title=&quot;比特币概念&quot;&gt;&lt;/a&gt;比特币概念&lt;/h3&gt;&lt;p&gt;比特币是一种基于密码学的电子货币，在2008年由中本聪在白皮书：“&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://h3ppo.github.io/2024/04/22/lan-dui-mian-shi-bi-ji/"/>
+    <id>http://h3ppo.github.io/2024/04/22/lan-dui-mian-shi-bi-ji/</id>
+    <published>2024-04-22T08:50:27.127Z</published>
+    <updated>2024-04-22T08:48:45.409Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;红队&quot;&gt;&lt;a href=&quot;#红队&quot; class=&quot;headerlink&quot; title=&quot;红队&quot;&gt;&lt;/a&gt;红队&lt;/h2&gt;&lt;h4 id=&quot;php反序列化漏洞&quot;&gt;&lt;a href=&quot;#php反序列化漏洞&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Vulnhub CFS</title>
@@ -425,50 +467,6 @@
     
     
     <category term="PHPsec" scheme="http://h3ppo.github.io/tags/PHPsec/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BJDCTF 2020-EzPHP 经典题目</title>
-    <link href="http://h3ppo.github.io/2021/09/28/phpsec/bjdctf-2020-ezphp-jing-dian-ti-mu/bjdctf-2020-ezphp-jing-dian-ti-mu/"/>
-    <id>http://h3ppo.github.io/2021/09/28/phpsec/bjdctf-2020-ezphp-jing-dian-ti-mu/bjdctf-2020-ezphp-jing-dian-ti-mu/</id>
-    <published>2021-09-28T10:31:49.000Z</published>
-    <updated>2023-04-01T09:22:28.047Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2021/09/28/phpsec/bjdctf-2020-ezphp-jing-dian-ti-mu/bjdctf-2020-ezphp-jing-dian-ti-mu/image-20210816183237244.png&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="PHPsec" scheme="http://h3ppo.github.io/tags/PHPsec/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>web源码泄露学习</title>
-    <link href="http://h3ppo.github.io/2021/09/21/web-yuan-ma-xie-lu-xue-xi/web-yuan-ma-xie-lu-xue-xi/"/>
-    <id>http://h3ppo.github.io/2021/09/21/web-yuan-ma-xie-lu-xue-xi/web-yuan-ma-xie-lu-xue-xi/</id>
-    <published>2021-09-21T06:59:34.000Z</published>
-    <updated>2023-04-01T08:49:53.467Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;git泄露&quot;&gt;&lt;a href=&quot;#git泄露&quot; class=&quot;headerlink&quot; title=&quot;.git泄露&quot;&gt;&lt;/a&gt;.git泄露&lt;/h2&gt;&lt;h4 id=&quot;漏洞成因：&quot;&gt;&lt;a href=&quot;#漏洞成因：&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   

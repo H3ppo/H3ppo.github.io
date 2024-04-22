@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> - H3ppo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="H3ppo,"> 
+    <meta name="description" content="比特币概念比特币是一种基于密码学的电子货币，在2008年由中本聪在白皮书：“比特币：一种点对点的电子现金系统（Bitcoin: A Peer-to-Peer Electronic Cash Syst,"> 
+    <meta name="author" content="H3ppo"> 
+    <link rel="alternative" href="/atom.xml" title="H3ppo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">H3ppo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle"></h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title"></h1>
+        <div class="stuff">
+            <span>四月 22, 2024</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h3 id="比特币概念"><a href="#比特币概念" class="headerlink" title="比特币概念"></a>比特币概念</h3><p>比特币是一种基于密码学的电子货币，在2008年由中本聪在白皮书：“<a target="_blank" rel="noopener" href="https://bitcoin.org/files/bitcoin-paper/bitcoin_zh_cn.pdf">比特币：一种点对点的电子现金系统（Bitcoin: A Peer-to-Peer Electronic Cash System）</a>”中提出（一种去中心化的电子记账思想）</p>
+<h4 id="区块链技术"><a href="#区块链技术" class="headerlink" title="区块链技术"></a>区块链技术</h4><p>比特币交易被记录在一个公开的分布式账本——区块链上。一旦交易被确认并加入到区块链中，它将被串联到前一个区块后面。每个区块包含了前一个区块的加密散列值（hash），这种链式结构确保了一旦信息被记录，就无法在不被发现的情况下被修改。</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph TB
+    A[
+    A->B 100BTC 
+    B->C 50BTC 
+    C->D 10BTC
+    ]</code></pre>
+<h6 id="比特币网络功能上的特点："><a href="#比特币网络功能上的特点：" class="headerlink" title="比特币网络功能上的特点："></a>比特币网络功能上的特点：</h6><ul>
+<li>去中心化</li>
+<li>隐私性</li>
+<li>通胀预防<h6 id="比特币一条交易可能包括："><a href="#比特币一条交易可能包括：" class="headerlink" title="比特币一条交易可能包括："></a>比特币一条交易可能包括：</h6></li>
+<li>付款人地址：合法的地址，公钥经过 SHA256 和 RIPEMD160 两次 Hash，得到 160 位 Hash 串；</li>
+<li>付款人对交易的签字确认：确保交易内容不被篡改；</li>
+<li>付款人资金的来源交易 ID：从哪个交易的输出作为本次交易的输入；</li>
+<li>交易的金额：多少钱，跟输入的差额为交易的服务费；</li>
+<li>收款人地址：合法的地址；</li>
+<li>时间戳：交易何时能生效。<h6 id="四个问题："><a href="#四个问题：" class="headerlink" title="四个问题："></a>四个问题：</h6></li>
+</ul>
+<ol>
+<li>为什么参与？</li>
+<li>以谁为准？</li>
+<li>如何记账？</li>
+<li>安全问题（防伪，防篡改，双重支付）？<h5 id="记账奖励-–为什么参与？"><a href="#记账奖励-–为什么参与？" class="headerlink" title="记账奖励 –为什么参与？"></a>记账奖励 –为什么参与？</h5>①手续费 ②打包奖励<br>奖励方案是，每十分钟生成一个区块，每生成一个区块会奖励一定数量的比特币，最开始是50个BTC，过4年会奖励25个BTC，再过4年再减少一半，以此类推。这样比特币的产生会越来越少，越来越趋近于一个最大值，计算公式是：50×6×24×365×4×（1+1/2+1/4+1/8+…）≈2100万<h5 id="工作量证明（Proof-of-Work，PoW）–以谁为准？"><a href="#工作量证明（Proof-of-Work，PoW）–以谁为准？" class="headerlink" title="工作量证明（Proof of Work，PoW）–以谁为准？"></a>工作量证明（Proof of Work，PoW）–以谁为准？</h5>比特币使用工作量证明机制来添加新区块。矿工必须解决一个计算密集型的问题，这需要大量的计算资源。第一个解决问题的矿工可以将新的区块添加到区块链中。这个过程称为“挖矿”。工作量证明确保篡改历史区块是不切实际的，因为它需要重新计算所有后续区块的工作量证明，这在计算上是不可行的。<h6 id="挖矿原理"><a href="#挖矿原理" class="headerlink" title="挖矿原理"></a>挖矿原理</h6>挖矿是指网络中的维护节点，通过协助生成和确认新区块来获取一定量新增比特币的过程。</li>
+<li>哈希函数<br>  sha256生成256位的二进制数，逆向困难</li>
+<li>原理<br>  字符串：前块头部+账单+时间+随机数(猜测)<br>  hash = sha256(sha256(字符))<br>  要求前n位为0<br>这代表各个挖矿者挖矿成功的难度不一（账单·时间·随机数都不一样）</li>
+<li>挖矿成功的难度n确定：<br>  比特币设计者希望，总体上平均每十分钟产生一个区块，总体上来看，挖矿成功的概率为1/2^n。现假设世界上有1W台矿机，每台矿机的算力是14T次/s = 1.4×10^13次/s，单位次/s称之为哈希率，10分钟是600s，所以10分钟可以做8×10^19次哈希运算，从概率角度看，想要挖矿成功需要做2^n次运算，可以列出等式2^n = 8×10^19，可以解出n约为66。因此要提高算力，才能尽快算出结果<h4 id="区块链技术分类"><a href="#区块链技术分类" class="headerlink" title="区块链技术分类"></a>区块链技术分类</h4>根据参与者，区块链可以分为</li>
+</ol>
+<ul>
+<li>公有（Public 或 Permissionless）链</li>
+<li>联盟（Consortium 或 Permissioned）链</li>
+<li>私有（Private）链<br>一般来说，去中心化程度越高，信任度越好。但两者的关系并非线性那么简单。随着节点数增加，前期的信任度往往会增长较快，到了一定程度后，信任度随节点数增多并不会得到明显改善。这是因为随着成员数的增加，要实现共谋作恶的成本会指数上升。<br>下图为信任度和去中心化程度的关系：<br>![[Pasted image 20240421164605.png]]<h3 id="比特币安全问题"><a href="#比特币安全问题" class="headerlink" title="比特币安全问题"></a>比特币安全问题</h3><h4 id="一、身份认证-–电子签名技术"><a href="#一、身份认证-–电子签名技术" class="headerlink" title="一、身份认证 –电子签名技术"></a>一、身份认证 –电子签名技术</h4>比特币采用电子签名技术防止伪造。<br>生成公钥私钥</li>
+</ul>
+<p>1.用公钥加密的数据，只能被之恶个公钥对应的私钥解密<br>2.用私钥签名的数据，可以被这个私钥对应的公钥验证</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph LR
+    A[随机数]
+    B[私钥]
+    C[公钥]
+    A --> B
+    B --> C
+    C --> D[地址]</code></pre>
+<p>对原始消息进行加密</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph LR
+    A[原始消息]
+    B[摘要]
+    C[密码]
+    A -->|hash| B
+    B -->|私钥| C</code></pre>
+<p>广播密文与原始消息</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph LR
+    A[密码]
+    C[原始消息]
+    A -->|公钥解密| F[摘要1]
+    C -->|hash| G[摘要2]
+    F --> H{摘要1==摘要2?}
+    G --> H
+    H -->|一致| I[true]
+    H -->|不一致| J[false]
+</code></pre>
+<p>若摘要一与摘要二相等，则认为消息为真<br>在此处私钥可以防止消息伪造，只在广播者手中。</p>
+<h4 id="二、双重支付问题"><a href="#二、双重支付问题" class="headerlink" title="二、双重支付问题"></a>二、双重支付问题</h4><h5 id="余额检查"><a href="#余额检查" class="headerlink" title="余额检查"></a>余额检查</h5><p>追溯<br>若A获得了50个比特币，转账给B 30个比特币。<br>A再转给B 10个比特币可认为真，A转给B 60比特币可认为假。</p>
+<h5 id="双重支付"><a href="#双重支付" class="headerlink" title="双重支付"></a>双重支付</h5><p>A只拥有10个比特币，同时转账给B和C二人10个比特币并广播，则后面那条链成功上链（挖矿成功），视为该链有效（最长链原则）。</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph LR
+    A[A 10BTC] --> B[A->B 10BTC]
+    A --> C[A->C 10BTC]
+    B --> D[D,E,F（F挖矿成功，视为此链有效）]
+    C --> E[G,H（由于F先挖矿成功，会跟在F后挖矿，视为此次交易无效）]</code></pre>
+<h4 id="三、防止篡改"><a href="#三、防止篡改" class="headerlink" title="三、防止篡改"></a>三、防止篡改</h4><h5 id="最长链原则"><a href="#最长链原则" class="headerlink" title="最长链原则"></a>最长链原则</h5><p>比特币的最长链原则是指在多个区块链分支出现时，具有最多区块的链被认为是有效的主链。这个原则是比特币网络达成共识的机制之一。</p>
+<p>当比特币网络中的不同矿工几乎同时发现新区块时，会暂时出现区块链的分叉。网络上的节点（包括矿工和其他参与者）必须决定哪个区块链分支是有效的。按照最长链原则，节点应选择最“长”的链，即包含最多区块的链，作为主链并继续在其上构建新的区块。</p>
+<p>这个原则背后的理念是，最长的链表明其上的工作量（或者说计算量）最大，因为比特币网络通过工作量证明（Proof of Work）算法来创建区块，所以最长链代表了最大的工作量共识。它也最有可能代表了网络大多数算力的意志，因此更加安全和难以篡改。</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph LR
+    A[区块1] --> B[区块2]
+    B --> C[区块3A]
+    B -->|X| D[区块3B]
+    C --> E[区块4]
+</code></pre>
+<p>除非能使3B链比3A链更长，否则3B链无效。</p>
+<h5 id="防止篡改"><a href="#防止篡改" class="headerlink" title="防止篡改"></a>防止篡改</h5><p>若一个人（组织）有算力能造出比上面更长的链，那么他在长链接着算会有更多收益（博弈论：成本巨大，代价超过好处）。</p>
+<pre class=" language-mermaid"><code class="language-mermaid">graph LR
+    A[ ]-->B[ ]
+    B --> C[A->B]
+    C --> D[ ]
+    D --> E[ ]
+    B --> F[ ]
+    F --> G[ ]</code></pre>
+<h3 id="比特币的创新点"><a href="#比特币的创新点" class="headerlink" title="比特币的创新点"></a>比特币的创新点</h3><p>比特币的创新点主要是避免作恶、采用负反馈调节和基于概率的共识机制等三个方面。</p>
+<h4 id="避免作恶"><a href="#避免作恶" class="headerlink" title="避免作恶"></a>避免作恶</h4><p>已经在上文安全问题的防止篡改中提及</p>
+<h4 id="负反馈调节"><a href="#负反馈调节" class="headerlink" title="负反馈调节"></a>负反馈调节</h4><ul>
+<li>矿工越多，系统越稳定，比特币价值越高，挖到矿改率降低；</li>
+<li>矿工越少，系统易受攻击，比特币价值越低，挖到矿概率提高。<br>预计比特币将在2140年达到2100万枚，挖矿奖励（打包费）耗尽，只能依靠交易的手续费来鼓励矿工维护比特币系统。<h4 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h4><h5 id="工作量证明"><a href="#工作量证明" class="headerlink" title="工作量证明"></a>工作量证明</h5>由于比特币网络完全开放，易受攻击，受网络质量影响，所以提出了工作量证明（Proof of Work，PoW）的共识机制。</li>
+</ul>
+<ol>
+<li>不实现面向最终确认的共识，而是基于概率、随时间逐步增强确认的共识。现有结果在理论上可能被推翻，但是代价巨大，随时间上升，可能性下降。</li>
+<li>网络大，达成共识时间长。按照区块进行阶段性确认，提高网络整体可用性。</li>
+<li>限制合法提案个数（挖矿难度），提高网络中共识的稳定性。<h5 id="权益证明"><a href="#权益证明" class="headerlink" title="权益证明"></a>权益证明</h5>在BTC中没有运用，ETH计划从PoW迁移到PoS。</li>
+</ol>
+<p>权益证明（Proof of Stake，PoS）类似于现实生活中的股东机制，拥有股份越多的人越容易获取记账权。</p>
+<p>PoS 试图解决在 PoW 中大量资源被浪费的问题，一般来看在PoS机制下掌握全网超过1/3资源才能左右结果（三人投票情景）。</p>
+<h3 id="UTXO"><a href="#UTXO" class="headerlink" title="UTXO"></a>UTXO</h3><p>由于比特币是去中心化的，每次交易发生过后，需要网络确认即可认为交易完成。</p>
+<ul>
+<li>未经使用（引用）的交易的输出（Unspent Transaction Outputs，UTXO）可以被新的交易引用作为其合法的输入</li>
+<li>被使用过的交易的输出（Spent Transaction Outputs，STXO），则无法被引用作为合法输入。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>交易</th>
+<th>目的</th>
+<th>输入</th>
+<th>输出</th>
+<th>签名</th>
+<th>差额</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T0</td>
+<td>A 转给 B</td>
+<td>他人向 A 交易的输出</td>
+<td>B 账户可以使用该交易</td>
+<td>A 签名确认</td>
+<td>输入减输出，为交易服务费</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>B 转给 C</td>
+<td>T0 的输出</td>
+<td>C 账户可以使用该交易</td>
+<td>B 签名确认</td>
+<td>输入减输出，为交易服务费</td>
+</tr>
+<tr>
+<td>…</td>
+<td>X 转给 Y</td>
+<td>他人向 X 交易的输出</td>
+<td>Y 账户可以使用该交易</td>
+<td>X 签名确认</td>
+<td>输入减输出，为交易服务费</td>
+</tr>
+<tr>
+<td>放进网络中的交易（深度为 0）并非是实时得到确认的。进入网络中的交易存在被推翻的可能性，一般要再生成几个新的区块后（深度大于 0）才认为该交易被确认。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>相比于账户模型，UTXO模型优势在于并行处理和隐私保护，交易路径完整，劣势在于存储压力较大。</p>
+<h3 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h3><p>比特币只有全网每秒7笔左右的交易数据，等待6个块“上链”则需要1小时左右确认时间。因此，闪电网络主要通过引入智能合约的思想来完善链下的交易渠道，核心主要为两个：RSMC（Recoverable Sequence Maturity Contract）和 HTLC（Hashed Timelock Contract）。前者解决了链下交易的确认问题，后者解决了支付通道的问题。闪电网络通过对这两个智能合约的机制整合，实现交易链下完成。<br><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/blockchain_guide/06_bitcoin/lightning_network">https://yeasy.gitbook.io/blockchain_guide/06_bitcoin/lightning_network</a></p>
+<h3 id="区块链的常见认识误区"><a href="#区块链的常见认识误区" class="headerlink" title="区块链的常见认识误区"></a>区块链的常见认识误区</h3><ul>
+<li><strong>区块链是完全创新的新技术</strong></li>
+<li><strong>区块链必然是非中心化的，非中心化一定优于中心化设计</strong></li>
+<li><strong>区块链离不开加密数字货币</strong></li>
+<li><strong>区块链是一种数据库技术</strong></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='//music/1.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">比特币概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF"><span class="toc-number">1.1.</span> <span class="toc-text">区块链技术</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%BD%91%E7%BB%9C%E5%8A%9F%E8%83%BD%E4%B8%8A%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">比特币网络功能上的特点：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E4%B8%80%E6%9D%A1%E4%BA%A4%E6%98%93%E5%8F%AF%E8%83%BD%E5%8C%85%E6%8B%AC%EF%BC%9A"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">比特币一条交易可能包括：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%9B%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">四个问题：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%B0%E8%B4%A6%E5%A5%96%E5%8A%B1-%E2%80%93%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%82%E4%B8%8E%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">记账奖励 –为什么参与？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E%EF%BC%88Proof-of-Work%EF%BC%8CPoW%EF%BC%89%E2%80%93%E4%BB%A5%E8%B0%81%E4%B8%BA%E5%87%86%EF%BC%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">工作量证明（Proof of Work，PoW）–以谁为准？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8C%96%E7%9F%BF%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">挖矿原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">区块链技术分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">比特币安全问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81-%E2%80%93%E7%94%B5%E5%AD%90%E7%AD%BE%E5%90%8D%E6%8A%80%E6%9C%AF"><span class="toc-number">2.1.</span> <span class="toc-text">一、身份认证 –电子签名技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%8F%8C%E9%87%8D%E6%94%AF%E4%BB%98%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">二、双重支付问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%99%E9%A2%9D%E6%A3%80%E6%9F%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">余额检查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E9%87%8D%E6%94%AF%E4%BB%98"><span class="toc-number">2.2.2.</span> <span class="toc-text">双重支付</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%98%B2%E6%AD%A2%E7%AF%A1%E6%94%B9"><span class="toc-number">2.3.</span> <span class="toc-text">三、防止篡改</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E9%95%BF%E9%93%BE%E5%8E%9F%E5%88%99"><span class="toc-number">2.3.1.</span> <span class="toc-text">最长链原则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2%E7%AF%A1%E6%94%B9"><span class="toc-number">2.3.2.</span> <span class="toc-text">防止篡改</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">比特币的创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E4%BD%9C%E6%81%B6"><span class="toc-number">3.1.</span> <span class="toc-text">避免作恶</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E5%8F%8D%E9%A6%88%E8%B0%83%E8%8A%82"><span class="toc-number">3.2.</span> <span class="toc-text">负反馈调节</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6"><span class="toc-number">3.3.</span> <span class="toc-text">共识机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E"><span class="toc-number">3.3.1.</span> <span class="toc-text">工作量证明</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E"><span class="toc-number">3.3.2.</span> <span class="toc-text">权益证明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UTXO"><span class="toc-number">4.</span> <span class="toc-text">UTXO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="toc-number">5.</span> <span class="toc-text">智能合约</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%B8%B8%E8%A7%81%E8%AE%A4%E8%AF%86%E8%AF%AF%E5%8C%BA"><span class="toc-number">6.</span> <span class="toc-text">区块链的常见认识误区</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
